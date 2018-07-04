@@ -8,7 +8,7 @@ class MainController extends Controller
 {
     public function indexAction()
     {
-        echo 'main page';
+        $this->view->render('Main page');
     }
 
 }
