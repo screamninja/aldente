@@ -4,10 +4,11 @@ require_once 'vendor/autoload.php'; // Автозагрузка классов �
 
 session_start();
 
-echo 'Hello, World!';
+// echo 'Hello, World!';
 
 try {
-    $var1 = new PFW\core\Router();
+    $router = new PFW\Core\Router();
+    $router->run();
 } catch (Throwable $e) {
     echo $e->getMessage();
 }

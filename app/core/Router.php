@@ -1,9 +1,9 @@
 <?php
 
-namespace PFW\core;
+namespace PFW\Core;
 
+//use PFW\Lib\Dev;
 use PFW\Config\RouterConfig;
-use PFW\Lib\Dev;
 
 class Router
 {
@@ -13,22 +13,47 @@ class Router
     public function __construct()
     {
         $arr = RouterConfig::get();
-        $dev = new Dev();
-        $dev->debug($arr);
+        foreach ($arr as $key => $val) {
+            $this->add($key, $val);
+        }
     }
 
-    public function add()
+    public function add($route, $params)
     {
-        //
+        $route = '#^'.$route.'$#';
+        $this->routes[$route] = $params;
     }
 
     public function match()
     {
-        //
+        $uri = $_SERVER['REQUEST_URI'];
+        $url = trim($uri, '/');
+        foreach ($this->routes as $route => $params) {
+            if (preg_match($route, $url, $matches)) {
+                $this->params = $params;
+                return true;
+            }
+        }
+        return false;
     }
 
     public function run()
     {
-        echo 'start';
+        if ($this->match()) {
+            $path = 'PFW\controllers\\'.ucfirst($this->params['controller']).'Controller';
+            if (class_exists($path)) {
+                $action = $this->params['action'].'Action';
+                if (method_exists($path, $action)) {
+                    $controller = new $path($this->params);
+                    $controller->$action();
+                } else {
+                    echo 'Action not found: '.$action;
+                }
+            } else {
+                echo 'Controller not found: '.$path;
+            }
+        } else {
+            echo 'error 404';
+        }
     }
 }

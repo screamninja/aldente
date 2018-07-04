@@ -2,21 +2,27 @@
 
 namespace PFW\Config;
 
-class RouterConfig2
+class RouterConfig
 {
     public static function get()
     {
         return [
+
+            '' => [
+                'controller' => 'main',
+                'action' => 'index',
+            ],
 
             'account/login' => [
                 'controller' => 'account',
                 'action' => 'login',
             ],
 
-            'ticker/show' => [
-                'controller' => 'ticker',
-                'action' => 'show',
+            'account/register' => [
+                'controller' => 'account',
+                'action' => 'register',
             ],
+
         ];
     }
 }
