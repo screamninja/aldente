@@ -47,13 +47,13 @@ class Router
                     $controller = new $path($this->params);
                     $controller->$action();
                 } else {
-                    echo 'Action not found: '.$action;
+                    View::errorCode(404);
                 }
             } else {
-                echo 'Controller not found: '.$path;
+                View::errorCode(404);
             }
         } else {
-            echo 'error 404';
+            View::errorCode(404);
         }
     }
 }
