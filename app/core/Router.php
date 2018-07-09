@@ -2,7 +2,6 @@
 
 namespace PFW\Core;
 
-//use PFW\Lib\Dev;
 use PFW\Config\RouterConfig;
 
 class Router
