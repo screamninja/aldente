@@ -6,8 +6,9 @@ use PFW\Core\Model;
 
 class Main extends Model
 {
-    public function getTicker()
+    public function getNews()
     {
-        var_dump($this->db);
+        $result = $this->db->row('SELECT title, text FROM news');
+        return $result;
     }
 }

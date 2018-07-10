@@ -8,8 +8,11 @@ class MainController extends Controller
 {
     public function indexAction()
     {
-        $result = $this->model->getTicker();
-        $this->view->render('Main page');
+        $result = $this->model->getNews();
+        $vars = [
+            'news' => $result,
+        ];
+        $this->view->render('Main page', $vars);
     }
 
 }
