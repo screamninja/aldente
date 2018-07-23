@@ -1,8 +1,16 @@
-<h3>Registration</h3>
-<form>
-    <p>Login</p>
-    <p><input type="text"></p>
-    <p>Password</p>
-    <p><input type="text"></p>
-    <b><button>Sign up</button></b>
+<p>Create your account</p>
+<form action="/account/register" method="post">
+    <p><label>
+            <input type="text" name="login">
+        </label>Login</p>
+    <p><label>
+            <input type="text" name="email">
+        </label>Email</p>
+    <p><label>
+        <input type="password" name="password">
+    </label>Password</p>
+    <p><label>
+            <input type="password" name="password_2">
+        </label>Repeat Password</p>
+    <b><button type="submit" name="do_signup">Sign Up</button></b>
 </form>

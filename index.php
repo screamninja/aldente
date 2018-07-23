@@ -1,10 +1,8 @@
 <?php
 
-require_once 'vendor/autoload.php'; // Автозагрузка классов через Composer
+require_once 'vendor/autoload.php';
 
 session_start();
-
-// echo 'Hello, World!';
 
 try {
     $router = new PFW\Core\Router();

@@ -1,8 +1,10 @@
-<h3>Login</h3>
+<p>Login</p>
 <form action="/account/login" method="post">
-    <p>Login</p>
-    <p><input type="text" name="login"></p>
-    <p>Password</p>
-    <p><input type="password" name="password"></p>
-    <b><button type="submit">Sign in</button></b>
+    <p><label>
+            <input type="text" name="login">
+        </label>Login</p>
+    <p><label>
+            <input type="password" name="password">
+        </label>Password</p>
+    <b><button type="submit" name="do_signin">Sign In</button></b>
 </form>
