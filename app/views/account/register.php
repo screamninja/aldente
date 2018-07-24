@@ -1,28 +1,34 @@
 <?php
 
 use PFW\Lib\Db;
+use PDO;
 
-$dbconnect = new Db();
+$db = new Db();
 
 $data = $_POST;
 if (isset($data['do_signup'])) {
     $errors = array();
     if (trim($data['login']) == '') {
-        $errors = 'Login is required';
+        $errors[] = 'Login is required';
     }
     if (trim($data['email']) == '') {
-        $errors = 'Email is required';
+        $errors[] = 'Email is required';
     }
     if ($data['password'] == '') {
-        $errors = 'Password is required';
+        $errors[] = 'Password is required';
     }
     if ($data['password_2'] != $data['password']) {
-        $errors = 'Password do not match';
+        $errors[] = 'Password do not match';
     }
     if (empty($errors)) {
-      //
+        $login = $data['login'];
+        $email = $data['email'];
+        $password = $data['password'];
+        $sql = "INSERT INTO users (login, email, password) VALUES (:login, :email, :password)";
+        $dpo->prepare($sql)->execute($data);
+
     } else {
-        echo '<div style="color: red;">'.array_shift($errors).'</div><hr>';
+        echo '<div id="errors">'.array_shift($errors).'</div><hr>';
     }
 }
 
@@ -31,9 +37,9 @@ if (isset($data['do_signup'])) {
 <p><strong>Create your account</strong></p>
 <form action="/account/register" method="post">
     <p>Login</p>
-    <input type="text" name="login">
+    <input type="text" name="login" value="<?php echo @$data['login']; ?>">
     <p>Email</p>
-    <input type="email" name="email">
+    <input type="email" name="email" value="<?php echo @$data['email']; ?>">
     <p>Password</p>
     <input type="password" name="password">
     <p>Repeat Password</p>
