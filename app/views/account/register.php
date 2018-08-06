@@ -1,7 +1,6 @@
 <?php
 
 use PFW\Lib\Db;
-use PDO;
 
 $db = new Db();
 
@@ -21,23 +20,18 @@ if (isset($data['do_signup'])) {
         $errors[] = 'Password do not match';
     }
     if (empty($errors)) {
-        $login = $data['login'];
-        $email = $data['email'];
-        $password = $data['password'];
-        $sql = "INSERT INTO users (login, email, password) VALUES (:login, :email, :password)";
-        $dpo->prepare($sql)->execute($data);
-
+        $db->insert($data);
+        echo '<div style = "color: green;">Registration successful!</div><hr>';
     } else {
-        echo '<div id="errors">'.array_shift($errors).'</div><hr>';
+        echo '<div style = "color: red;">'.array_shift($errors).'</div><hr>';
     }
 }
-
 ?>
 
 <p><strong>Create your account</strong></p>
 <form action="/account/register" method="post">
     <p>Login</p>
-    <input type="text" name="login" value="<?php echo @$data['login']; ?>">
+    <input type="text" name="login" value="<?php echo $data['login'] ?? ''; ?>">
     <p>Email</p>
     <input type="email" name="email" value="<?php echo @$data['email']; ?>">
     <p>Password</p>

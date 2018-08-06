@@ -1,19 +1,27 @@
 {
-    "name": "screamninja/php-framework",
-    "description": "Portfolio Project",
-    "type": "project",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "screamninja",
-            "email": "screamninja@gmail.com"
-        }
-    ],
-    "minimum-stability": "stable",
-    "require": {},
-    "autoload": {
-        "psr-4": {
-            "PFW\\": "app/"
-        }
+  "name": "screamninja/php-framework",
+  "description": "Portfolio Project",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "screamninja",
+      "email": "screamninja@gmail.com"
     }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php" : "^7.2",
+    "ext-PDO": "*"
+  },
+  "config": {
+    "platform": {
+      "php": "7.2"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "PFW\\": "app/"
+    }
+  }
 }

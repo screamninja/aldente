@@ -15,5 +15,4 @@ class AccountController extends Controller
     {
         $this->view->render('Sign Up Page');
     }
-
 }
