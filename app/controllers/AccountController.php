@@ -3,6 +3,7 @@
 namespace PFW\Controllers;
 
 use PFW\Core\Controller;
+use PFW\Models\Register;
 
 class AccountController extends Controller
 {
@@ -13,6 +14,12 @@ class AccountController extends Controller
 
     public function registerAction()
     {
-        $this->view->render('Sign Up Page');
+        $register_obj = new Register($_POST);
+        $errors = $register_obj->signUp();
+        $vars = [
+            'errors' => $errors,
+            'data' => $register_obj->getData(),
+        ];
+        $this->view->render('Sign Up Page', $vars);
     }
 }
