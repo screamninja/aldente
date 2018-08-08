@@ -1,8 +1,10 @@
 <?php
-if (empty($errors)) {
-    echo "<div style = \"color: green;\">Registration successful!</div><hr>";
-} else {
-    echo '<div style = "color: red;">'.array_shift($errors).'</div><hr>';
+if (!empty($data)) {
+    if (empty($errors)) {
+        echo "<div style = \"color: green;\">Registration successful!</div><hr>";
+    } else {
+        echo '<div style = "color: red;">' . array_shift($errors) . '</div><hr>';
+    }
 }
 ?>
 <p><strong>Create your account</strong></p>
@@ -15,5 +17,5 @@ if (empty($errors)) {
     <input type="password" name="password">
     <p>Repeat Password</p>
     <input type="password" name="password_2">
-    <button type="submit" name="do_signup">Sign Up!</button>
+    <button type="submit" name="do_sign_up">Sign Up!</button>
 </form>

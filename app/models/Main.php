@@ -8,7 +8,7 @@ class Main extends Model
 {
     public function getNews()
     {
-        $result = $this->db->row('SELECT title, text FROM NEWS');
+        $result = $this->db->row('SELECT title, text FROM news');
         return $result;
     }
 }

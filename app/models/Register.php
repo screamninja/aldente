@@ -7,11 +7,13 @@ use PFW\Core\Model;
 class Register extends Model
 {
     public $data;
+    private $user;
 
     public function __construct(array $data)
     {
         parent::__construct();
         $this->data = $data;
+        $this->user = new User();
     }
 
     public function getData(): array
@@ -19,14 +21,9 @@ class Register extends Model
         return $this->data;
     }
 
-    private function checkData($data)
+    private function checkData(): array
     {
-
-    }
-
-    public function signUp(): array
-    {
-        if (isset($this->data['do_signup'])) {
+        if (isset($this->data['do_sign_up'])) {
             $errors = [];
             if (trim($this->data['login']) == '') {
                 $errors[] = 'Login is required';
@@ -40,20 +37,18 @@ class Register extends Model
             if ($this->data['password_2'] != $this->data['password']) {
                 $errors[] = 'Password do not match';
             }
-            if ($this->db->loginMatch($this->data) > 0) {
-                $errors[] = 'User with that login already exists';
-            }
-            if ($this->db->emailMatch($this->data) > 0) {
-                $errors[] = 'User with that email already exists';
-            }
-            if (empty($errors)) {
-                $this->db->insert($this->data);
-                //echo '<div style = "color: green;">Registration successful!</div><hr>';
-            } else {
-                return $errors;
-                //echo '<div style = "color: red;">'.array_shift($errors).'</div><hr>';
-            }
+            return $errors;
         }
-        return [];
+    }
+
+    public function signUp()
+    {
+        $errors = $this->checkData();
+        $check = $this->user->checkUser();
+
+        if (empty($errors) and $check == true) {
+            $this->user->addUser($this->data);
+        }
+        return $errors;
     }
 }

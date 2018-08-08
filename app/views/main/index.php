@@ -2,11 +2,11 @@
 
 <p>Site map:</p>
 
-<li>
-    <a href="/">Main page</a>
-    <a href="account/login">Login page</a>
-    <a href="account/register">Register page</a>
-</li>
+<ul>
+    <li><a href="/">Main page</a><br></li>
+    <li><a href="account/login">Login page</a><br></li>
+    <li><a href="account/register">Register page</a><br></li>
+</ul>
 
 <p>News</p>
 <?php foreach ($news as $val): ?>
