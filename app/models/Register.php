@@ -13,7 +13,7 @@ class Register extends Model
     {
         parent::__construct();
         $this->data = $data;
-        $this->user = new User();
+        $this->user = new User($data);
     }
 
     public function getData(): array
