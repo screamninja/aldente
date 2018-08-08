@@ -3,37 +3,35 @@
 namespace PFW\Models;
 
 use PFW\Core\Model;
-use PFW\Lib\Db;
 
 class User extends Model
 {
-    public $data;
+    private $data;
+    private $login;
+    private $email;
 
     public function __construct()
     {
         parent::__construct();
-        $register_obj = new Register();
-        $this->data = $register_obj->getData();
+        $this->login = $this->data['login'];
+        $this->email = $this->data['email'];
     }
 
-    public function checkUser()
+    public function checkUser(array $data)
     {
-        $where_str = '';
-        foreach ($where as $key => $value) {
-            $where_str .= "$key = $value AND ";
-        }
-        trim();
-        $sql = "SELECT COUNT(*) FROM users WHERE login = '$login'";
-        $result = $this->query($sql);
-        $result->execute();
-        $res = $result->fetchColumn();
-        return $res;
+        $stmt_login = $this->db->query("SELECT COUNT(*) FROM users WHERE login = :login", $param1 = ['login' => $this->login]);
+        $stmt_login->execute($param1);
+        $check_login = $stmt_login->fetchColumn();
 
-        $email = $data['email'];
-        $sql = "SELECT COUNT(*) FROM users WHERE email = '$email'";
-        $result = $this->query($sql);
-        $result->execute();
-        return $result;
+        $stmt_email = $this->db->query("SELECT COUNT(*) FROM users WHERE email = :email", $param2 = ['email' => $this->email]);
+        $stmt_email->execute($param2);
+        $check_email = $stmt_email->fetchColumn();
+
+        if ($check_login + $check_email < 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function addUser(array $data)
@@ -51,7 +49,7 @@ class User extends Model
             [
                 'login' => $login,
                 'email' => $email,
-                 'password' => $password,
+                'password' => $password,
                 'joindate' => $joinDate,
                 'unixtime' => $unixTime
             ]

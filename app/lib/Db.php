@@ -38,7 +38,7 @@ class Db
                 $stmt->bindValue(':' . $key, $val);
             }
         }
-        $stmt->execute();
+        $stmt->execute($params);
         return $stmt;
     }
 

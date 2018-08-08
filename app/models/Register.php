@@ -21,7 +21,7 @@ class Register extends Model
         return $this->data;
     }
 
-    private function checkData(): array
+    private function checkData()
     {
         if (isset($this->data['do_sign_up'])) {
             $errors = [];
@@ -44,7 +44,7 @@ class Register extends Model
     public function signUp()
     {
         $errors = $this->checkData();
-        $check = $this->user->checkUser();
+        $check = $this->user->checkUser($this->data);
 
         if (empty($errors) and $check == true) {
             $this->user->addUser($this->data);
