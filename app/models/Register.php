@@ -4,27 +4,47 @@ namespace PFW\Models;
 
 use PFW\Core\Model;
 
+/**
+ * Class Register
+ * @package PFW\Models
+ */
 class Register extends Model
 {
+    /**
+     * @var array
+     */
     public $data;
+    /**
+     * @var User
+     */
     private $user;
 
+    /**
+     * Register constructor.
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         parent::__construct();
         $this->data = $data;
-        $this->user = new User($data);
+        $this->user = new User();
     }
 
-    public function getData(): array
+    /**
+     * @return array
+     */
+    public function getRegData(): array
     {
         return $this->data;
     }
 
-    private function checkData()
+    /**
+     * @return array
+     */
+    private function checkRegData(): array
     {
+        $errors = [];
         if (isset($this->data['do_sign_up'])) {
-            $errors = [];
             if (trim($this->data['login']) == '') {
                 $errors[] = 'Login is required';
             }
@@ -37,17 +57,24 @@ class Register extends Model
             if ($this->data['password_2'] != $this->data['password']) {
                 $errors[] = 'Password do not match';
             }
-            return $errors;
         }
+        return $errors;
     }
 
-    public function signUp()
+    /**
+     * @return array
+     */
+    public function signUp(): array
     {
-        $errors = $this->checkData();
-        $check = $this->user->checkUser($this->data);
-
-        if (empty($errors) and $check == true) {
-            $this->user->addUser($this->data);
+        $errors = $this->checkRegData();
+        $user_isset = $this->user->issetUser($this->data);
+        if ($user_isset) {
+            $errors[] = 'An account already exists with this login or email address.';
+        }
+        if (empty($errors)) {
+            if (!$this->user->addUser($this->data)) {
+                $errors[] = 'User didnt to add';
+            }
         }
         return $errors;
     }

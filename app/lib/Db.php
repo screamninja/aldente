@@ -30,6 +30,11 @@ class Db
         }
     }
 
+    /**
+     * @param $sql
+     * @param array $params
+     * @return bool|\PDOStatement
+     */
     public function query($sql, $params = [])
     {
         $stmt = $this->db->prepare($sql);
