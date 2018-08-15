@@ -4,7 +4,10 @@ namespace PFW\Config;
 
 class RouterConfig
 {
-    public static function get()
+    /**
+     * @return array
+     */
+    public static function get(): array
     {
         return [
 

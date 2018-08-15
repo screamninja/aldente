@@ -7,9 +7,14 @@ use PFW\Lib\Db;
 abstract class Model
 {
     public $db;
+    public $exception;
 
     public function __construct()
     {
-        $this->db = new Db;
+        try {
+            $this->db = new Db;
+        } catch (\Throwable $exception) {
+            $this->exception = $exception->getMessage();
+        }
     }
 }

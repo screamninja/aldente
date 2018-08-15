@@ -58,14 +58,18 @@ class Login extends Model
         $get_user = $this->user->getUser($this->data);
         if (empty($errors)) {
             if (isset($get_user)) {
-                $verify = $this->checkPassword($get_user);
-                if ($verify) {
-                    $_SESSION['logged_user'] = $get_user['login'];
-                    echo '<div style="color: green;">Welcome, '.$_SESSION['logged_user'].'</div></<br>';
-                    echo '<div><a href="/">Go to Main page</a></div></br>';
+                if (empty($get_user['error'])) {
+                    $verify = $this->checkPassword($get_user);
+                    if ($verify) {
+                        $_SESSION['logged_user'] = $get_user['login'];
+                        header('Location: /');
+                    } else {
+                        $errors[] = 'Password is incorrect! Try again.';
+                    }
                 } else {
-                    $errors[] = 'Password is incorrect! Try again.';
+                    $errors[] = 'Users with that login not found! Try again or sign up on this site.';
                 }
+
             } else {
                 $errors[] = 'Users with that login not found! Try again or sign up on this site.';
             }

@@ -18,16 +18,12 @@ class Db
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, //turn on errors in the form of exceptions
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, //make the default fetch be an associative array
         ];
-        try {
-            $this->db = new PDO(
-                'mysql:host=' . $config['host'] . ';dbname=' . $config['name'] . '',
-                $config['user'],
-                $config['password'],
-                $options
-            );
-        } catch (PDOException $e) {
-            echo 'Подключение не удалось: ' . $e->getMessage();
-        }
+        $this->db = new PDO(
+            'mysql:host=' . $config['host'] . ';dbname=' . $config['name'] . '',
+            $config['user'],
+            $config['password'],
+            $options
+        );
     }
 
     /**

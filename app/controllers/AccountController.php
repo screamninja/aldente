@@ -11,6 +11,7 @@ class AccountController extends Controller
 {
     public function loginAction()
     {
+        $vars = array();
         if ($_POST) {
             $login_obj = new Login($_POST);
             $errors = $login_obj->login();
@@ -24,17 +25,19 @@ class AccountController extends Controller
 
     public function logoutAction()
     {
+        $vars = array();
         if ($_POST) {
             $logout_obj = new Logout($_POST);
             $vars = [
                 'data' => $logout_obj->getLogOutData(),
             ];
-            $this->view->render('Logout Page', $vars);
         }
+        $this->view->render('Logout Page', $vars);
     }
 
     public function registerAction()
     {
+        $vars = array();
         if ($_POST) {
             $register_obj = new Register($_POST);
             $errors = $register_obj->signUp();
