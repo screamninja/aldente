@@ -13,8 +13,7 @@ abstract class LoggerRoute extends AbstractLogger implements LoggerInterface
 
     public function __construct(array $attributes = [])
     {
-        foreach ($attributes as $attribute => $value)
-        {
+        foreach ($attributes as $attribute => $value) {
             if (property_exists($this, $attribute)) {
                 $this->{$attribute} = $value;
             }

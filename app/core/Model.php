@@ -2,6 +2,7 @@
 
 namespace PFW\Core;
 
+use PFW\Config\LoggerConfig;
 use PFW\Lib\Db;
 
 abstract class Model
@@ -12,9 +13,11 @@ abstract class Model
     public function __construct()
     {
         try {
-            $this->db = new Db;
-        } catch (\Throwable $exception) {
-            $this->exception = $exception->getMessage();
+            $this->db = new Db();
+        } catch (\Throwable $e) {
+            $this->exception = 'Something goes wrong...';
+            $logger = LoggerConfig::getLogger();
+            $logger->error($e->getMessage());
         }
     }
 }

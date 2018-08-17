@@ -3,7 +3,6 @@
 namespace PFW\Lib;
 
 use PDO;
-use PDOException;
 use PFW\Config\DatabaseConfig;
 
 class Db

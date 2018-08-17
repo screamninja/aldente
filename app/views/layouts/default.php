@@ -5,6 +5,6 @@
     <script src="/public/scripts/jquery.js"></script>
 </head>
 <body>
-    <?php echo $content; ?>
+<?php echo $content; ?>
 </body>
 </html>

@@ -40,11 +40,20 @@ class AccountController extends Controller
         $vars = array();
         if ($_POST) {
             $register_obj = new Register($_POST);
-            $errors = $register_obj->signUp();
-            $vars = [
-                'errors' => $errors,
-                'data' => $register_obj->getRegData(),
-            ];
+            $err_db = $register_obj->exception;
+            if ($err_db) {
+                $vars = [
+                    'errors' => [$err_db],
+                    'data' => ['do_sign_up' => 1],
+                ];
+            } else {
+                $errors = $register_obj->signUp();
+                $vars = [
+                    'errors' => $errors,
+                    'data' => $register_obj->getRegData(),
+                ];
+            }
+
         }
         $this->view->render('Sign Up Page', $vars);
     }

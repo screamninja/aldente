@@ -21,10 +21,10 @@ class FileRoute extends LoggerRoute
     public function log($level, $message, array $context = [])
     {
         file_put_contents($this->filePath, trim(strtr($this->template, [
-            '{date}' => $this->getDate(),
+                '{date}' => $this->getDate(),
                 '{level}' => $level,
                 '{message}' => $message,
                 '{context}' => $this->contextStringify($context),
-        ])) . PHP_EOL, FILE_APPEND);
+            ])) . PHP_EOL, FILE_APPEND);
     }
 }

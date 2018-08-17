@@ -15,11 +15,16 @@ abstract class Controller
         $this->model = $this->loadModel($route['controller']);
     }
 
-    public function loadModel($name)
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function loadModel(string $name): ?Model
     {
         $path = 'PFW\models\\'.ucfirst($name);
         if (class_exists($path)) {
             return new $path();
         }
+        return null;
     }
 }
