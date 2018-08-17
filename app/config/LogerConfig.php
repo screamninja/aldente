@@ -17,12 +17,11 @@ class LoggerConfig
 
             self::$logger->routes->attach(new FileRoute([
                 'isEnable' => true,
-                'filePath' => 'data/default.log',
+                'filePath' => 'app/logs/default.log',
             ]));
             self::$logger->routes->attach(new DbRoute([
                 'isEnable' => true,
-                'dsn' => 'sqlite:data/default.sqlite',
-                'table' => 'default_log',
+                'table' => 'logs',
             ]));
         }
         return self::$logger;

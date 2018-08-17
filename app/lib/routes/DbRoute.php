@@ -14,6 +14,7 @@ class DbRoute extends LoggerRoute
     {
         parent::__construct($attributes);
         $this->db = new Db();
+        $this->table = $attributes['table'];
     }
 
     public function log($level, $message, array $context = [])
@@ -22,11 +23,11 @@ class DbRoute extends LoggerRoute
             ':date' => $this->getDate(),
             ':level' => $level,
             ':message' => $message,
-            ':context' => $this->contextStringify($context)
+            ':context' => $this->contextStringify($context),
         ];
         $stmt = $this->db->query(
-            'INSERT INTO ' . $this->table . ' (date, level, message, context) ' .
-            'VALUES (:date, :level, :message, :context)',
+            'INSERT INTO logs (date, level, message, context)
+                            VALUES (:date, :level, :message, :context)',
             $param
         );
         return $stmt;

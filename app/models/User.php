@@ -54,7 +54,7 @@ class User extends Model
         $login = $data['login'];
         $param = ['login' => $login];
         $stmt = $this->db->query(
-            "SELECT * FROM users
+            "SELECT * FROM users1
                  WHERE login = :login",
             $param
         );

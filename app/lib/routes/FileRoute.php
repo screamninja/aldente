@@ -14,7 +14,8 @@ class FileRoute extends LoggerRoute
         parent::__construct($attributes);
 
         if (!file_exists($this->filePath)) {
-            touch($this->filePath);
+            fopen($this->filePath, 'w');
+            fclose($this->filePath);
         }
     }
 

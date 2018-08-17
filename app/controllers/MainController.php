@@ -8,9 +8,9 @@ class MainController extends Controller
 {
     public function indexAction()
     {
-        $result = $this->model->getNews();
+        $news = $this->model->showNews();
         $vars = [
-            'news' => $result,
+            'news' => $news,
         ];
         $this->view->render('Main page', $vars);
     }
