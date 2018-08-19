@@ -54,7 +54,7 @@ class User extends Model
         $login = $data['login'];
         $param = ['login' => $login];
         $stmt = $this->db->query(
-            "SELECT * FROM users1
+            "SELECT * FROM users
                  WHERE login = :login",
             $param
         );
@@ -82,14 +82,14 @@ class User extends Model
             'login' => $login,
             'email' => $email,
             'password' => $password,
-            'joindate' => $joinDate,
-            'unixtime' => $unixTime
+            'join_date' => $joinDate,
+            'unix_time' => $unixTime
         ];
         $stmt = $this->db->query(
             "INSERT INTO users (login, email, password, join_date, unix_timestamp)
-                 VALUES (:login, :email, :password, :joindate, :unixtime)",
+                 VALUES (:login, :email, :password, :join_date, :unix_time)",
             $param
         );
-        return $stmt->setFetchMode();
+        return $stmt->setFetchMode(\PDO::FETCH_ASSOC);
     }
 }

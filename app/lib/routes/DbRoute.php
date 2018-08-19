@@ -17,19 +17,27 @@ class DbRoute extends LoggerRoute
         $this->table = $attributes['table'];
     }
 
+    /**
+     * @param mixed $level
+     * @param string $message
+     * @param array $context
+     * @return bool|void
+     */
     public function log($level, $message, array $context = [])
     {
+        if ($this->contextStringify($context) == null) {
+            $context = 'none';
+        }
         $param = [
-            ':date' => $this->getDate(),
-            ':level' => $level,
-            ':message' => $message,
-            ':context' => $this->contextStringify($context),
+            'date' => $this->getDate(),
+            'level' => $level,
+            'message' => $message,
+            'context' => $context,
         ];
-        $stmt = $this->db->query(
-            'INSERT INTO logs (date, level, message, context)
-                            VALUES (:date, :level, :message, :context)',
+        $this->db->query(
+            "INSERT INTO logs (date, level, message, context)
+                  VALUES (:date, :level, :message, :context)",
             $param
         );
-        return $stmt;
     }
 }

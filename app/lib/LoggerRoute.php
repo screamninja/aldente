@@ -20,11 +20,18 @@ abstract class LoggerRoute extends AbstractLogger implements LoggerInterface
         }
     }
 
-    public function getDate()
+    /**
+     * @return string
+     */
+    public function getDate(): string
     {
         return (new DateTime())->format($this->dateFormat);
     }
 
+    /**
+     * @param array $context
+     * @return null|string
+     */
     public function contextStringify(array $context = [])
     {
         return !empty($context) ? json_encode($context) : null;
