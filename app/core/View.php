@@ -16,13 +16,13 @@ class View
 
     public function render($title, $vars = [])
     {
-        $path = 'app/views/'.$this->path.'.php';
+        $path = '../app/views/'.$this->path.'.php';
         extract($vars);
         if (file_exists($path)) {
             ob_start();
             require $path;
             $content = ob_get_clean();
-            require 'app/views/layouts/'.$this->layout.'.php';
+            require '../app/views/layouts/'.$this->layout.'.php';
         } else {
             echo 'View not found: '.$this->path;
         }
@@ -37,7 +37,7 @@ class View
     public static function errorCode($code)
     {
         http_response_code($code);
-        $path = 'app/views/errors/'.$code.'.php';
+        $path = '../app/views/errors/'.$code.'.php';
         if (file_exists($path)) {
             require $path;
         }

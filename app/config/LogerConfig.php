@@ -5,6 +5,9 @@ namespace PFW\Config;
 use PFW\Lib\Logger;
 use PFW\Lib\Routes\FileRoute;
 use PFW\Lib\Routes\DbRoute;
+use PFW\Lib\Routes\SyslogRoute;
+
+// use Psr\Log\LogLevel;
 
 class LoggerConfig
 {
@@ -23,18 +26,23 @@ class LoggerConfig
                 'isEnable' => true,
                 'table' => 'logs',
             ]));
+            self::$logger->routes->attach(new SyslogRoute([
+                'isEnable' => true
+            ]));
         }
         return self::$logger;
     }
 }
 
 /*
-$logger->info("Info message");
-$logger->alert("Alert message");
-$logger->error("Error message");
-$logger->debug("Debug message");
-$logger->notice("Notice message");
-$logger->warning("Warning message");
-$logger->critical("Critical message");
-$logger->emergency("Emergency message");
+These are in order of highest priority to lowest.
+
+LogLevel::EMERGENCY;
+LogLevel::ALERT;
+LogLevel::CRITICAL;
+LogLevel::ERROR;
+LogLevel::WARNING;
+LogLevel::NOTICE;
+LogLevel::INFO;
+LogLevel::DEBUG;
 */
