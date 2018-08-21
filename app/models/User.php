@@ -42,7 +42,6 @@ class User extends Model
             $param2
         );
         $isset_email = $stmt_email->fetchColumn();
-
         if ($isset_login || $isset_email) {
             return true;
         }

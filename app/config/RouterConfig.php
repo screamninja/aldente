@@ -31,6 +31,21 @@ class RouterConfig
                 'action' => 'register',
             ],
 
+            'api' => [
+                'controller' => 'api',
+                'action' => 'get',
+            ],
+
+            'api/about' => [
+                'controller' => 'api',
+                'action' => 'about',
+            ],
+
+            'api/key' => [
+                'controller' => 'api',
+                'action' => 'key',
+            ],
+
         ];
     }
 }

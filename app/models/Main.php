@@ -6,12 +6,10 @@ use PFW\Core\Model;
 
 class Main extends Model
 {
-    public $api;
 
     public function showNews(): array
     {
-        $this->api = new API();
-        $news = $this->api->getNews();
-        return $news;
+        $result = $this->db->row('SELECT title, text FROM news');
+        return $result;
     }
 }

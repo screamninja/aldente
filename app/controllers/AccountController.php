@@ -53,7 +53,6 @@ class AccountController extends Controller
                     'data' => $register_obj->getRegData(),
                 ];
             }
-
         }
         $this->view->render('Sign Up Page', $vars);
     }

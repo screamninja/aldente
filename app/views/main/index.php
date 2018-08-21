@@ -8,12 +8,14 @@
     <p>Site map:</p>
     <ul>
         <li><a href="/">Main page</a><br></li>
+        <li><a href="/api/about">API</a><br></li>
     </ul>
 <?php else :?>
     <div>Hello, Guest!</div>
     <p>Site map:</p>
     <ul>
         <li><a href="/">Main page</a><br></li>
+        <li><a href="/api/about">API</a><br></li>
         <li><a href="account/login">Login page</a><br></li>
         <li><a href="account/register">Register page</a><br></li>
     </ul>
