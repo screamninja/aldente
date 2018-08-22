@@ -2,6 +2,10 @@
 
 namespace PFW\Config;
 
+/**
+ * Class RouterConfig
+ * @package PFW\Config
+ */
 class RouterConfig
 {
     /**

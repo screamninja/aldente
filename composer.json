@@ -13,6 +13,7 @@
   "require": {
     "php": "^7.2",
     "ext-PDO": "*",
+    "ext-json": "*",
     "psr/log": "^1.0"
   },
   "config": {

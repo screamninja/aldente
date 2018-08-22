@@ -2,12 +2,29 @@
 
 namespace PFW\Core;
 
+/**
+ * Class Controller
+ * @package PFW\Core
+ */
 abstract class Controller
 {
+    /**
+     * @var
+     */
     public $route;
+    /**
+     * @var View
+     */
     public $view;
+    /**
+     * @var mixed|null|Model
+     */
     public $model;
 
+    /**
+     * Controller constructor.
+     * @param $route
+     */
     public function __construct($route)
     {
         $this->route = $route;
@@ -21,7 +38,7 @@ abstract class Controller
      */
     public function loadModel(string $name): ?Model
     {
-        $path = 'PFW\models\\'.ucfirst($name);
+        $path = 'PFW\models\\' . ucfirst($name);
         if (class_exists($path)) {
             return new $path();
         }

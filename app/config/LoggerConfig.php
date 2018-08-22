@@ -9,10 +9,20 @@ use PFW\Lib\Routes\SyslogRoute;
 
 // use Psr\Log\LogLevel;
 
+/**
+ * Class LoggerConfig
+ * @package PFW\Config
+ */
 class LoggerConfig
 {
+    /**
+     * @var
+     */
     private static $logger;
 
+    /**
+     * @return Logger
+     */
     public static function getLogger()
     {
         if (!self::$logger) {

@@ -5,14 +5,24 @@ namespace PFW\Controllers;
 use PFW\Core\Controller;
 use PFW\Models\API;
 
+/**
+ * Class ApiController
+ * @package PFW\Controllers
+ */
 class ApiController extends Controller
 {
+    /**
+     *
+     */
     public function aboutAction()
     {
         $vars = array();
         $this->view->render('About API', $vars);
     }
 
+    /**
+     *
+     */
     public function keyAction()
     {
         $vars = array();
@@ -26,11 +36,14 @@ class ApiController extends Controller
         $this->view->render('Get API Key', $vars);
     }
 
+    /**
+     *
+     */
     public function getAction()
     {
         $api = new API();
         $vars = [
-            'news' =>$api->encodeNews()
+            'news' => $api->encodeNews()
         ];
         $this->view->render('Response Page', $vars);
     }

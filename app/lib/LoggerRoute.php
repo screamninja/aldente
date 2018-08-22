@@ -6,11 +6,25 @@ use DateTime;
 use Psr\Log\AbstractLogger;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Class LoggerRoute
+ * @package PFW\Lib
+ */
 abstract class LoggerRoute extends AbstractLogger implements LoggerInterface
 {
+    /**
+     * @var bool
+     */
     public $isEnable = true;
+    /**
+     * @var string
+     */
     private $dateFormat = DateTime::RFC2822;
 
+    /**
+     * LoggerRoute constructor.
+     * @param array $attributes
+     */
     public function __construct(array $attributes = [])
     {
         foreach ($attributes as $attribute => $value) {

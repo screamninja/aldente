@@ -4,12 +4,26 @@ namespace PFW\Models;
 
 use PFW\Core\Model;
 
+/**
+ * Class Login
+ * @package PFW\Models
+ */
 class Login extends Model
 {
 
+    /**
+     * @var array
+     */
     public $data;
+    /**
+     * @var User
+     */
     private $user;
 
+    /**
+     * Login constructor.
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         parent::__construct();
@@ -17,11 +31,17 @@ class Login extends Model
         $this->user = new User();
     }
 
+    /**
+     * @return array
+     */
     public function getLogData(): array
     {
         return $this->data;
     }
 
+    /**
+     * @return array
+     */
     private function checkLogData(): array
     {
         $errors = [];
@@ -36,6 +56,10 @@ class Login extends Model
         return $errors;
     }
 
+    /**
+     * @param array $stmt
+     * @return bool
+     */
     private function checkPassword(array $stmt): bool
     {
         $password = $this->data['password'];
@@ -52,6 +76,9 @@ class Login extends Model
         }
     }
 
+    /**
+     * @return array
+     */
     public function login(): array
     {
         $errors = $this->checkLogData();

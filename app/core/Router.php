@@ -4,11 +4,24 @@ namespace PFW\Core;
 
 use PFW\Config\RouterConfig;
 
+/**
+ * Class Router
+ * @package PFW\Core
+ */
 class Router
 {
+    /**
+     * @var array
+     */
     protected $routes = [];
+    /**
+     * @var array
+     */
     protected $params = [];
 
+    /**
+     * Router constructor.
+     */
     public function __construct()
     {
         $arr = RouterConfig::get();
@@ -17,12 +30,19 @@ class Router
         }
     }
 
+    /**
+     * @param $route
+     * @param $params
+     */
     public function add($route, $params)
     {
-        $route = '#^'.$route.'$#';
+        $route = '#^' . $route . '$#';
         $this->routes[$route] = $params;
     }
 
+    /**
+     * @return bool
+     */
     public function match()
     {
         $uri = $_SERVER['REQUEST_URI'];
@@ -36,12 +56,15 @@ class Router
         return false;
     }
 
+    /**
+     *
+     */
     public function run()
     {
         if ($this->match()) {
-            $path = 'PFW\controllers\\'.ucfirst($this->params['controller']).'Controller';
+            $path = 'PFW\controllers\\' . ucfirst($this->params['controller']) . 'Controller';
             if (class_exists($path)) {
-                $action = $this->params['action'].'Action';
+                $action = $this->params['action'] . 'Action';
                 if (method_exists($path, $action)) {
                     $controller = new $path($this->params);
                     $controller->$action();

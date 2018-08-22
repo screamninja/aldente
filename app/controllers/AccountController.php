@@ -7,8 +7,15 @@ use PFW\Models\Login;
 use PFW\Models\Logout;
 use PFW\Models\Register;
 
+/**
+ * Class AccountController
+ * @package PFW\Controllers
+ */
 class AccountController extends Controller
 {
+    /**
+     *
+     */
     public function loginAction()
     {
         $vars = array();
@@ -23,6 +30,9 @@ class AccountController extends Controller
         $this->view->render('Login Page', $vars);
     }
 
+    /**
+     *
+     */
     public function logoutAction()
     {
         $vars = array();
@@ -35,6 +45,9 @@ class AccountController extends Controller
         $this->view->render('Logout Page', $vars);
     }
 
+    /**
+     *
+     */
     public function registerAction()
     {
         $vars = array();

@@ -5,8 +5,15 @@ namespace PFW\Lib\Routes;
 use PFW\Lib\LoggerRoute;
 use Psr\Log\LogLevel;
 
+/**
+ * Class SyslogRoute
+ * @package PFW\Lib\Routes
+ */
 class SyslogRoute extends LoggerRoute
 {
+    /**
+     * @var string
+     */
     public $template = "{message} {context}";
 
     /**
@@ -27,6 +34,10 @@ class SyslogRoute extends LoggerRoute
         ])));
     }
 
+    /**
+     * @param $level
+     * @return mixed|null
+     */
     private function resolveLevel($level)
     {
         $map = [

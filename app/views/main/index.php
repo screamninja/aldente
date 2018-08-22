@@ -10,7 +10,7 @@
         <li><a href="/">Main page</a><br></li>
         <li><a href="/api/about">API</a><br></li>
     </ul>
-<?php else :?>
+<?php else : ?>
     <div>Hello, Guest!</div>
     <p>Site map:</p>
     <ul>
@@ -22,7 +22,7 @@
 <?php endif; ?>
 <p>News</p>
 <?php foreach ($news as $val) : ?>
-    <h3><?php echo $val['title']?></h3>
-    <p><?php echo $val['text']?></p>
+    <h3><?php echo $val['title'] ?></h3>
+    <p><?php echo $val['text'] ?></p>
     <hr>
 <?php endforeach; ?>

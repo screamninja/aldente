@@ -4,14 +4,24 @@ namespace PFW\Models;
 
 use PFW\Core\Model;
 
+/**
+ * Class API
+ * @package PFW\Models
+ */
 class API extends Model
 {
+    /**
+     * @return array
+     */
     public function getNews(): array
     {
         $result = $this->db->row('SELECT * FROM news');
         return $result;
     }
 
+    /**
+     * @return string
+     */
     public function encodeNews()
     {
         $news = $this->getNews();
@@ -20,6 +30,9 @@ class API extends Model
         return $news_json;
     }
 
+    /**
+     *
+     */
     public function putNews()
     {
         $fpath = '';
@@ -27,6 +40,10 @@ class API extends Model
         file_put_contents($fpath, $news_json);
     }
 
+    /**
+     * @param $user_id
+     * @return bool
+     */
     public function checkUid($user_id)
     {
         $param = ['user_id' => $user_id];
@@ -42,6 +59,9 @@ class API extends Model
         return false;
     }
 
+    /**
+     * @return bool|string
+     */
     public function addKey()
     {
         $login = $_SESSION['logged_user'];

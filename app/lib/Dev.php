@@ -3,8 +3,15 @@
 
 namespace PFW\Lib;
 
+/**
+ * Class Dev
+ * @package PFW\Lib
+ */
 class Dev
 {
+    /**
+     * @param $str
+     */
     public function debug($str)
     {
         ini_set('display_errors', 1);

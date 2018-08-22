@@ -2,6 +2,10 @@
 
 namespace PFW\Config;
 
+/**
+ * Class DatabaseConfig
+ * @package PFW\Config
+ */
 class DatabaseConfig
 {
     /**
@@ -15,6 +19,6 @@ class DatabaseConfig
             'name' => 'pfw_db',
             'user' => 'pfw_admin',
             'password' => 'pfw_pass',
-            ];
+        ];
     }
 }

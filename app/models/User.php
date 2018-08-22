@@ -48,6 +48,10 @@ class User extends Model
         return false;
     }
 
+    /**
+     * @param array $data
+     * @return array
+     */
     public function getUser(array $data): array
     {
         $login = $data['login'];
