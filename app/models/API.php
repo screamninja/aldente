@@ -10,22 +10,31 @@ use PFW\Core\Model;
  */
 class API extends Model
 {
+    /**
+     * @var array
+     */
     public $params;
 
+    /**
+     * API constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $uri = $_SERVER['REQUEST_URI'];
-        $url = trim($uri, '/');
-        $cut = substr($url, 5);
-        $uid = substr($cut, 3, 2);
-        $key = substr($cut, 10);
+        $cut_uid = stristr($uri, '&', true);
+        $uid = substr($cut_uid, 9);
+        $cut_key = stristr($uri, '&');
+        $key = substr($cut_key, 5);
         $this->params = [
             'uid' => $uid,
             'key' => $key
         ];
     }
 
+    /**
+     * @return bool
+     */
     public function checkUid()
     {
         $user_id = $this->params['uid'];
@@ -48,6 +57,9 @@ class API extends Model
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function checkCount()
     {
         $user_id = $this->params['uid'];
@@ -69,22 +81,17 @@ class API extends Model
             );
             return true;
         } else {
-            /*$stmt = $this->db->query(
-                "SELECT last_get FROM api_counter
-                 WHERE user_id = :user_id",
-                $param = ['user_id' => $user_id]
-            );
-            $arr_last_get = $stmt->fetchAll(\PDO::FETCH_ASSOC)[0];
-            $last_get = $arr_last_get['last_get'];*/
-            $arr_date_diff = $this->db->query(
-                "SELECT DATEDIFF (dd, last_get, NOW())
+            $stmt = $this->db->column(
+                "SELECT last_get
                      FROM api_counter
                      WHERE user_id=:user_id",
                 $param = ['user_id' => $user_id]
             );
-            $arr_date_diff->fetchAll(\PDO::FETCH_ASSOC)[0];
-            $date_diff = $arr_date_diff['datediff'];
-            if ($date_diff == 0) {
+            $date_count = new \DateTime($stmt);
+            $date_now = new \DateTime('now');
+            $interval = $date_count->diff($date_now);
+            $days = $interval->format('%a');
+            if ($days > 0) {
                 $this->db->query(
                     "UPDATE api_counter SET daily_count=1, last_get=NOW()
                  WHERE user_id = :user_id",
