@@ -157,7 +157,7 @@ class API extends Model
     }
 
     /**
-     * @return bool|string
+     * @return array|string
      */
     public function addKey()
     {
@@ -173,18 +173,21 @@ class API extends Model
         $api_key = password_hash($login + $email, PASSWORD_DEFAULT);
         if (!$this->issetUid($user_id)) {
             $stmt = $this->db->query(
-                "INSERT INTO api_counter (user_id, api_key)
-             VALUES (:user_id, :api_key)",
+                "INSERT INTO api_counter (user_id, api_key, last_get)
+             VALUES (:user_id, :api_key, NOW())",
                 $param = [
                     'user_id' => $user_id,
                     'api_key' => $api_key
                 ]
             );
             if ($stmt) {
-                return $api_key;
+                return $api_data = [
+                    'uid' => $user_id,
+                    'key' => $api_key
+                ];
             }
-            return $error = 'Something went wrong... Please contact with our support.';
+            return $error = ['error' => 'Something went wrong... Please contact with our support.'];
         }
-        return $error = "User $login already got the Key!";
+        return $error = ['error' => 'User ' . $login . ' already got the Key!'];
     }
 }

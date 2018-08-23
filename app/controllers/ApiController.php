@@ -28,10 +28,17 @@ class ApiController extends Controller
         $vars = array();
         if (isset($_POST['get_key'])) {
             $key_obj = new API();
-            $key = $key_obj->addKey();
-            $vars = [
-                'key' => $key
-            ];
+            $api_data = $key_obj->addKey();
+            if (isset($api_data['uid'])) {
+                if (isset($api_data['key'])) {
+                    $vars = [
+                        'uid' => $api_data['uid'],
+                        'key' => $api_data['key']
+                    ];
+                }
+            } else {
+                $vars = ['error' => $api_data['error']];
+            }
         }
         $this->view->render('Get API Key', $vars);
     }

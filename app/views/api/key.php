@@ -1,6 +1,11 @@
 <?php
 if (isset($_POST['get_key'])) {
-    echo "<div style = \"color: green;\">Save your Key:</div></br><div><p>" . $key . "</p></div><hr>";
+    if (isset($error)) {
+        echo "<div style = \"color: red;\">Error: " . $error . "</div></hr>";
+    } else {
+        echo "<div style = \"color: green;\">Save your UID: " . $uid . "</div></br>";
+        echo "<div style = \"color: green;\">Save your Key: " . $key . "</div></hr>";
+    }
 }
 ?>
 <p><strong>Get your API Key!</strong></p>
