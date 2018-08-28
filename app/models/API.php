@@ -4,98 +4,65 @@ namespace PFW\Models;
 
 use PFW\Core\Model;
 
-/**
- * Class API
- * @package PFW\Models
- */
 class API extends Model
 {
-    /**
-     * @var array
-     */
-    public $params;
+    private $token;
 
-    /**
-     * API constructor.
-     */
-    public function __construct()
+    public function __construct(string $token)
     {
         parent::__construct();
-        $uri = $_SERVER['REQUEST_URI'];
-        $cut_uid = stristr($uri, '&', true);
-        $uid = substr($cut_uid, 9);
-        $cut_key = stristr($uri, '&');
-        $key = substr($cut_key, 5);
-        $this->params = [
-            'uid' => $uid,
-            'key' => $key
-        ];
+        $this->token = $token;
     }
 
-    /**
-     * @return bool
-     */
-    public function checkUid()
+    public function checkToken(): bool
     {
-        $user_id = $this->params['uid'];
-        $api_key = $this->params['key'];
-        $stmt1 = $this->db->query(
-            "SELECT COUNT(*) FROM api_counter
-                 WHERE user_id = :user_id",
-            $param = ['user_id' => $user_id]
+        $stmt = $this->db->query(
+            "SELECT COUNT(*) FROM api
+                 WHERE token = :token",
+            $param = ['token' => $this->token]
         );
-        $check_uid = $stmt1->fetchColumn();
-        $stmt2 = $this->db->query(
-            "SELECT COUNT(*) FROM api_counter
-                 WHERE api_key = :api_key",
-            $param = ['api_key' => $api_key]
-        );
-        $check_key = $stmt2->fetchColumn();
-        if (($check_uid == 1) and ($check_key == 1)) {
+        $check_token = $stmt->fetchColumn();
+        if ($check_token) {
             return true;
         }
         return false;
     }
 
-    /**
-     * @return bool
-     */
-    public function checkCount()
+    public function checkCount(): bool
     {
-        $user_id = $this->params['uid'];
         $stmt = $this->db->query(
-            "SELECT daily_count FROM api_counter
-                 WHERE user_id = :user_id",
-            $param = ['user_id' => $user_id]
+            "SELECT daily_count FROM api
+                 WHERE token = :token",
+            $param = ['token' => $this->token]
         );
-        $arr_count = $stmt->fetchAll(\PDO::FETCH_ASSOC)[0];
-        $check_count = $arr_count['daily_count'];
-        if ($check_count <= 100) {
+        $count = $stmt->fetchAll(\PDO::FETCH_ASSOC)[0];
+        $count = $count['daily_count'];
+        if ($count <= 100) {
             $this->db->query(
-                "UPDATE api_counter SET daily_count=:daily_count, last_get=NOW()
-                 WHERE user_id = :user_id",
+                "UPDATE api SET daily_count=:daily_count, last_get=NOW()
+                 WHERE token = :token",
                 $param = [
-                    'user_id' => $user_id,
-                    'daily_count' => ++$check_count
+                    'token' => $this->token,
+                    'daily_count' => ++$count
                 ]
             );
             return true;
         } else {
             $stmt = $this->db->column(
                 "SELECT last_get
-                     FROM api_counter
-                     WHERE user_id=:user_id",
-                $param = ['user_id' => $user_id]
+                     FROM api
+                     WHERE token=:token",
+                $param = ['token' => $this->token]
             );
-            $date_count = new \DateTime($stmt);
+            $last_get = new \DateTime($stmt);
             $date_now = new \DateTime('now');
-            $interval = $date_count->diff($date_now);
+            $interval = $last_get->diff($date_now);
             $days = $interval->format('%a');
             if ($days > 0) {
                 $this->db->query(
-                    "UPDATE api_counter SET daily_count=1, last_get=NOW()
-                 WHERE user_id = :user_id",
-                    $param = ['user_id' => $user_id]
+                    "UPDATE api SET daily_count=1, last_get=NOW()
+                          WHERE token = :token",
+                    $param = ['token' => $this->token]
                 );
                 return true;
             }
@@ -103,63 +70,34 @@ class API extends Model
         }
     }
 
-    /**
-     * @return array
-     */
-    public function getNews(): array
+    public function getNews(int $count): array
     {
-        if ($this->checkUid()) {
+        if ($this->checkToken()) {
             if ($this->checkCount()) {
-                $result = $this->db->row('SELECT * FROM news');
+                $result = $this->db->row('SELECT * FROM news LIMIT ' . $count);
                 $result = $result[0];
                 return $result;
             }
             return $result = [
-                'error' => 'invalid_request',
+                'error' => 'invalid_request', //TODO: Make Error object
                 'error_description' => 'the number of allowed requests (100) is exceeded!'
             ];
         } else {
-            $result = [
+            return $result = [
                 'error' => 'invalid_request',
                 'error_description' => 'account not found'
             ];
-            return $result;
         }
     }
 
-    /**
-     * @return string
-     */
-    public function encodeNews()
+    public function encodeNews(int $count)
     {
-        $news = $this->getNews();
+        $news = $this->getNews($count);
         $news_json = json_encode($news, JSON_PRETTY_PRINT);
         return $news_json;
     }
 
-    /**
-     * @param $user_id
-     * @return bool
-     */
-    public function issetUid($user_id)
-    {
-        $param = ['user_id' => $user_id];
-        $stmt = $this->db->query(
-            "SELECT COUNT(*) FROM api_counter
-                 WHERE user_id = :user_id",
-            $param
-        );
-        $isset_uid = $stmt->fetchColumn();
-        if ($isset_uid) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @return array|string
-     */
-    public function addKey()
+    public function addToken()
     {
         $login = $_SESSION['logged_user'];
         $user_data = $this->db->row(
@@ -171,9 +109,9 @@ class API extends Model
         $user_id = $user_data['id'];
         $email = $user_data['email'];
         $api_key = password_hash($login + $email, PASSWORD_DEFAULT);
-        if (!$this->issetUid($user_id)) {
+        if (!$this->issetUserId($user_id)) {
             $stmt = $this->db->query(
-                "INSERT INTO api_counter (user_id, api_key, last_get)
+                "INSERT INTO api (user_id, token, last_get)
              VALUES (:user_id, :api_key, NOW())",
                 $param = [
                     'user_id' => $user_id,

@@ -4,6 +4,7 @@ namespace PFW\Controllers;
 
 use PFW\Core\Controller;
 use PFW\Models\API;
+use PFW\Models\User;
 
 /**
  * Class ApiController
@@ -17,30 +18,27 @@ class ApiController extends Controller
     public function aboutAction()
     {
         $vars = array();
-        $this->view->render('About API', $vars);
+        $this->view->render('About API', $vars, true);
     }
 
     /**
      *
      */
-    public function keyAction()
+    public function tokenAction()
     {
         $vars = array();
-        if (isset($_POST['get_key'])) {
-            $key_obj = new API();
-            $api_data = $key_obj->addKey();
-            if (isset($api_data['uid'])) {
-                if (isset($api_data['key'])) {
-                    $vars = [
-                        'uid' => $api_data['uid'],
-                        'key' => $api_data['key']
-                    ];
-                }
+        if (isset($_POST['get_token'])) {
+            $user = new User();
+            $token = $user->addApiToken($_SESSION['logged_user']);
+            if (!isset($token ['error'])) {
+                $vars = [
+                    'token' => $token['token']
+                ];
             } else {
-                $vars = ['error' => $api_data['error']];
+                $vars = ['error' => $token['error']];
             }
         }
-        $this->view->render('Get API Key', $vars);
+        $this->view->render('Get API Key', $vars, true);
     }
 
     /**
@@ -48,7 +46,24 @@ class ApiController extends Controller
      */
     public function getAction()
     {
-        $api = new API();
+        $post = fopen('php://input', 'r');
+        $data = json_decode(stream_get_contents($post), true);
+        fclose($post);
+        $method = $data['method'] ?? false;
+        $token = $_SERVER['HTTP_X_AUTHORIZATION_TOKEN'];
+        $user = new User();
+        $user_id = $user->getUserIdbyToken($token);
+        $api = new API($user_id);
+        if (method_exists($api, $method)) {
+            $params = $data['params'] ?? [];
+            try{
+                $res = call_user_func_array([$api,$method], $params);
+            } catch (\Throwable $e) {
+
+            }
+        } else {
+            View::errorCode(404);
+        }
         $vars = [
             'news' => $api->encodeNews()
         ];

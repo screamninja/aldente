@@ -2,9 +2,10 @@
 if (isset($_POST['get_key'])) {
     if (isset($error)) {
         echo "<div style = \"color: red;\">Error: " . $error . "</div></hr>";
+    } elseif (isset($token)) {
+        echo "<div style = \"color: green;\">Save your Token: " . $token . "</div></hr>";
     } else {
-        echo "<div style = \"color: green;\">Save your UID: " . $uid . "</div></br>";
-        echo "<div style = \"color: green;\">Save your Key: " . $key . "</div></hr>";
+        echo "<div style = \"color: red;\">Error! No data!</div></hr>";
     }
 }
 ?>
@@ -20,7 +21,7 @@ if (isset($_POST['get_key'])) {
 <?php if (isset($_SESSION['logged_user'])) : ?>
     <form action="/api/key" method="post">
         <p>Get Key as: <?php echo $_SESSION['logged_user'] ?></p>
-        <button type="submit" name="get_key">Get Key!</button>
+        <button type="submit" name="get_token">Get Token!</button>
     </form>
 <?php else : ?>
     <p>For get API key you must be logged!</p></br>

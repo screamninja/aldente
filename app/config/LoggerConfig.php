@@ -7,11 +7,22 @@ use PFW\Lib\Routes\FileRoute;
 use PFW\Lib\Routes\DbRoute;
 use PFW\Lib\Routes\SyslogRoute;
 
-// use Psr\Log\LogLevel;
-
 /**
  * Class LoggerConfig
  * @package PFW\Config
+ *
+ * These are in order of highest priority to lowest.
+ *
+ * use Psr\Log\LogLevel;
+ *
+ * LogLevel::EMERGENCY;
+ * LogLevel::ALERT;
+ * LogLevel::CRITICAL;
+ * LogLevel::ERROR;
+ * LogLevel::WARNING;
+ * LogLevel::NOTICE;
+ * LogLevel::INFO;
+ * LogLevel::DEBUG;
  */
 class LoggerConfig
 {
@@ -43,16 +54,3 @@ class LoggerConfig
         return self::$logger;
     }
 }
-
-/*
-These are in order of highest priority to lowest.
-
-LogLevel::EMERGENCY;
-LogLevel::ALERT;
-LogLevel::CRITICAL;
-LogLevel::ERROR;
-LogLevel::WARNING;
-LogLevel::NOTICE;
-LogLevel::INFO;
-LogLevel::DEBUG;
-*/

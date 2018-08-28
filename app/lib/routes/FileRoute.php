@@ -28,8 +28,8 @@ class FileRoute extends LoggerRoute
         parent::__construct($attributes);
 
         if (!file_exists($this->filePath)) {
-            fopen($this->filePath, 'w');
-            fclose($this->filePath);
+            $resource = fopen(PROJECT_DIR . $this->filePath, 'w');
+            fclose($resource);
         }
     }
 
@@ -40,7 +40,7 @@ class FileRoute extends LoggerRoute
      */
     public function log($level, $message, array $context = [])
     {
-        file_put_contents($this->filePath, trim(strtr($this->template, [
+        file_put_contents(PROJECT_DIR . $this->filePath, trim(strtr($this->template, [
                 '{date}' => $this->getDate(),
                 '{level}' => $level,
                 '{message}' => $message,

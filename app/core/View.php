@@ -35,7 +35,7 @@ class View
      * @param $title
      * @param array $vars
      */
-    public function render($title, $vars = [])
+    public function render($title, $vars = [], $html = true)
     {
         $path = '../app/views/' . $this->path . '.php';
         extract($vars);
@@ -69,22 +69,5 @@ class View
             require $path;
         }
         exit;
-    }
-
-    /**
-     * @param $status
-     * @param $message
-     */
-    public function message($status, $message)
-    {
-        exit(json_encode(['status' => $status, 'message' => $message]));
-    }
-
-    /**
-     * @param $url
-     */
-    public function location($url)
-    {
-        exit(json_encode(['url' => $url]));
     }
 }

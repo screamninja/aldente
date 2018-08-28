@@ -1,7 +1,6 @@
 <?php
 
 echo 'ABOUT PAGE';
-echo $_SERVER['REQUEST_URI'];
 ?>
 
 <ul>

@@ -10,9 +10,9 @@ use PFW\Core\Model;
  */
 class User extends Model
 {
-
     /**
      * User constructor.
+     * @param array $data
      */
     public function __construct()
     {
@@ -48,6 +48,19 @@ class User extends Model
         return false;
     }
 
+    public function issetUserId(string $user_id): bool
+    {
+        $stmt = $this->db->query(
+            "SELECT COUNT(*) FROM api
+                 WHERE user_id = :user_id",
+            $param = ['user_id' => $user_id]
+        );
+        $isset_user_id = $stmt->fetchColumn();
+        if ($isset_user_id) {
+            return true;
+        }
+        return false;
+    }
     /**
      * @param array $data
      * @return array
@@ -94,5 +107,33 @@ class User extends Model
             $param
         );
         return $stmt->setFetchMode(\PDO::FETCH_ASSOC);
+    }
+
+    public function addApiToken(string $login)
+    {
+        $stmt = $this->db->row(
+            "SELECT * FROM users
+             WHERE login = :login",
+            $param = ['login' => $login]
+        );
+        $user_data = $stmt[0];
+        $user_id = $user_data['id'];
+        $email = $user_data['email'];
+        $token = password_hash($login . $email, PASSWORD_DEFAULT);
+        if (!$this->issetUserId($user_id)) {
+            $stmt = $this->db->query(
+                "INSERT INTO api (user_id, token, last_get)
+             VALUES (:user_id, :token, NOW())",
+                $param = [
+                    'user_id' => $user_id,
+                    'token' => $token
+                ]
+            );
+            if ($stmt) {
+                return $token;
+            }
+            return $error = ['Something went wrong... Please contact with our support.'];
+        }
+        return $error = ['error' => 'User ' . $login . ' already got the Key!'];
     }
 }

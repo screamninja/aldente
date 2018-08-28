@@ -3,8 +3,6 @@
 namespace PFW\Core;
 
 use PFW\Config\RouterConfig;
-use PFW\Controllers\ApiController;
-use PFW\Models\API;
 
 /**
  * Class Router
@@ -16,6 +14,7 @@ class Router
      * @var array
      */
     protected $routes = [];
+
     /**
      * @var array
      */
@@ -45,29 +44,18 @@ class Router
     /**
      * @return bool
      */
-    public function match()
+    public function match(): bool
     {
         $uri = $_SERVER['REQUEST_URI'];
-        $url = trim($uri, '/');
-        $cut = substr($url, 0, 4);
-        if ($cut === 'api?') {
-            $url = 'api';
-            foreach ($this->routes as $route => $params) {
-                if (preg_match($route, $url, $matches)) {
-                    $this->params = $params;
-                    return true;
-                }
+        $parse = parse_url($uri);
+        $url = trim($parse['path'] ?? '', '/');
+        foreach ($this->routes as $route => $params) {
+            if (preg_match($route, $url, $matches)) {
+                $this->params = $params;
+                return true;
             }
-            return false;
-        } else {
-            foreach ($this->routes as $route => $params) {
-                if (preg_match($route, $url, $matches)) {
-                    $this->params = $params;
-                    return true;
-                }
-            }
-            return false;
         }
+        return false;
     }
 
     /**

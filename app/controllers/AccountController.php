@@ -3,8 +3,8 @@
 namespace PFW\Controllers;
 
 use PFW\Core\Controller;
+use PFW\Models\Auth;
 use PFW\Models\Login;
-use PFW\Models\Logout;
 use PFW\Models\Register;
 
 /**
@@ -14,17 +14,32 @@ use PFW\Models\Register;
 class AccountController extends Controller
 {
     /**
+     * @var Auth
+     */
+    protected $auth;
+
+    /**
+     * AccountController constructor.
+     * @param $route
+     */
+    public function __construct($route)
+    {
+        parent::__construct($route);
+        $this->auth = new Auth($_POST);
+    }
+
+    /**
      *
      */
     public function loginAction()
     {
         $vars = array();
         if ($_POST) {
-            $login_obj = new Login($_POST);
-            $errors = $login_obj->login();
+            $login = new Login($_POST);
+            $errors = $login->login();
             $vars = [
                 'errors' => $errors,
-                'data' => $login_obj->getLogData(),
+                'data' => $this->auth->getData(),
             ];
         }
         $this->view->render('Login Page', $vars);
@@ -35,14 +50,9 @@ class AccountController extends Controller
      */
     public function logoutAction()
     {
-        $vars = array();
-        if ($_POST) {
-            $logout_obj = new Logout($_POST);
-            $vars = [
-                'data' => $logout_obj->getLogOutData(),
-            ];
-        }
-        $this->view->render('Logout Page', $vars);
+        unset($_SESSION['logged_user']);
+        $this->view->redirect('/');
+        exit;
     }
 
     /**
@@ -52,18 +62,18 @@ class AccountController extends Controller
     {
         $vars = array();
         if ($_POST) {
-            $register_obj = new Register($_POST);
-            $err_db = $register_obj->exception;
-            if ($err_db) {
+            $register = new Register($_POST);
+            $errors = $register->exception;
+            if ($errors) {
                 $vars = [
-                    'errors' => [$err_db],
+                    'errors' => [$errors],
                     'data' => ['do_sign_up' => 1],
                 ];
             } else {
-                $errors = $register_obj->signUp();
+                $errors = $register->signUp();
                 $vars = [
                     'errors' => $errors,
-                    'data' => $register_obj->getRegData(),
+                    'data' => $this->auth->getData(),
                 ];
             }
         }
