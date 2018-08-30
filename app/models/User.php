@@ -12,7 +12,6 @@ class User extends Model
 {
     /**
      * User constructor.
-     * @param array $data
      */
     public function __construct()
     {
@@ -48,6 +47,10 @@ class User extends Model
         return false;
     }
 
+    /**
+     * @param string $user_id
+     * @return bool
+     */
     public function issetUserId(string $user_id): bool
     {
         $stmt = $this->db->query(
@@ -61,6 +64,7 @@ class User extends Model
         }
         return false;
     }
+
     /**
      * @param array $data
      * @return array
@@ -109,6 +113,10 @@ class User extends Model
         return $stmt->setFetchMode(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param string $login
+     * @return array|bool|string
+     */
     public function addApiToken(string $login)
     {
         $stmt = $this->db->row(
@@ -118,9 +126,9 @@ class User extends Model
         );
         $user_data = $stmt[0];
         $user_id = $user_data['id'];
-        $email = $user_data['email'];
-        $token = password_hash($login . $email, PASSWORD_DEFAULT);
         if (!$this->issetUserId($user_id)) {
+            $email = $user_data['email'];
+            $token = password_hash($login . $email, PASSWORD_DEFAULT);
             $stmt = $this->db->query(
                 "INSERT INTO api (user_id, token, last_get)
              VALUES (:user_id, :token, NOW())",

@@ -1,3 +1,5 @@
 <?php
 
-echo $news;
+header('Content-Type: application/json');
+
+echo $content;

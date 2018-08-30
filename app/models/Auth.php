@@ -13,7 +13,7 @@ class Auth extends Model
     {
         parent::__construct();
         $this->data = $data;
-        $this->user = new User($this->data);
+        $this->user = new User();
     }
 
     public function getData(): array

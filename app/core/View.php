@@ -31,21 +31,28 @@ class View
         $this->path = $route['controller'] . '/' . $route['action'];
     }
 
+
     /**
      * @param $title
      * @param array $vars
+     * @param bool $html
      */
     public function render($title, $vars = [], $html = true)
     {
-        $path = '../app/views/' . $this->path . '.php';
-        extract($vars);
-        if (file_exists($path)) {
-            ob_start();
-            require $path;
-            $content = ob_get_clean();
-            require '../app/views/layouts/' . $this->layout . '.php';
+        if ($html) {
+            $path = '../app/views/' . $this->path . '.php';
+            extract($vars);
+            if (file_exists($path)) {
+                ob_start();
+                require $path;
+                $content = ob_get_clean();
+                require '../app/views/layouts/' . $this->layout . '.php';
+            } else {
+                echo 'View not found: ' . $this->path;
+            }
         } else {
-            echo 'View not found: ' . $this->path;
+            $content = $vars['news'];
+            require PROJECT_DIR.'app/views/api/get.php';
         }
     }
 

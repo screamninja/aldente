@@ -11,6 +11,6 @@ echo 'ABOUT PAGE';
 </ul>
 
 <ul>
-    <li><a href="/api/key">Get API key</a><br></li>
-    <li><a href="/api/">Check API Response</a><br></li>
+    <li><a href="/api/token">Get API Token</a><br></li>
+    <li><a href="/api">Check API Response</a><br></li>
 </ul>

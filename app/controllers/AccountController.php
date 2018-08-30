@@ -42,7 +42,7 @@ class AccountController extends Controller
                 'data' => $this->auth->getData(),
             ];
         }
-        $this->view->render('Login Page', $vars);
+        $this->view->render('Login Page', $vars, true);
     }
 
     /**
@@ -77,6 +77,6 @@ class AccountController extends Controller
                 ];
             }
         }
-        $this->view->render('Sign Up Page', $vars);
+        $this->view->render('Sign Up Page', $vars, true);
     }
 }

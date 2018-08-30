@@ -1,1 +1,1 @@
-Tue, 28 Aug 2018 22:21:19 +0300 error Too few arguments to function PFW\Models\API::getNews(), 0 passed in /home/scream/php-framework/app/models/API.php on line 127 and exactly 1 expected
+Fri, 31 Aug 2018 01:38:32 +0300 error Unsupported operand types

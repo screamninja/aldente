@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['get_key'])) {
+if (isset($_POST['get_token'])) {
     if (isset($error)) {
         echo "<div style = \"color: red;\">Error: " . $error . "</div></hr>";
     } elseif (isset($token)) {
@@ -9,7 +9,7 @@ if (isset($_POST['get_key'])) {
     }
 }
 ?>
-<p><strong>Get your API Key!</strong></p>
+<p><strong>Get your API Token!</strong></p>
 
 <ul>
     <li><a href="/">Main page</a><br></li>
@@ -19,8 +19,8 @@ if (isset($_POST['get_key'])) {
 </ul>
 
 <?php if (isset($_SESSION['logged_user'])) : ?>
-    <form action="/api/key" method="post">
-        <p>Get Key as: <?php echo $_SESSION['logged_user'] ?></p>
+    <form action="/api/token" method="post">
+        <p>Get Token as: <?php echo $_SESSION['logged_user'] ?></p>
         <button type="submit" name="get_token">Get Token!</button>
     </form>
 <?php else : ?>

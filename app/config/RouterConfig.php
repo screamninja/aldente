@@ -45,9 +45,9 @@ class RouterConfig
                 'action' => 'about',
             ],
 
-            'api/key' => [
+            'api/token' => [
                 'controller' => 'api',
-                'action' => 'key',
+                'action' => 'token',
             ],
 
         ];

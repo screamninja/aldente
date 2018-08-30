@@ -3,6 +3,7 @@
 namespace PFW\Controllers;
 
 use PFW\Core\Controller;
+use PFW\Core\View;
 use PFW\Models\API;
 use PFW\Models\User;
 
@@ -38,7 +39,7 @@ class ApiController extends Controller
                 $vars = ['error' => $token['error']];
             }
         }
-        $this->view->render('Get API Key', $vars, true);
+        $this->view->render('Get API Token', $vars, true);
     }
 
     /**
@@ -51,22 +52,24 @@ class ApiController extends Controller
         fclose($post);
         $method = $data['method'] ?? false;
         $token = $_SERVER['HTTP_X_AUTHORIZATION_TOKEN'];
-        $user = new User();
-        $user_id = $user->getUserIdbyToken($token);
-        $api = new API($user_id);
+        $api = new API($token);
         if (method_exists($api, $method)) {
-            $params = $data['params'] ?? [];
-            try{
-                $res = call_user_func_array([$api,$method], $params);
+            $id = $data['id'];
+            $params = $data['params'] ?? ['count' => '5'];
+            $params += ['id' => $id];
+            try {
+                $result = call_user_func_array([$api, $method], $params);
             } catch (\Throwable $e) {
-
+                $logger = \PFW\Config\LoggerConfig::getLogger();
+                $logger->error($e->getMessage());
+                echo $e->getMessage();
             }
         } else {
             View::errorCode(404);
         }
         $vars = [
-            'news' => $api->encodeNews()
+            'news' => $result ?? ''
         ];
-        $this->view->render('Response Page', $vars);
+        $this->view->render('Response Page', $vars, false);
     }
 }

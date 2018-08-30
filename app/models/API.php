@@ -75,7 +75,7 @@ class API extends Model
         if ($this->checkToken()) {
             if ($this->checkCount()) {
                 $result = $this->db->row('SELECT * FROM news LIMIT ' . $count);
-                $result = $result[0];
+                // $result = $result[0];
                 return $result;
             }
             return $result = [
@@ -90,11 +90,18 @@ class API extends Model
         }
     }
 
-    public function encodeNews(int $count)
+    public function jsonNews(array $params)
     {
+        $count = $params['count'];
+        $id = $params['id'];
         $news = $this->getNews($count);
-        $news_json = json_encode($news, JSON_PRETTY_PRINT);
-        return $news_json;
+        $json = [
+            'jsonrpc' => '2.0',
+            'result' => $news,
+            'id' => $id ?? '1'
+        ];
+        $response = json_encode($json);
+        return $response;
     }
 
     public function addToken()
@@ -109,7 +116,8 @@ class API extends Model
         $user_id = $user_data['id'];
         $email = $user_data['email'];
         $api_key = password_hash($login + $email, PASSWORD_DEFAULT);
-        if (!$this->issetUserId($user_id)) {
+        $user = new User();
+        if (!$user->issetUserId($user_id)) {
             $stmt = $this->db->query(
                 "INSERT INTO api (user_id, token, last_get)
              VALUES (:user_id, :api_key, NOW())",
