@@ -57,12 +57,9 @@ class ApiController extends Controller
             $id = $data['id'];
             $params = $data['params'] ?? ['count' => '5'];
             $params += ['id' => $id];
-            try {
-                $result = call_user_func_array([$api, $method], $params);
-            } catch (\Throwable $e) {
-                $logger = \PFW\Config\LoggerConfig::getLogger();
-                $logger->error($e->getMessage());
-                echo $e->getMessage();
+            $result = call_user_func_array([$api, $method], $params);
+            if ($result) {
+                return $result;
             }
         } else {
             View::errorCode(404);
