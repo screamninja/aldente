@@ -90,7 +90,7 @@ class API extends Model
         }
     }
 
-    public function jsonNews(array $params)
+    public function jsonNews(int $count, int $id)
     {
         $count = $params['count'];
         $id = $params['id'];
