@@ -54,12 +54,15 @@ class ApiController extends Controller
         $token = $_SERVER['HTTP_X_AUTHORIZATION_TOKEN'];
         $api = new API($token);
         if (method_exists($api, $method)) {
-            $id = $data['id'];
-            $params = $data['params'] ?? ['count' => '5'];
-            $params += ['id' => $id];
-            $result = call_user_func_array([$api, $method], $params);
-            if ($result) {
-                return $result;
+            $params = $data['params'] ?? [];
+            try {
+                $result = call_user_func_array([$api, $method], $params);
+            } catch {
+                $logger
+            }
+            
+            if ($result === false) {
+                
             }
         } else {
             View::errorCode(404);
