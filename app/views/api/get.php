@@ -2,4 +2,4 @@
 
 header('Content-Type: application/json');
 
-echo $content;
+print_r($content);

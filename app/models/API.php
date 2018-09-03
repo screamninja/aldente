@@ -75,30 +75,42 @@ class API extends Model
         if ($this->checkToken()) {
             if ($this->checkCount()) {
                 $result = $this->db->row('SELECT * FROM news LIMIT ' . $count);
-                // $result = $result[0];
-                return $result;
+                return $result['news'] = $result;
             }
-            return $result = [
-                'error' => 'invalid_request', //TODO: Make Error object
-                'error_description' => 'the number of allowed requests (100) is exceeded!'
+            return $result['error'] = [
+                'code' => '-32500',
+                'message' => 'The number of allowed requests (100) is exceeded'
             ];
         } else {
-            return $result = [
-                'error' => 'invalid_request',
-                'error_description' => 'account not found'
+            return $result['error'] = [
+                'code' => '-32500',
+                'message' => 'Invalid Token'
             ];
         }
     }
 
-    public function jsonNews(array $params)
+    public function jsonNews($params)
     {
-        $count = $params['count'];
-        $id = $params['id'];
-        $news = $this->getNews($count);
+        $news = $this->getNews($params);
+        if (isset($news['error'])) {
+            $response = $this->jsonError($news['error']);
+            return $response;
+        }
         $json = [
             'jsonrpc' => '2.0',
             'result' => $news,
-            'id' => $id ?? '1'
+            'id' => '1'
+        ];
+        $response = json_encode($json);
+        return $response;
+    }
+
+    public function jsonError($error)
+    {
+        $json = [
+            'jsonrpc' => '2.0',
+            'message' => array($error),
+            'id' => '1'
         ];
         $response = json_encode($json);
         return $response;

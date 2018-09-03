@@ -37,7 +37,7 @@ class View
      * @param array $vars
      * @param bool $html
      */
-    public function render($title, $vars = [], $html = true)
+    public function render(string $title, array $vars, bool $html = true)
     {
         if ($html) {
             $path = '../app/views/' . $this->path . '.php';
@@ -50,8 +50,11 @@ class View
             } else {
                 echo 'View not found: ' . $this->path;
             }
-        } else {
+        } elseif (!isset($vars['error'])) {
             $content = $vars['news'];
+            require PROJECT_DIR.'app/views/api/get.php';
+        } else {
+            $content = $vars['error'];
             require PROJECT_DIR.'app/views/api/get.php';
         }
     }
