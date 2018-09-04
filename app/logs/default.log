@@ -1,1 +1,1 @@
-Tue, 04 Sep 2018 00:05:49 +0300 error Return value of PFW\Models\API::getNews() must be of the type array, null returned
+Tue, 04 Sep 2018 21:13:09 +0300 error Argument 1 passed to PFW\Controllers\ApiController::checkResponse() must be of the type array, integer given, called in /home/scream/php-framework/app/controllers/ApiController.php on line 83

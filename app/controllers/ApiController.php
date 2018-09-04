@@ -30,43 +30,17 @@ class ApiController extends Controller
         if (isset($_POST['get_token'])) {
             $user = new User();
             $token = $user->addApiToken($_SESSION['logged_user']);
-            if (!isset($token ['error'])) {
+            if (!isset($token['error'])) {
                 $vars = [
-                    'token' => $token['token']
+                    'token' => $token['token'],
                 ];
             } else {
-                $vars = ['error' => $token['error']];
+                $vars = [
+                    'error' => $token['error'],
+                ];
             }
         }
         $this->view->render('Get API Token', $vars, true);
-    }
-
-    /**
-     * @param array $data
-     * @return bool
-     */
-    private function checkResponse(array $data): bool
-    {
-        $error = false;
-        if (isset($data) && is_array($data)) {
-            if ($data['jsonrpc'] != '2.0') {
-                $error = true;
-            }
-            if (empty($data['method'])) {
-                $error = true;
-            }
-            if (empty($data['params'])) {
-                $error = true;
-            }
-            if (empty($data['id']) && !is_integer($data['id'])) {
-                $error = true;
-            }
-            if ($error) {
-                return false;
-            }
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -77,16 +51,28 @@ class ApiController extends Controller
         $post = fopen('php://input', 'r');
         if (!empty($post)) {
             $data = json_decode(stream_get_contents($post), true);
+            if ($data === null) {
+                $vars['error'] = [
+                    'code' => '-32700',
+                    'message' => 'Parse error'
+                ];
+            }
             fclose($post);
-            $check = $this->checkResponse($data);
+            $token = $_SERVER['HTTP_X_AUTHORIZATION_TOKEN'];
+            $api = new API($token);
+            $check = $api->checkResponse($data);
             if ($check) {
                 $method = $data['method'] ?? false;
-                $token = $_SERVER['HTTP_X_AUTHORIZATION_TOKEN'];
-                $api = new API($token);
                 if (method_exists($api, $method)) {
                     $params = $data['params'] ?? [];
                     try {
                         $result = call_user_func_array([$api, $method], $params);
+                        if ($result === false) {
+                            $vars['error'] = [
+                                'code' => '-32600',
+                                'message' => 'Invalid Request'
+                            ];
+                        }
                     } catch (\Throwable $e) {
                         $logger = \PFW\Config\LoggerConfig::getLogger();
                         $logger->error($e->getMessage());
@@ -115,11 +101,7 @@ class ApiController extends Controller
             ];
         }
         if (isset($vars['error'])) {
-            $method = 'jsonError';
-            $params = $vars['error'];
-            $token = $_SERVER['HTTP_X_AUTHORIZATION_TOKEN'];
-            $api = new API($token);
-            $result = call_user_func_array([$api, $method], $params);
+            $result = API::jsonError($vars['error']);
             $vars['error'] = $result ?? [];
         }
         $this->view->render('Response Page', $vars, false);

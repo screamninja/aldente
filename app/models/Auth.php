@@ -6,7 +6,7 @@ use PFW\Core\Model;
 
 class Auth extends Model
 {
-    public $data;
+    protected $data;
     public $user;
 
     public function __construct(array $data)
@@ -56,11 +56,8 @@ class Auth extends Model
             $password_verify = password_verify($password, $hash);
             if ($password_verify) {
                 return true;
-            } else {
-                return false;
             }
-        } else {
-            return false;
         }
+        return false;
     }
 }

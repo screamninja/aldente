@@ -78,10 +78,9 @@ class User extends Model
                  WHERE login = :login",
             $param
         );
-        $stmt = $stmt->fetchAll(\PDO::FETCH_ASSOC)[0];
-        $error = ['error' => 'User not found!'];
+        $stmt = $stmt->fetchAll(\PDO::FETCH_ASSOC)[0]; //todo тоже 0
         if ($stmt == null) {
-            return $error;
+            return ['error' => 'User not found!'];
         } else {
             return $stmt;
         }

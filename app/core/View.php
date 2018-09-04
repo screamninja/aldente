@@ -50,11 +50,11 @@ class View
             } else {
                 echo 'View not found: ' . $this->path;
             }
-        } elseif (!isset($vars['error'])) {
+        } elseif (!isset($vars['error']) && isset($vars['news'])) {
             $content = $vars['news'];
             require PROJECT_DIR.'app/views/api/get.php';
         } else {
-            $content = $vars['error'];
+            $content = $vars['error'] ?? 'хз!';
             require PROJECT_DIR.'app/views/api/get.php';
         }
     }
