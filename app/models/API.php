@@ -109,7 +109,7 @@ class API extends Model
     {
         $json = [
             'jsonrpc' => '2.0',
-            'message' => array($error),
+            'message' => $error,
             'id' => '1'
         ];
         $response = json_encode($json);

@@ -41,6 +41,10 @@ class ApiController extends Controller
         $this->view->render('Get API Token', $vars, true);
     }
 
+    /**
+     * @param array $data
+     * @return bool
+     */
     private function checkResponse(array $data): bool
     {
         $error = false;
@@ -71,7 +75,7 @@ class ApiController extends Controller
     public function getAction()
     {
         $post = fopen('php://input', 'r');
-        if ($post) {
+        if (!empty($post)) {
             $data = json_decode(stream_get_contents($post), true);
             fclose($post);
             $check = $this->checkResponse($data);
@@ -92,23 +96,26 @@ class ApiController extends Controller
                         ];
                     }
                     $vars['news'] = $result ?? [];
+                } else {
+                    $vars['error'] = [
+                        'code' => '-32601',
+                        'message' => 'Method not found'
+                    ];
                 }
+            } else {
                 $vars['error'] = [
-                    'code' => '-32601',
-                    'message' => 'Method not found'
+                    'code' => '-32700',
+                    'message' => 'Parse error'
                 ];
             }
+        } else {
             $vars['error'] = [
-                'code' => '-32700',
-                'message' => 'Parse error'
+                'code' => '-32600',
+                'message' => 'Invalid Request'
             ];
         }
-        $vars['error'] = [
-            'code' => '-32600',
-            'message' => 'Invalid Request'
-        ];
         if (isset($vars['error'])) {
-            $method = ['method' => 'jsonError'];
+            $method = 'jsonError';
             $params = $vars['error'];
             $token = $_SERVER['HTTP_X_AUTHORIZATION_TOKEN'];
             $api = new API($token);
