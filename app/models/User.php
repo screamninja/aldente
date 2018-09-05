@@ -78,8 +78,9 @@ class User extends Model
                  WHERE login = :login",
             $param
         );
-        $stmt = $stmt->fetchAll(\PDO::FETCH_ASSOC)[0]; //todo тоже 0
-        if ($stmt == null) {
+        $stmt = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $stmt = array_shift($stmt);
+        if ($stmt === null) {
             return ['error' => 'User not found!'];
         } else {
             return $stmt;
@@ -118,29 +119,44 @@ class User extends Model
      */
     public function addApiToken(string $login)
     {
-        $stmt = $this->db->row(
+        $user_data = $this->db->row(
             "SELECT * FROM users
-             WHERE login = :login",
+                  WHERE login = :login",
             $param = ['login' => $login]
         );
-        $user_data = $stmt[0];
-        $user_id = $user_data['id'];
-        if (!$this->issetUserId($user_id)) {
-            $email = $user_data['email'];
-            $token = password_hash($login . $email, PASSWORD_DEFAULT);
-            $stmt = $this->db->query(
-                "INSERT INTO api (user_id, token, last_get)
-             VALUES (:user_id, :token, NOW())",
-                $param = [
-                    'user_id' => $user_id,
-                    'token' => $token
-                ]
-            );
-            if ($stmt) {
-                return $token;
+        $user_data = array_shift($user_data);
+        if (isset($user_data) || is_array($user_data)) {
+            $user_id = $user_data['id'];
+            if (!$this->issetUserId($user_id)) {
+                $email = $user_data['email'];
+                $token = password_hash($login . $email, PASSWORD_DEFAULT);
+                $stmt = $this->db->query(
+                    "INSERT INTO api (user_id, token, last_get)
+                          VALUES (:user_id, :token, NOW())",
+                    $param = [
+                        'user_id' => $user_id,
+                        'token' => $token,
+                    ]
+                );
+                if ($stmt) { //return true on success or false on error
+                    return $return = [
+                        'token' => $token,
+                    ];
+                } else {
+                    return $return = [
+                        'error' => 'Something went wrong... Please contact with our support.',
+                    ];
+                }
+            } else {
+                $return = [
+                    'error' => 'User ' . $login . ' already got the Key!',
+                ];
             }
-            return $error = ['Something went wrong... Please contact with our support.'];
+        } else {
+            $return = [
+                'error' => 'Something went wrong... Please contact with our support.',
+            ];
         }
-        return $error = ['error' => 'User ' . $login . ' already got the Key!'];
+        return $return;
     }
 }

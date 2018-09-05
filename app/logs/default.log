@@ -1,1 +1,1 @@
-Tue, 04 Sep 2018 21:13:09 +0300 error Argument 1 passed to PFW\Controllers\ApiController::checkResponse() must be of the type array, integer given, called in /home/scream/php-framework/app/controllers/ApiController.php on line 83
+Wed, 05 Sep 2018 21:57:13 +0300 error Too few arguments to function PFW\Models\API::jsonError(), 1 passed in /home/scream/php-framework/app/controllers/ApiController.php on line 104 and exactly 2 expected

@@ -101,7 +101,7 @@ class ApiController extends Controller
             ];
         }
         if (isset($vars['error'])) {
-            $result = API::jsonError($vars['error']);
+            $result = API::getError($vars['error']);
             $vars['error'] = $result ?? [];
         }
         $this->view->render('Response Page', $vars, false);

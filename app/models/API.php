@@ -49,13 +49,12 @@ class API extends Model
      */
     public function checkCount(): bool
     {
-        $stmt = $this->db->query(
+        $stmt = $this->db->column(
             "SELECT daily_count FROM api
                  WHERE token = :token",
             $param = ['token' => $this->token]
         );
-        $count = $stmt->fetchAll(\PDO::FETCH_ASSOC)[0]; //todo 1 значение
-        $count = $count['daily_count'];
+        $count = array_shift($stmt);
         if ($count <= self::DAY_COUNT) {
             $this->db->query(
                 "UPDATE api SET daily_count=:daily_count, last_get=NOW()
@@ -117,21 +116,21 @@ class API extends Model
      * @param int $count
      * @return array
      */
-    public function getNews(int $count): array
+    public function getApiData(int $count): array
     {
         if ($this->checkToken()) {
             if ($this->checkCount()) {
                 $result = $this->db->row('SELECT * FROM news LIMIT ' . $count);
-                return $result['news'] = $result; //todo Заменить на что-оо общее тут и в рендере
+                return $result['api_data'] = $result;
             }
             return $result['error'] = [
                 'code' => '-32500',
-                'message' => 'The number of allowed requests (100) is exceeded'
+                'message' => 'The number of allowed requests (100) is exceeded',
             ];
         } else {
             return $result['error'] = [
                 'code' => '-32500',
-                'message' => 'Invalid Token'
+                'message' => 'Invalid Token',
             ];
         }
     }
@@ -140,74 +139,33 @@ class API extends Model
      * @param $params
      * @return false|string
      */
-    public function jsonNews($params): string
+    public function getJson($params): string
     {
-        $news = $this->getNews($params);
+        $news = $this->getApiData($params);
         if (isset($news['error'])) {
-            $response = $this->jsonError($news['error']); //todo fixme
+            $response = $this->getError($news['error']);
             return $response;
         }
         $json = [
             'jsonrpc' => '2.0',
             'result' => $news,
-            'id' => '1'
+            'id' => '1',
         ];
         return json_encode($json);
     }
 
     /**
-     * @param $code
-     * @param $message
+     * @param $error
      * @return false|string
      */
-    public static function jsonError($code, $message) //todo
+    public static function getError($error)
     {
         $json = [
             'jsonrpc' => '2.0',
-            'code' => $code,
-            'message' => $message,
-            'id' => '1'
+            'error' => array($error),
+            'id' => '1',
         ];
         $response = json_encode($json);
         return $response;
-    }
-
-    /**
-     * @return array
-     */
-    public function addToken(): array
-    {
-        $login = $_SESSION['logged_user']; //todo по возможности  оогин передать как свойство метода
-        $user_data = $this->db->row(
-            "SELECT * FROM users
-             WHERE login = :login",
-            $param = ['login' => $login]
-        );
-        $user_data = $user_data[0]; //todo Проверить на существование
-        $user_id = $user_data['id'];
-        $email = $user_data['email'];
-        $api_key = password_hash($login + $email, PASSWORD_DEFAULT);
-        $user = new User();
-        if (!$user->issetUserId($user_id)) {
-            $stmt = $this->db->query(
-                "INSERT INTO api (user_id, token, last_get)
-             VALUES (:user_id, :api_key, NOW())",
-                $param = [
-                    'user_id' => $user_id,
-                    'api_key' => $api_key
-                ]
-            );
-            if ($stmt) { //todo глянь что внутри
-                $return = [
-                    'uid' => $user_id,
-                    'key' => $api_key
-                ];
-            } else {
-                $return = ['error' => 'Something went wrong... Please contact with our support.'];
-            }
-        } else {
-            $return = ['error' => 'User ' . $login . ' already got the Key!'];
-        }
-        return $return;
     }
 }
