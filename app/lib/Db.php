@@ -4,6 +4,7 @@ namespace PFW\Lib;
 
 use PDO;
 use PFW\Config\DatabaseConfig;
+use PFW\Config\LoggerConfig;
 
 /**
  * Class Db
@@ -16,10 +17,28 @@ class Db
      */
     protected $db;
 
+    private static $obj;
+
+    public static $exception;
+
+    public static function init()
+    {
+        if (!self::$obj) {
+            try {
+                self::$obj = new self();
+            } catch (\Throwable $e) {
+                self::$exception = 'Something goes wrong...';
+                $logger = LoggerConfig::getLogger();
+                $logger->error($e->getMessage());
+            }
+        }
+        return self::$obj;
+    }
+
     /**
      * Db constructor.
      */
-    public function __construct()
+    private function __construct()
     {
         $config = DatabaseConfig::get();
         $options = [

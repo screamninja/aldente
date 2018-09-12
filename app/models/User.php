@@ -3,6 +3,7 @@
 namespace PFW\Models;
 
 use PFW\Core\Model;
+use PFW\Lib\Db;
 
 /**
  * Class User
@@ -10,12 +11,14 @@ use PFW\Core\Model;
  */
 class User extends Model
 {
+    private $db;
+
     /**
      * User constructor.
      */
-    public function __construct()
+    public function __construct(Db $db)
     {
-        parent::__construct();
+        $this->db = $db;
     }
 
     /**

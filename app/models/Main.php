@@ -3,6 +3,7 @@
 namespace PFW\Models;
 
 use PFW\Core\Model;
+use PFW\Lib\Db;
 
 /**
  * Class Main
@@ -16,7 +17,8 @@ class Main extends Model
      */
     public function showNews(): array
     {
-        $result = $this->db->row('SELECT title, text FROM news');
+        $db = Db::init();
+        $result = $db->row('SELECT title, text FROM news');
         return $result;
     }
 }

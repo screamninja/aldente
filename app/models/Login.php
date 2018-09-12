@@ -27,7 +27,7 @@ class Login extends Model
      */
     public function __construct(array $data)
     {
-        parent::__construct();
+        //parent::__construct();
         $this->data = $data;
         $this->auth = new Auth($data);
     }

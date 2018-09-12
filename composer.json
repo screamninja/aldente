@@ -25,5 +25,8 @@
     "psr-4": {
       "PFW\\": "app/"
     }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7"
   }
 }

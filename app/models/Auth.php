@@ -3,6 +3,7 @@
 namespace PFW\Models;
 
 use PFW\Core\Model;
+use PFW\Lib\Db;
 
 class Auth extends Model
 {
@@ -11,9 +12,10 @@ class Auth extends Model
 
     public function __construct(array $data)
     {
-        parent::__construct();
+        //parent::__construct();
         $this->data = $data;
-        $this->user = new User();
+        $db = Db::init();
+        $this->user = new User($db);
     }
 
     public function getData(): array

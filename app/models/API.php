@@ -3,6 +3,7 @@
 namespace PFW\Models;
 
 use PFW\Core\Model;
+use PFW\Lib\Db;
 
 /**
  * Class API
@@ -16,15 +17,18 @@ class API extends Model
      * @var string
      */
     private $token;
+    private $db;
 
     /**
      * API constructor.
      * @param string $token
+     * @param Db $db
      */
-    public function __construct(string $token)
+    public function __construct(string $token, Db $db)
     {
-        parent::__construct();
+        //parent::__construct();
         $this->token = $token;
+        $this->db = $db;
     }
 
     /**

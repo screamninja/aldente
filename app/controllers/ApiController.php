@@ -3,6 +3,7 @@
 namespace PFW\Controllers;
 
 use PFW\Core\Controller;
+use PFW\Lib\Db;
 use PFW\Models\API;
 use PFW\Models\User;
 
@@ -28,7 +29,8 @@ class ApiController extends Controller
     {
         $vars = array();
         if (isset($_POST['get_token'])) {
-            $user = new User();
+            $db = Db::init();
+            $user = new User($db);
             $token = $user->addApiToken($_SESSION['logged_user']);
             if (!isset($token['error'])) {
                 $vars = [
@@ -59,7 +61,8 @@ class ApiController extends Controller
             }
             fclose($post);
             $token = $_SERVER['HTTP_X_AUTHORIZATION_TOKEN'];
-            $api = new API($token);
+            $db = Db::init();
+            $api = new API($token, $db);
             $check = $api->checkResponse($data);
             if ($check) {
                 $method = $data['method'] ?? false;
