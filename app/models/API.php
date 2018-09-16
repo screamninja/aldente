@@ -100,7 +100,7 @@ class API extends Model
     {
         $correct = true;
         if (isset($data) && is_array($data)) {
-            if ($data['jsonrpc'] != '2.0') {
+            if (empty($data['jsonrpc']) || $data['jsonrpc'] != '2.0') {
                 $correct = false;
             }
             if (empty($data['method'])) {
@@ -109,7 +109,7 @@ class API extends Model
             if (empty($data['params'])) {
                 $correct = false;
             }
-            if (empty($data['id']) && !is_integer($data['id'])) {
+            if (empty($data['id']) || !is_integer($data['id'])) {
                 $correct = false;
             }
         }

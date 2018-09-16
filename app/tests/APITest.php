@@ -1,5 +1,7 @@
 <?php
 
+namespace PFW\Tests;
+
 use PHPUnit\Framework\TestCase;
 use PFW\Models\API;
 
@@ -14,30 +16,59 @@ class APITest extends TestCase
     public function testCheckResponse()
     {
         $db = \PFW\Lib\Db::init();
-        $api = new API('tocken', $db);
+        $api = new API('token', $db);
         $data = [
-            'id' => 1,
-            'params' => 1,
-            'method' => 1,
             'jsonrpc' => '2.0',
+            'method' => 1,
+            'params' => 1,
+            'id' => 1,
         ];
+        $this->assertInternalType("array", $data);
+        $this->assertInternalType("int", $data['id']);
         $actual = $api->checkResponse($data);
         $this->assertTrue($actual);
+        $data = [''];
+        $actual = $api->checkResponse($data);
+        $this->assertFalse($actual);
         $data = [
-            'id' => 1,
-            'params' => 1,
-            'method' => 1,
             'jsonrpc' => '1.0',
+            'method' => 1,
+            'params' => 1,
+            'id' => 1,
         ];
         $actual = $api->checkResponse($data);
         $this->assertFalse($actual);
-
-        //
-
-        $need = [123,321];
-        $isit = [321,321];
-
-        $this->assertEquals($need, $isit);
-
+        $data = [
+            'jsonrpc' => '2.0',
+            'method' => '',
+            'params' => 1,
+            'id' => 1,
+        ];
+        $actual = $api->checkResponse($data);
+        $this->assertFalse($actual);
+        $data = [
+            'jsonrpc' => '2.0',
+            'method' => 1,
+            'params' => '',
+            'id' => 1,
+        ];
+        $actual = $api->checkResponse($data);
+        $this->assertFalse($actual);
+        $data = [
+            'jsonrpc' => '2.0',
+            'method' => 1,
+            'params' => 1,
+            'id' => '',
+        ];
+        $actual = $api->checkResponse($data);
+        $this->assertFalse($actual);
+        $data = [
+            'jsonrpc' => '2.0',
+            'method' => 1,
+            'params' => 1,
+            'id' => 'one',
+        ];
+        $actual = $api->checkResponse($data);
+        $this->assertFalse($actual);
     }
 }
