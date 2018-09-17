@@ -23,8 +23,6 @@ class APITest extends TestCase
             'params' => 1,
             'id' => 1,
         ];
-        $this->assertInternalType("array", $data);
-        $this->assertInternalType("int", $data['id']);
         $actual = $api->checkResponse($data);
         $this->assertTrue($actual);
         $data = [''];

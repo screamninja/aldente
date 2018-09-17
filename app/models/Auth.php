@@ -12,7 +12,6 @@ class Auth extends Model
 
     public function __construct(array $data)
     {
-        //parent::__construct();
         $this->data = $data;
         $db = Db::init();
         $this->user = new User($db);
