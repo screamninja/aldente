@@ -7,7 +7,7 @@ use PFW\Models\Main;
 
 class MainTest extends TestCase
 {
-    public function testMainIsShowNewsSuccessfully()
+    public function testShowNews()
     {
         //
     }

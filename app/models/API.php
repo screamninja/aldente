@@ -143,7 +143,7 @@ class API extends Model
      * @param $params
      * @return false|string
      */
-    public function getJson($params): string
+    public function getJson(int $params): string
     {
         $news = $this->getApiData($params);
         if (isset($news['error'])) {
@@ -159,14 +159,14 @@ class API extends Model
     }
 
     /**
-     * @param $error
+     * @param array $error
      * @return false|string
      */
-    public static function getError($error)
+    public static function getError(array $error)
     {
         $json = [
             'jsonrpc' => '2.0',
-            'error' => array($error),
+            'error' => [$error],
             'id' => '1',
         ];
         $response = json_encode($json);

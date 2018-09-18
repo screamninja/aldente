@@ -7,70 +7,81 @@ use PFW\Models\Auth;
 
 class AuthTest extends TestCase
 {
-    protected $stack_login;
-    protected $stack_sign_up;
-    protected $bad_stack;
-    protected $data = array();
-    protected $stmt = array();
+    protected $login_data;
+    protected $sign_up_data;
+    protected $bad_data;
+    protected $data;
+    protected $stmt;
+    protected $bad_stmt;
     protected $auth;
 
     protected function setUp()
     {
-        $this->stack_login = [
+        $this->login_data = [
             'login' => 'test',
             'password' => 'test',
             'do_login' => '',
             ];
-        $this->stack_sign_up = [
+        $this->sign_up_data = [
             'login' => 'testLogin',
             'email' => 'testEmail',
             'password' => 'testPassword',
             'password_2' => 'testPassword_2',
             'do_sign_up' => '',
         ];
-        $this->bad_stack = [
-            'login' => 'test',
+        $this->bad_data = [
+            'login' => '',
             'password' => 'test',
             'do_login' => '',
         ];
         $this->stmt = [
             'password' => '$2y$10$FvKqntyZlJikpYxTdVhIve3dgcwxyCEE7Vl1jGkxX5eu6n/pqcKWi',
         ];
-        $this->auth = new Auth($this->data);
+        $this->bad_stmt = [
+          'password' => '$2y$10$4zNZIeQj7SofHU989A3BUOni9Hk7jo7Ua4pKXK2VGI/MR9P7r3..i',
+        ];
     }
 
     public function testGetDataReturnArray()
     {
-        $this->data = $this->stack_login;
+        $this->auth = new Auth($this->login_data);
         $actual = $this->auth->getData();
         $this->assertInternalType("array", $actual);
     }
 
     public function testCheckDataReturnEmptyArray()
     {
-        $this->data = $this->stack_login;
+        $this->auth = new Auth($this->login_data);
         $actual = $this->auth->checkData();
         $this->assertEmpty($actual);
     }
 
     public function testCheckDataReturnErrorArray()
     {
-        $this->data = $this->bad_stack;
+        $this->auth = new Auth($this->bad_data);
         $actual = $this->auth->checkData();
         $this->assertNotEmpty($actual);
     }
 
     public function testCheckPasswordReturnTrue()
     {
-        $this->data = $this->stack_login;
+        $this->auth = new Auth($this->login_data);
         $actual = $this->auth->checkPassword($this->stmt);
         $this->assertTrue($actual);
     }
 
     public function testCheckPasswordReturnFalse()
     {
-        $this->data = $this->bad_stack;
-        $actual = $this->auth->checkPassword($this->stmt);
+        $this->data = $this->login_data;
+        $this->auth = new Auth($this->data);
+        $actual = $this->auth->checkPassword($this->bad_stmt);
         $this->assertFalse($actual);
+    }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+        $this->data = null;
+        $this->auth = null;
     }
 }

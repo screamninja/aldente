@@ -10,6 +10,14 @@ use PFW\Models\API;
  */
 class APITest extends TestCase
 {
+    protected $error;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->error = [''];
+    }
+
     /**
      * @test
      */
@@ -68,5 +76,28 @@ class APITest extends TestCase
         ];
         $actual = $api->checkResponse($data);
         $this->assertFalse($actual);
+    }
+
+    public function testGetJson()
+    {
+        $stub = $this->getMockBuilder(API::class)
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
+            ->getMock();
+
+        // Configure the stub.
+        $stub->method('getApiData')
+            ->willReturn(['foo']);
+
+        $db = \PFW\Lib\Db::init();
+        $api = new API('token', $db);
+        $api::getError($this->error)
+            ->will($this->returnValue(''));
+
+        $res = $stub->getJson(1);
+
+        $this->assertEquals(['foo'], $res);
     }
 }
