@@ -147,7 +147,7 @@ class API extends Model
     {
         $news = $this->getApiData($params);
         if (isset($news['error'])) {
-            $response = $this->getError($news['error']);
+            $response = self::getError($news['error']);
             return $response;
         }
         $json = [

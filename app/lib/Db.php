@@ -21,6 +21,8 @@ class Db
 
     public static $exception;
 
+    public $config;
+
     public static function init()
     {
         if (!self::$obj) {
@@ -40,16 +42,32 @@ class Db
      */
     private function __construct()
     {
-        $config = DatabaseConfig::get();
+        $this->setConfig(DatabaseConfig::get());
+        $this->setDb();
+    }
+
+    /**
+     * @param array $config
+     */
+    public function setConfig(array $config)
+    {
+        $this->config = $config;
+    }
+
+    /**
+     * Ииициируем подключение к бд
+     */
+    public function setDb()
+    {
         $options = [
             PDO::ATTR_EMULATE_PREPARES => false, // turn off emulation mode for "real" prepared statements
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, //turn on errors in the form of exceptions
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, //make the default fetch be an associative array
         ];
         $this->db = new PDO(
-            'mysql:host=' . $config['host'] . ';dbname=' . $config['name'] . '',
-            $config['user'],
-            $config['password'],
+            'mysql:host=' . $this->config['host'] . ';dbname=' . $this->config['name'] . '',
+            $this->config['user'],
+            $this->config['password'],
             $options
         );
     }

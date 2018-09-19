@@ -18,7 +18,7 @@ class Main extends Model
     public function showNews(): array
     {
         $db = Db::init();
-        $result = $db->row('SELECT title, text FROM news');
+        $result = $db->row('SELECT title, text, author, post_date FROM news');
         return $result;
     }
 }

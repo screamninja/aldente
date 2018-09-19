@@ -81,6 +81,7 @@ class APITest extends TestCase
     public function testGetJson()
     {
         $stub = $this->getMockBuilder(API::class)
+            ->setMethods(['getApiData'])
             ->disableOriginalConstructor()
             ->disableOriginalClone()
             ->disableArgumentCloning()
@@ -91,13 +92,8 @@ class APITest extends TestCase
         $stub->method('getApiData')
             ->willReturn(['foo']);
 
-        $db = \PFW\Lib\Db::init();
-        $api = new API('token', $db);
-        $api::getError($this->error)
-            ->will($this->returnValue(''));
-
         $res = $stub->getJson(1);
 
-        $this->assertEquals(['foo'], $res);
+        $this->assertEquals('{"jsonrpc":"2.0","result":["foo"],"id":"1"}', $res);
     }
 }
