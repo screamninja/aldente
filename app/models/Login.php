@@ -27,7 +27,6 @@ class Login extends Model
      */
     public function __construct(array $data)
     {
-        //parent::__construct();
         $this->data = $data;
         $this->auth = new Auth($data);
     }
@@ -45,14 +44,12 @@ class Login extends Model
                     $verify = $this->auth->checkPassword($user);
                     if ($verify) {
                         $_SESSION['logged_user'] = $user['login'];
-                        header('Location: /');
                     } else {
                         $errors[] = 'Password is incorrect! Try again.';
                     }
                 } else {
                     $errors[] = 'Users with that login not found! Try again or sign up on this site.';
                 }
-
             } else {
                 $errors[] = 'Users with that login not found! Try again or sign up on this site.';
             }

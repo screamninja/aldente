@@ -3,6 +3,7 @@ if (isset($data['do_login'])) {
     if (!empty($errors)) {
         echo '<div style = "color: red;">' . array_shift($errors) . '</div><hr>';
     }
+    header('Location: /');
 }
 ?>
 <p><strong>Login to Your Account</strong></p>
