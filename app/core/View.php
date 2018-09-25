@@ -52,10 +52,10 @@ class View
             }
         } elseif (!isset($vars['error']) && isset($vars['api_data'])) {
             $content = $vars['api_data'];
-            require PROJECT_DIR.'app/views/api/get.php';
+            require PROJECT_DIR . 'app/views/api/get.php';
         } else {
             $content = $vars['error'] ?? 'Something went wrong... Please contact with our support.';
-            require PROJECT_DIR.'app/views/api/get.php';
+            require PROJECT_DIR . 'app/views/api/get.php';
         }
     }
 

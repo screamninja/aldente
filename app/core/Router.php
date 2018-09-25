@@ -14,7 +14,6 @@ class Router
      * @var array
      */
     protected $routes = [];
-
     /**
      * @var array
      */

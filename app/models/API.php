@@ -26,7 +26,6 @@ class API extends Model
      */
     public function __construct(string $token, Db $db)
     {
-        //parent::__construct();
         $this->token = $token;
         $this->db = $db;
     }
@@ -53,12 +52,11 @@ class API extends Model
      */
     public function checkCount(): bool
     {
-        $stmt = $this->db->column(
+        $count = $this->db->column(
             "SELECT daily_count FROM api
                  WHERE token = :token",
             $param = ['token' => $this->token]
         );
-        $count = array_shift($stmt);
         if ($count <= self::DAY_COUNT) {
             $this->db->query(
                 "UPDATE api SET daily_count=:daily_count, last_get=NOW()

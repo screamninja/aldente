@@ -11,10 +11,15 @@ use PFW\Lib\Db;
  */
 class User extends Model
 {
+    /**
+     * @var Db
+     */
     private $db;
+
 
     /**
      * User constructor.
+     * @param Db $db
      */
     public function __construct(Db $db)
     {

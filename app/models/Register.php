@@ -6,26 +6,23 @@ use PFW\Core\Model;
 
 class Register extends Model
 {
-    public $data;
-    private $auth;
+    private $data;
 
     public function __construct(array $data)
     {
-        //parent::__construct();
         $this->data = $data;
-        $this->auth = new Auth($data);
     }
 
-    public function signUp(): array
+    public function signUp(Auth $auth, User $user): array
     {
-        $errors = $this->auth->checkData();
-        $user_isset = $this->auth->user->issetUser($this->data);
+        $errors = $auth->checkData();
+        $user_isset = $user->issetUser($this->data);
         if ($user_isset) {
             $errors[] = 'An account already exists with this login or email address.';
         }
         if (empty($errors)) {
-            if (!$this->auth->user->addUser($this->data)) {
-                $errors[] = 'User didnt to add';
+            if (!$user->addUser($this->data)) {
+                $errors[] = 'User didn\'t to add';
             }
         }
         return $errors;

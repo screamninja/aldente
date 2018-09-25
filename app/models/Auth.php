@@ -3,18 +3,14 @@
 namespace PFW\Models;
 
 use PFW\Core\Model;
-use PFW\Lib\Db;
 
 class Auth extends Model
 {
     protected $data;
-    public $user;
 
     public function __construct(array $data)
     {
         $this->data = $data;
-        $db = Db::init();
-        $this->user = new User($db);
     }
 
     public function getData(): array

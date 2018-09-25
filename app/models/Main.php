@@ -11,9 +11,8 @@ use PFW\Lib\Db;
  */
 class Main extends Model
 {
-
     /**
-     * @return array
+     * @return array with news from DB
      */
     public function showNews(): array
     {
