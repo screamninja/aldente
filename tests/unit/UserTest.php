@@ -164,7 +164,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * @test
+     *
      */
     protected function tearDown()
     {
