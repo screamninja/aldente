@@ -18,7 +18,7 @@ class AuthTest extends TestCase
             'login' => 'test',
             'password' => 'test',
             'do_login' => '',
-            ];
+        ];
         $this->bad_data = [
             'login' => '',
             'password' => 'test',
@@ -28,7 +28,7 @@ class AuthTest extends TestCase
             'password' => '$2y$10$FvKqntyZlJikpYxTdVhIve3dgcwxyCEE7Vl1jGkxX5eu6n/pqcKWi',
         ];
         $this->bad_stmt = [
-          'password' => '$2y$10$4zNZIeQj7SofHU989A3BUOni9Hk7jo7Ua4pKXK2VGI/MR9P7r3..i',
+            'password' => '$2y$10$4zNZIeQj7SofHU989A3BUOni9Hk7jo7Ua4pKXK2VGI/MR9P7r3..i',
         ];
     }
 

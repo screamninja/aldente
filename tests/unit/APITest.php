@@ -19,10 +19,6 @@ class APITest extends TestCase
      * @var
      */
     protected $db;
-    /**
-     * @var
-     */
-    protected $error;
 
     /**
      *
@@ -40,8 +36,6 @@ class APITest extends TestCase
         $this->db = Db::init();
         $this->db->setConfig($config);
         $this->db->setDb();
-        $this->error = [''];
-
     }
 
     /**
@@ -198,7 +192,6 @@ class APITest extends TestCase
             ->disallowMockingUnknownTypes()
             ->getMock();
 
-        // Configure the stub.
         $stub->method('getApiData')
             ->willReturn(['foo']);
 

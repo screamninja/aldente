@@ -43,8 +43,7 @@ class User extends Model
         );
         $isset_login = $stmt_login->fetchColumn();
         $stmt_email = $this->db->query(
-            "SELECT COUNT(*) 
-                 FROM users 
+            "SELECT COUNT(*) FROM users 
                  WHERE email = :email",
             $param2
         );
