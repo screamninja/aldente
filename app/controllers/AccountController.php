@@ -20,7 +20,7 @@ class AccountController extends Controller
      */
     protected $auth;
     /**
-     * @var \PFW\Models\User
+     * @var User
      */
     protected $user;
 
@@ -41,7 +41,7 @@ class AccountController extends Controller
      */
     public function loginAction()
     {
-        $vars = array();
+        $vars = [];
         if ($_POST) {
             $login = new Login($_POST);
             $errors = $login->login($this->auth, $this->user);
@@ -68,7 +68,7 @@ class AccountController extends Controller
      */
     public function registerAction()
     {
-        $vars = array();
+        $vars = [];
         if ($_POST) {
             $register = new Register($_POST);
             $errors = $register->exception;

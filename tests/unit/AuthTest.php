@@ -5,13 +5,32 @@ namespace PFW\Tests;
 use PHPUnit\Framework\TestCase;
 use PFW\Models\Auth;
 
+/**
+ * Class AuthTest
+ * @package PFW\Tests
+ */
 class AuthTest extends TestCase
 {
+    /**
+     * @var
+     */
     protected $data;
+    /**
+     * @var
+     */
     protected $bad_data;
+    /**
+     * @var
+     */
     protected $stmt;
+    /**
+     * @var
+     */
     protected $bad_stmt;
 
+    /**
+     *
+     */
     protected function setUp()
     {
         $this->data = [
@@ -32,6 +51,9 @@ class AuthTest extends TestCase
         ];
     }
 
+    /**
+     * @test
+     */
     public function testGetDataReturnArray()
     {
         $auth = new Auth($this->data);
@@ -39,6 +61,9 @@ class AuthTest extends TestCase
         $this->assertInternalType("array", $actual);
     }
 
+    /**
+     * @test
+     */
     public function testCheckDataReturnEmptyArray()
     {
         $auth = new Auth($this->data);
@@ -46,6 +71,9 @@ class AuthTest extends TestCase
         $this->assertEmpty($actual);
     }
 
+    /**
+     * @test
+     */
     public function testCheckDataReturnErrorArray()
     {
         $auth = new Auth($this->bad_data);
@@ -53,6 +81,9 @@ class AuthTest extends TestCase
         $this->assertEquals(['Login is required'], $actual);
     }
 
+    /**
+     * @test
+     */
     public function testCheckPasswordReturnTrue()
     {
         $auth = new Auth($this->data);
@@ -60,6 +91,9 @@ class AuthTest extends TestCase
         $this->assertTrue($actual);
     }
 
+    /**
+     * @test
+     */
     public function testCheckPasswordReturnFalse()
     {
         $auth = new Auth($this->data);

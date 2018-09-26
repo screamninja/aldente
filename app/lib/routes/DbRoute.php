@@ -27,7 +27,7 @@ class DbRoute extends LoggerRoute
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->db = new Db();
+        $this->db = Db::init();
         $this->table = $attributes['table'];
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_POST['get_token'])) {
     if (isset($error)) {
         echo "<div style = \"color: red;\">Error: " . $error . "</div></hr>";
@@ -8,6 +9,7 @@ if (isset($_POST['get_token'])) {
         echo "<div style = \"color: red;\">Error! No data!</div></hr>";
     }
 }
+
 ?>
 <p><strong>Get your API Token!</strong></p>
 

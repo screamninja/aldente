@@ -14,7 +14,6 @@ class DatabaseConfig
     public static function get(): array
     {
         return [
-
             'host' => 'localhost',
             'name' => 'pfw_db',
             'user' => 'pfw_admin',

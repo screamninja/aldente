@@ -48,7 +48,7 @@ class LoggerConfig
                 'table' => 'logs',
             ]));
             self::$logger->routes->attach(new SyslogRoute([
-                'isEnable' => true
+                'isEnable' => true,
             ]));
         }
         return self::$logger;

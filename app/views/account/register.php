@@ -1,11 +1,14 @@
 <?php
+
 if (isset($data['do_sign_up'])) {
     if (empty($errors)) {
-        echo "<div style = \"color: green;\">Registration successful!</div></br><div><a href=\"/\">Main page</a><br></div><hr>";
+        echo "<div style = \"color: green;\">Registration successful!</div></br>
+              <div><a href=\"/\">Main page</a></div><hr>";
     } else {
         echo '<div style = "color: red;">' . array_shift($errors) . '</div><hr>';
     }
 }
+
 ?>
 <p><strong>Create your account</strong></p>
 <form action="/account/register" method="post">

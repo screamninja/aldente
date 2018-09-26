@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PFW\Lib;
 
 /**
@@ -10,14 +9,14 @@ namespace PFW\Lib;
 class Dev
 {
     /**
-     * @param $str
+     * @param $exp
      */
-    public function debug($str)
+    public function debug($exp)
     {
         ini_set('display_errors', 1);
         error_reporting(E_ALL);
         echo '<pre>';
-        var_dump($str);
+        var_dump($exp);
         echo '</pre>';
     }
 }

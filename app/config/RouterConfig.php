@@ -14,7 +14,6 @@ class RouterConfig
     public static function get(): array
     {
         return [
-
             '' => [
                 'controller' => 'main',
                 'action' => 'index',
@@ -49,7 +48,6 @@ class RouterConfig
                 'controller' => 'api',
                 'action' => 'token',
             ],
-
         ];
     }
 }

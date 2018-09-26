@@ -6,13 +6,32 @@ use PHPUnit\Framework\TestCase;
 use PFW\Models\User;
 use PFW\Lib\Db;
 
+/**
+ * Class UserTest
+ * @package PFW\Tests
+ */
 class UserTest extends TestCase
 {
+    /**
+     * @var
+     */
     protected static $db;
+    /**
+     * @var
+     */
     protected $data;
+    /**
+     * @var
+     */
     protected $usersParam;
+    /**
+     * @var
+     */
     protected $apiParam;
 
+    /**
+     *
+     */
     public static function setUpBeforeClass()
     {
         $config = [
@@ -26,6 +45,9 @@ class UserTest extends TestCase
         self::$db->setDb();
     }
 
+    /**
+     *
+     */
     protected function setUp()
     {
         $this->data = [
@@ -50,6 +72,9 @@ class UserTest extends TestCase
         ];
     }
 
+    /**
+     * @test
+     */
     public function testIssetUser()
     {
         self::$db->query(
@@ -64,6 +89,10 @@ class UserTest extends TestCase
         $this->assertTrue(true, $actual);
     }
 
+    /**
+     * @test
+     * @return bool
+     */
     public function testIssetUserId()
     {
         self::$db->query(
@@ -79,6 +108,9 @@ class UserTest extends TestCase
         return !$actual;
     }
 
+    /**
+     * @test
+     */
     public function testGetUser()
     {
         self::$db->query(
@@ -93,6 +125,9 @@ class UserTest extends TestCase
         $this->assertEquals($this->usersParam += ['id' => '1'], $actual);
     }
 
+    /**
+     * @test
+     */
     public function testAddUser()
     {
         $user = new User(self::$db);
@@ -102,6 +137,7 @@ class UserTest extends TestCase
     }
 
     /**
+     * @test
      * @depends testIssetUserId
      */
     public function testAddApiToken()
@@ -127,6 +163,9 @@ class UserTest extends TestCase
         $this->assertEquals($token, $actual);
     }
 
+    /**
+     * @test
+     */
     protected function tearDown()
     {
         $this->data = null;
@@ -134,6 +173,9 @@ class UserTest extends TestCase
         self::$db->query("TRUNCATE TABLE api");
     }
 
+    /**
+     *
+     */
     public static function tearDownAfterClass()
     {
         self::$db = null;

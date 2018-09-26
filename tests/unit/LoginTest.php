@@ -7,10 +7,20 @@ use PFW\Models\Login;
 use PFW\Models\Auth;
 use PFW\Models\User;
 
+/**
+ * Class LoginTest
+ * @package PFW\Tests
+ */
 class LoginTest extends TestCase
 {
+    /**
+     * @var
+     */
     protected $data;
 
+    /**
+     *
+     */
     protected function setUp()
     {
         $this->data = [
@@ -21,6 +31,9 @@ class LoginTest extends TestCase
         $_SESSION['logged_user'] = 'for_unset';
     }
 
+    /**
+     * @test
+     */
     public function testLogin()
     {
         $login = new Login($this->data);
@@ -45,6 +58,9 @@ class LoginTest extends TestCase
         $this->assertEquals('test', $actual);
     }
 
+    /**
+     * @test
+     */
     public function testLoginReturnErrorWhenPasswordIsIncorrect()
     {
         $login = new Login($this->data);
@@ -60,6 +76,9 @@ class LoginTest extends TestCase
         $this->assertEquals(['Password is incorrect! Try again.'], $actual);
     }
 
+    /**
+     * @test
+     */
     public function testLoginReturnErrorWhenUserNotFound()
     {
         $login = new Login($this->data);
@@ -77,6 +96,9 @@ class LoginTest extends TestCase
         $this->assertEquals(['Users with that login not found! Try again or sign up on this site.'], $actual);
     }
 
+    /**
+     *
+     */
     protected function tearDown()
     {
         unset($_SESSION['logged_user']);

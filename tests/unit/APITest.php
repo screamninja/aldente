@@ -39,6 +39,7 @@ class APITest extends TestCase
     }
 
     /**
+     * @test
      * @return bool
      */
     public function testCheckToken()
@@ -62,6 +63,7 @@ class APITest extends TestCase
     }
 
     /**
+     * @test
      * @return bool
      */
     public function testCheckCount()
@@ -144,6 +146,7 @@ class APITest extends TestCase
     }
 
     /**
+     * @test
      * @depends testCheckToken
      * @depends testCheckCount
      */
@@ -180,7 +183,7 @@ class APITest extends TestCase
     }
 
     /**
-     *
+     * @test
      */
     public function testGetJson()
     {
@@ -191,7 +194,6 @@ class APITest extends TestCase
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
             ->getMock();
-
         $stub->method('getApiData')
             ->willReturn(['foo']);
 

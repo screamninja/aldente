@@ -7,10 +7,20 @@ use PFW\Models\Register;
 use PFW\Models\Auth;
 use PFW\Models\User;
 
+/**
+ * Class RegisterTest
+ * @package PFW\Tests
+ */
 class RegisterTest extends TestCase
 {
+    /**
+     * @var
+     */
     protected $data;
 
+    /**
+     *
+     */
     protected function setUp()
     {
         $this->data = [
@@ -22,6 +32,9 @@ class RegisterTest extends TestCase
         ];
     }
 
+    /**
+     * @test
+     */
     public function testSignUp()
     {
         $register = new Register($this->data);
@@ -37,6 +50,9 @@ class RegisterTest extends TestCase
         $this->assertEquals([], $actual);
     }
 
+    /**
+     * @test
+     */
     public function testSignUpReturnErrorWhenUserIsSet()
     {
         $register = new Register($this->data);
@@ -51,6 +67,9 @@ class RegisterTest extends TestCase
         $this->assertEquals(['An account already exists with this login or email address.'], $actual);
     }
 
+    /**
+     * @test
+     */
     public function testSignUpReturnErrorWhenUserDidntAdd()
     {
         $register = new Register($this->data);
@@ -66,6 +85,9 @@ class RegisterTest extends TestCase
         $this->assertEquals(['User didn\'t to add'], $actual);
     }
 
+    /**
+     *
+     */
     protected function tearDown()
     {
         $this->data = null;

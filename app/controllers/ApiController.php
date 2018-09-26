@@ -13,12 +13,20 @@ use PFW\Models\User;
  */
 class ApiController extends Controller
 {
+    protected $db;
+
+    public function __construct($route)
+    {
+        parent::__construct($route);
+        $this->db = Db::init();
+    }
+
     /**
      *
      */
     public function aboutAction()
     {
-        $vars = array();
+        $vars = [];
         $this->view->render('About API', $vars, true);
     }
 
@@ -27,10 +35,9 @@ class ApiController extends Controller
      */
     public function tokenAction()
     {
-        $vars = array();
+        $vars = [];
         if (isset($_POST['get_token'])) {
-            $db = Db::init();
-            $user = new User($db);
+            $user = new User($this->db);
             $token = $user->addApiToken($_SESSION['logged_user']);
             if (!isset($token['error'])) {
                 $vars = [
@@ -56,13 +63,12 @@ class ApiController extends Controller
             if ($data === null) {
                 $vars['error'] = [
                     'code' => '-32700',
-                    'message' => 'Parse error'
+                    'message' => 'Parse error',
                 ];
             }
             fclose($post);
             $token = $_SERVER['HTTP_X_AUTHORIZATION_TOKEN'];
-            $db = Db::init();
-            $api = new API($token, $db);
+            $api = new API($token, $this->db);
             $check = $api->checkResponse($data);
             if ($check) {
                 $method = $data['method'] ?? false;
@@ -73,7 +79,7 @@ class ApiController extends Controller
                         if ($result === false) {
                             $vars['error'] = [
                                 'code' => '-32600',
-                                'message' => 'Invalid Request'
+                                'message' => 'Invalid Request',
                             ];
                         }
                     } catch (\Throwable $e) {
@@ -81,26 +87,26 @@ class ApiController extends Controller
                         $logger->error($e->getMessage());
                         $vars['error'] = [
                             'code' => '-32603',
-                            'message' => 'Internal error'
+                            'message' => 'Internal error',
                         ];
                     }
                     $vars['news'] = $result ?? [];
                 } else {
                     $vars['error'] = [
                         'code' => '-32601',
-                        'message' => 'Method not found'
+                        'message' => 'Method not found',
                     ];
                 }
             } else {
                 $vars['error'] = [
                     'code' => '-32700',
-                    'message' => 'Parse error'
+                    'message' => 'Parse error',
                 ];
             }
         } else {
             $vars['error'] = [
                 'code' => '-32600',
-                'message' => 'Invalid Request'
+                'message' => 'Invalid Request',
             ];
         }
         if (isset($vars['error'])) {

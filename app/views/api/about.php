@@ -1,7 +1,4 @@
-<?php
-
-echo 'ABOUT PAGE';
-?>
+<?php echo 'ABOUT PAGE'; ?>
 
 <ul>
     <li><a href="/">Main page</a><br></li>
