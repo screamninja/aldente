@@ -134,69 +134,69 @@ class APITest extends TestCase
     /**
      * @test
      */
-    public function testCheckResponseIsValid()
+    public function testCheckRequestIsValid()
     {
-        $actual = $this->api->checkResponse($this->data);
+        $actual = $this->api->checkRequest($this->data);
         $this->assertTrue($actual);
     }
 
     /**
      * @test
      */
-    public function testCheckResponseReturnFalseWhenBodyIsEmpty()
+    public function testCheckRequestReturnFalseWhenBodyIsEmpty()
     {
         $this->data = [''];
-        $actual = $this->api->checkResponse($this->data);
+        $actual = $this->api->checkRequest($this->data);
         $this->assertFalse($actual);
     }
 
     /**
      * @test
      */
-    public function testCheckResponseReturnFalseWhenJsonVersionInvalid()
+    public function testCheckRequestReturnFalseWhenJsonVersionInvalid()
     {
         $this->data['jsonrpc'] = '1.0';
-        $actual = $this->api->checkResponse($this->data);
+        $actual = $this->api->checkRequest($this->data);
         $this->assertFalse($actual);
     }
 
     /**
      * @test
      */
-    public function testCheckResponseReturnFalseWhenMethodIsEmpty()
+    public function testCheckRequestReturnFalseWhenMethodIsEmpty()
     {
         $this->data['method'] = '';
-        $actual = $this->api->checkResponse($this->data);
+        $actual = $this->api->checkRequest($this->data);
         $this->assertFalse($actual);
     }
 
     /**
      * @test
      */
-    public function testCheckResponseReturnFalseWhenParamsIsEmpty()
+    public function testCheckRequestReturnFalseWhenParamsIsEmpty()
     {
         $this->data['params'] = '';
-        $actual = $this->api->checkResponse($this->data);
+        $actual = $this->api->checkRequest($this->data);
         $this->assertFalse($actual);
     }
 
     /**
      * @test
      */
-    public function testCheckResponseReturnFalseWhenIdIsEmpty()
+    public function testCheckRequestReturnFalseWhenIdIsEmpty()
     {
         $this->data['id'] = '';
-        $actual = $this->api->checkResponse($this->data);
+        $actual = $this->api->checkRequest($this->data);
         $this->assertFalse($actual);
     }
 
     /**
      * @test
      */
-    public function testCheckResponseReturnFalseWhenIdIsNotInteger()
+    public function testCheckRequestReturnFalseWhenIdIsNotInteger()
     {
         $this->data['id'] = 'one';
-        $actual = $this->api->checkResponse($this->data);
+        $actual = $this->api->checkRequest($this->data);
         $this->assertFalse($actual);
     }
 

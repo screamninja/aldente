@@ -76,7 +76,7 @@ class ApiController extends Controller
             fclose($post);
             $token = $_SERVER['HTTP_X_AUTHORIZATION_TOKEN'];
             $api = new API($token, $this->db);
-            $check = $api->checkResponse($data);
+            $check = $api->checkRequest($data);
             if ($check) {
                 $method = $data['method'] ?? false;
                 if (method_exists($api, $method)) {
@@ -97,7 +97,7 @@ class ApiController extends Controller
                             'message' => 'Internal error',
                         ];
                     }
-                    $vars['news'] = $result ?? [];
+                    $vars['api_data'] = $result ?? [];
                 } else {
                     $vars['error'] = [
                         'code' => '-32601',

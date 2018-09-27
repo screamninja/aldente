@@ -12,14 +12,28 @@
 </ul>
 
 <div>
+    <p>API Request Example</p>
+    <pre>
+{"jsonrpc": "2.0", "method": "getJson", "params": {"count": 2}, "id": 1}
+    </pre>
     <p>API Response Example</p>
     <pre>
 {
     "jsonrpc": "2.0",
-    "error": [
+    "result": [
         {
-            "code": "-32601",
-            "message": "Method not found"
+            "id": 1,
+            "title": "News One",
+            "text": "News One Text",
+            "author": null,
+            "post_date": null
+        },
+        {
+            "id": 2,
+            "title": "News Two",
+            "text": "News Two Text",
+            "author": null,
+            "post_date": null
         }
     ],
     "id": "1"

@@ -100,7 +100,7 @@ class API extends Model
      * @param array $data
      * @return bool
      */
-    public function checkResponse(array $data): bool
+    public function checkRequest(array $data): bool
     {
         $correct = true;
         if (isset($data) && is_array($data)) {
