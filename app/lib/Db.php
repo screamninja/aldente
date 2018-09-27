@@ -17,12 +17,24 @@ class Db
      */
     protected $db;
 
+    /**
+     * @var self
+     */
     private static $obj;
 
+    /**
+     * @var
+     */
     public static $exception;
 
+    /**
+     * @var
+     */
     public $config;
 
+    /**
+     * @return Db
+     */
     public static function init()
     {
         if (!self::$obj) {
@@ -55,7 +67,7 @@ class Db
     }
 
     /**
-     * Ииициируем подключение к бд
+     * connect and setup test db
      */
     public function setDb()
     {

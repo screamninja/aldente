@@ -27,7 +27,7 @@ use PFW\Lib\Routes\SyslogRoute;
 class LoggerConfig
 {
     /**
-     * @var
+     * @var Logger
      */
     private static $logger;
 

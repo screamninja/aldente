@@ -13,24 +13,28 @@ use PFW\Lib\Db;
 class UserTest extends TestCase
 {
     /**
-     * @var
+     * @var Db
      */
     protected static $db;
     /**
-     * @var
+     * @var User
+     */
+    protected $user;
+    /**
+     * @var array with sign up data from a form
      */
     protected $data;
     /**
-     * @var
+     * @var array with data for insert to Db users table
      */
     protected $usersParam;
     /**
-     * @var
+     * @var array with data for insert to Db news table
      */
     protected $apiParam;
 
     /**
-     *
+     * connect and setup test db
      */
     public static function setUpBeforeClass()
     {
@@ -46,10 +50,11 @@ class UserTest extends TestCase
     }
 
     /**
-     *
+     * set up fixtures
      */
     protected function setUp()
     {
+        $this->user = new User(self::$db);
         $this->data = [
             'login' => 'test',
             'email' => 'test@test.com',
@@ -82,10 +87,7 @@ class UserTest extends TestCase
                  VALUES (:login, :email, :password, :join_date, :unix_timestamp)",
             $this->usersParam
         );
-
-        $user = new User(self::$db);
-
-        $actual = $user->issetUser($this->data);
+        $actual = $this->user->issetUser($this->data);
         $this->assertTrue(true, $actual);
     }
 
@@ -100,10 +102,7 @@ class UserTest extends TestCase
                  VALUES (:user_id, :token, :daily_count, :last_get)",
             $this->apiParam
         );
-
-        $user = new User(self::$db);
-
-        $actual = $user->issetUserId('59');
+        $actual = $this->user->issetUserId('59');
         $this->assertTrue(true, $actual);
         return !$actual;
     }
@@ -118,10 +117,7 @@ class UserTest extends TestCase
                  VALUES (:login, :email, :password, :join_date, :unix_timestamp)",
             $this->usersParam
         );
-
-        $user = new User(self::$db);
-
-        $actual = $user->getUser($this->data);
+        $actual = $this->user->getUser($this->data);
         $this->assertEquals($this->usersParam += ['id' => '1'], $actual);
     }
 
@@ -130,9 +126,7 @@ class UserTest extends TestCase
      */
     public function testAddUser()
     {
-        $user = new User(self::$db);
-
-        $actual = $user->addUser($this->data);
+        $actual = $this->user->addUser($this->data);
         $this->assertTrue(true, $actual);
     }
 
@@ -147,10 +141,7 @@ class UserTest extends TestCase
                  VALUES (:login, :email, :password, :join_date, :unix_timestamp)",
             $this->usersParam
         );
-
-        $user = new User(self::$db);
-        $actual = $user->addApiToken('test');
-
+        $actual = $this->user->addApiToken('test');
         $stmt = self::$db->row(
             "SELECT * FROM api
                  WHERE user_id = 1"
@@ -159,12 +150,11 @@ class UserTest extends TestCase
         $token = [
             'token' => $stmt['token'],
         ];
-
         $this->assertEquals($token, $actual);
     }
 
     /**
-     *
+     * tear down fixtures
      */
     protected function tearDown()
     {
@@ -174,7 +164,7 @@ class UserTest extends TestCase
     }
 
     /**
-     *
+     * disconnect db
      */
     public static function tearDownAfterClass()
     {

@@ -4,20 +4,37 @@ namespace PFW\Models;
 
 use PFW\Core\Model;
 
+/**
+ * Class Auth
+ * @package PFW\Models
+ */
 class Auth extends Model
 {
+    /**
+     * @var array
+     */
     protected $data;
 
+    /**
+     * Auth constructor.
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         $this->data = $data;
     }
 
+    /**
+     * @return array
+     */
     public function getData(): array
     {
         return $this->data;
     }
 
+    /**
+     * @return array
+     */
     public function checkData(): array
     {
         $errors = [];
@@ -45,6 +62,10 @@ class Auth extends Model
         return $errors;
     }
 
+    /**
+     * @param array $stmt
+     * @return bool
+     */
     public function checkPassword(array $stmt): bool
     {
         $password = $this->data['password'];

@@ -14,12 +14,16 @@ use PFW\Models\User;
 class RegisterTest extends TestCase
 {
     /**
-     * @var
+     * @var array with sign up data from a form
      */
     protected $data;
+    /**
+     * @var Register
+     */
+    protected $register;
 
     /**
-     *
+     * set up fixtures
      */
     protected function setUp()
     {
@@ -30,15 +34,14 @@ class RegisterTest extends TestCase
             'password_2' => 'test',
             'do_sign_up' => '',
         ];
+        $this->register = new Register($this->data);
     }
 
     /**
      * @test
      */
-    public function testSignUp()
+    public function testSignUpReturnEmptyArrayWhenUserAdded()
     {
-        $register = new Register($this->data);
-
         $stubAuth = $this->createMock(Auth::class);
         $stubAuth->expects($this->once())->method('checkData')->willReturn([]);
 
@@ -46,24 +49,22 @@ class RegisterTest extends TestCase
         $stubUser->expects($this->once())->method('issetUser')->willReturn(false);
         $stubUser->expects($this->once())->method('addUser')->willReturn(true);
 
-        $actual = $register->signUp($stubAuth, $stubUser);
-        $this->assertEquals([], $actual);
+        $actual = $this->register->signUp($stubAuth, $stubUser);
+        $this->assertEmpty($actual);
     }
 
     /**
      * @test
      */
-    public function testSignUpReturnErrorWhenUserIsSet()
+    public function testSignUpReturnErrorWhenUserIsset()
     {
-        $register = new Register($this->data);
-
         $stubAuth = $this->createMock(Auth::class);
         $stubAuth->expects($this->once())->method('checkData')->willReturn([]);
 
         $stubUser = $this->createMock(User::class);
         $stubUser->expects($this->once())->method('issetUser')->willReturn(true);
 
-        $actual = $register->signUp($stubAuth, $stubUser);
+        $actual = $this->register->signUp($stubAuth, $stubUser);
         $this->assertEquals(['An account already exists with this login or email address.'], $actual);
     }
 
@@ -72,8 +73,6 @@ class RegisterTest extends TestCase
      */
     public function testSignUpReturnErrorWhenUserDidntAdd()
     {
-        $register = new Register($this->data);
-
         $stubAuth = $this->createMock(Auth::class);
         $stubAuth->expects($this->once())->method('checkData')->willReturn([]);
 
@@ -81,15 +80,16 @@ class RegisterTest extends TestCase
         $stubUser->expects($this->once())->method('issetUser')->willReturn(false);
         $stubUser->expects($this->once())->method('addUser')->willReturn(false);
 
-        $actual = $register->signUp($stubAuth, $stubUser);
+        $actual = $this->register->signUp($stubAuth, $stubUser);
         $this->assertEquals(['User didn\'t to add'], $actual);
     }
 
     /**
-     *
+     * tear down fixtures
      */
     protected function tearDown()
     {
         $this->data = null;
+        $this->register = null;
     }
 }

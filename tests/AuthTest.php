@@ -12,24 +12,24 @@ use PFW\Models\Auth;
 class AuthTest extends TestCase
 {
     /**
-     * @var
+     * @var array with login data from a form
      */
     protected $data;
     /**
-     * @var
+     * @var array with incorrect login data from a form
      */
     protected $bad_data;
     /**
-     * @var
+     * @var array with valid password hash
      */
-    protected $stmt;
+    protected $hash;
     /**
-     * @var
+     * @var array with invalid password hash
      */
-    protected $bad_stmt;
+    protected $bda_hash;
 
     /**
-     *
+     * set up fixtures
      */
     protected function setUp()
     {
@@ -43,10 +43,10 @@ class AuthTest extends TestCase
             'password' => 'test',
             'do_login' => '',
         ];
-        $this->stmt = [
+        $this->hash = [
             'password' => '$2y$10$FvKqntyZlJikpYxTdVhIve3dgcwxyCEE7Vl1jGkxX5eu6n/pqcKWi',
         ];
-        $this->bad_stmt = [
+        $this->bda_hash = [
             'password' => '$2y$10$4zNZIeQj7SofHU989A3BUOni9Hk7jo7Ua4pKXK2VGI/MR9P7r3..i',
         ];
     }
@@ -84,20 +84,31 @@ class AuthTest extends TestCase
     /**
      * @test
      */
-    public function testCheckPasswordReturnTrue()
+    public function testCheckPasswordIsValid()
     {
         $auth = new Auth($this->data);
-        $actual = $auth->checkPassword($this->stmt);
+        $actual = $auth->checkPassword($this->hash);
         $this->assertTrue($actual);
     }
 
     /**
      * @test
      */
-    public function testCheckPasswordReturnFalse()
+    public function testCheckPasswordInvalid()
     {
         $auth = new Auth($this->data);
-        $actual = $auth->checkPassword($this->bad_stmt);
+        $actual = $auth->checkPassword($this->bda_hash);
         $this->assertFalse($actual);
+    }
+
+    /**
+     * tear down fixtures
+     */
+    protected function tearDown()
+    {
+        $this->data = null;
+        $this->bad_data = null;
+        $this->hash = null;
+        $this->bda_hash = null;
     }
 }

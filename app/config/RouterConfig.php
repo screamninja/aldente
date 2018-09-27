@@ -9,7 +9,7 @@ namespace PFW\Config;
 class RouterConfig
 {
     /**
-     * @return array
+     * @return array with routes
      */
     public static function get(): array
     {

@@ -13,8 +13,15 @@ use PFW\Models\User;
  */
 class ApiController extends Controller
 {
+    /**
+     * @var Db
+     */
     protected $db;
 
+    /**
+     * ApiController constructor.
+     * @param $route
+     */
     public function __construct($route)
     {
         parent::__construct($route);
@@ -53,7 +60,7 @@ class ApiController extends Controller
     }
 
     /**
-     *
+     * JSON-RPC method
      */
     public function getAction()
     {

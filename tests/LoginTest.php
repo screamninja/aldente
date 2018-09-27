@@ -14,12 +14,16 @@ use PFW\Models\User;
 class LoginTest extends TestCase
 {
     /**
-     * @var
+     * @var array with login data from a form
      */
     protected $data;
+    /**
+     * @var Login
+     */
+    protected $login;
 
     /**
-     *
+     * set up fixtures
      */
     protected function setUp()
     {
@@ -28,6 +32,7 @@ class LoginTest extends TestCase
             'password' => 'test',
             'do_login' => '',
         ];
+        $this->login = new Login($this->data);
         $_SESSION['logged_user'] = 'for_unset';
     }
 
@@ -36,8 +41,6 @@ class LoginTest extends TestCase
      */
     public function testLogin()
     {
-        $login = new Login($this->data);
-
         $stubAuth = $this->createMock(Auth::class);
         $stubAuth->expects($this->once())->method('checkData')->willReturn([]);
         $stubAuth->expects($this->once())->method('checkPassword')->willReturn(true);
@@ -52,10 +55,8 @@ class LoginTest extends TestCase
             'unix_timestamp' => '1537215535',
         ]);
 
-        $login->login($stubAuth, $stubUser);
-
-        $actual = $_SESSION['logged_user'];
-        $this->assertEquals('test', $actual);
+        $this->login->login($stubAuth, $stubUser);
+        $this->assertEquals('test', $_SESSION['logged_user']);
     }
 
     /**
@@ -63,15 +64,13 @@ class LoginTest extends TestCase
      */
     public function testLoginReturnErrorWhenPasswordIsIncorrect()
     {
-        $login = new Login($this->data);
-
         $stubAuth = $this->createMock(Auth::class);
         $stubAuth->expects($this->once())->method('checkData')->willReturn([]);
         $stubAuth->expects($this->once())->method('checkPassword')->willReturn(false);
 
         $stubUser = $this->createMock(User::class);
 
-        $actual = $login->login($stubAuth, $stubUser);
+        $actual = $this->login->login($stubAuth, $stubUser);
 
         $this->assertEquals(['Password is incorrect! Try again.'], $actual);
     }
@@ -81,8 +80,6 @@ class LoginTest extends TestCase
      */
     public function testLoginReturnErrorWhenUserNotFound()
     {
-        $login = new Login($this->data);
-
         $stubAuth = $this->createMock(Auth::class);
         $stubAuth->expects($this->once())->method('checkData')->willReturn([]);
 
@@ -91,16 +88,18 @@ class LoginTest extends TestCase
             'error' => 'User not found!',
         ]);
 
-        $actual = $login->login($stubAuth, $stubUser);
+        $actual = $this->login->login($stubAuth, $stubUser);
 
         $this->assertEquals(['Users with that login not found! Try again or sign up on this site.'], $actual);
     }
 
     /**
-     *
+     * tear down fixtures
      */
     protected function tearDown()
     {
+        $this->login = null;
+        $this->data = null;
         unset($_SESSION['logged_user']);
     }
 }

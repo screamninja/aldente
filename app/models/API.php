@@ -11,12 +11,18 @@ use PFW\Lib\Db;
  */
 class API extends Model
 {
+    /**
+     *
+     */
     const DAY_COUNT = 100;
 
     /**
      * @var string
      */
     private $token;
+    /**
+     * @var Db
+     */
     private $db;
 
     /**
