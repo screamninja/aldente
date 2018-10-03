@@ -33,7 +33,7 @@ class LoginTest extends TestCase
             'do_login' => '',
         ];
         $this->login = new Login($this->data);
-        $_SESSION['logged_user'] = 'for_unset';
+        //$_SESSION['logged_user'] = 'for_unset'; //todo
     }
 
     /**

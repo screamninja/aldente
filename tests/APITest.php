@@ -225,7 +225,7 @@ class APITest extends TestCase
         );
         $actual = $this->api->getApiData(1);
         $actual = array_shift($actual);
-        $this->assertEquals($param += ['id' => '1'], $actual);
+        $this->assertEquals(array_merge($param, ['id' => '1']), $actual);
     }
 
     /**

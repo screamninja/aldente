@@ -62,6 +62,7 @@ class AuthTest extends TestCase
     }
 
     /**
+     * //todo  2х словах что проверяем
      * @test
      */
     public function testCheckDataReturnEmptyArray()
