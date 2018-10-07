@@ -14,7 +14,7 @@ class Login extends Model
     /**
      * @var array
      */
-    private $data;
+    protected $data;
 
     /**
      * Login constructor.
