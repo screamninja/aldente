@@ -48,6 +48,21 @@ class RouterConfig
                 'controller' => 'api',
                 'action' => 'token',
             ],
+
+            'ajax/login' => [
+                'controller' => 'ajax',
+                'action' => 'login',
+            ],
+
+            'ajax/register' => [
+                'controller' => 'ajax',
+                'action' => 'register',
+            ],
+
+            'ajax/token' => [
+                'controller' => 'ajax',
+                'action' => 'token',
+            ],
         ];
     }
 }

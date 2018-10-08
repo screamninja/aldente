@@ -32,20 +32,21 @@ class Login extends Model
      */
     public function login(Auth $auth, User $user): array
     {
-        $errors = $auth->checkData();
+        $notice = $auth->checkData();
         $user = $user->getUser($this->data);
-        if (empty($errors)) {
+        if (empty($notice)) {
             if (empty($user['error'])) {
                 $verify = $auth->checkPassword($user);
                 if ($verify) {
                     $_SESSION['logged_user'] = $user['login'];
+                    $notice['user'] = $user['login'];
                 } else {
-                    $errors[] = 'Password is incorrect! Try again.';
+                    $notice['error'] = 'Password is incorrect! Try again.';
                 }
             } else {
-                $errors[] = 'Users with that login not found! Try again or sign up on this site.';
+                $notice['error'] = 'Users with that login not found! Try again or sign up on this site.';
             }
         }
-        return $errors;
+        return $notice;
     }
 }

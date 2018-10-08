@@ -41,7 +41,7 @@ class AccountController extends Controller
      */
     public function loginAction()
     {
-        $vars = [];
+        $vars = array();
         if ($_POST) {
             $login = new Login($_POST);
             $errors = $login->login($this->auth, $this->user);

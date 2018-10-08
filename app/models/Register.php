@@ -31,16 +31,16 @@ class Register extends Model
      */
     public function signUp(Auth $auth, User $user): array
     {
-        $errors = $auth->checkData();
+        $notice = $auth->checkData();
         $user_isset = $user->issetUser($this->data);
         if ($user_isset) {
-            $errors[] = 'An account already exists with this login or email address.';
+            $notice['error'] = 'An account already exists with this login or email address.';
         }
-        if (empty($errors)) {
+        if (empty($notice)) {
             if (!$user->addUser($this->data)) {
-                $errors[] = 'User didn\'t to add';
+                $notice['error'] = 'User didn\'t to add';
             }
         }
-        return $errors;
+        return $notice;
     }
 }
