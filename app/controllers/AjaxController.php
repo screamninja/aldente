@@ -7,6 +7,7 @@ use PFW\Lib\Db;
 use PFW\Models\Auth;
 use PFW\Models\User;
 use PFW\Models\Login;
+use PFW\Models\Register;
 use PFW\Models\API;
 
 class AjaxController extends Controller
@@ -26,14 +27,21 @@ class AjaxController extends Controller
     {
         if ($_POST) {
             $login = new Login($_POST);
-            $json = $login->login($this->auth, $this->user);
-            echo json_encode($json);
+            $notice = $login->login($this->auth, $this->user);
+            echo json_encode($notice);
         }
     }
 
     public function registerAction()
     {
-        //
+        if ($_POST) {
+            $register = new Register($_POST);
+            $notice = $register->signUp($this->auth, $this->user);
+            if (!$notice) {
+                $notice['succes'] = 'OK!';
+            }
+            echo json_encode($notice);
+        }
     }
 
     public function tokenAction()

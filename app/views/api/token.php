@@ -21,7 +21,7 @@ if (isset($_POST['get_token'])) {
 </ul>
 
 <?php if (isset($_SESSION['logged_user'])) : ?>
-    <form action="/api/token" method="post">
+    <form id="token-form" action="/api/token" method="post">
         <p>Get Token as: <?php echo $_SESSION['logged_user'] ?></p>
         <button type="submit" name="get_token">Get Token!</button>
     </form>
