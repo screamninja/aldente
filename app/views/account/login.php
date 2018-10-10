@@ -5,18 +5,26 @@ if (isset($_SESSION['logged_user'])) {
     exit;
 }
 
+if (isset($data['do_login'])) {
+    if (!empty($errors)) {
+        echo '<div style = "color: red;">' . array_shift($errors) . '</div><hr>';
+    } else {
+        header('Location: /');
+    }
+}
+
 ?>
 
 <p id="notice" style="color: red"></p>
 
 <h2>Login to Your Account</h2>
 
-<form id="login-form" enctype="application/x-www-form-urlencoded" action="/ajax/login" method="post">
+<form id="login-form" action="/account/login" method="post">
     <label for="login">Login</label>
-    <input type="text" name="login" id="login">
+    <input type="text" id="login" name="login">
     <label for="password">Password</label>
-    <input type="password" name="password" id="password">
-    <button type="submit" name="do_login" id="do_login">Login!</button>
+    <input type="password" id="password" name="password">
+    <button type="submit" id="do_login" name="do_login">Login!</button>
 </form>
 
 <p><a href="/">Go to Main Page</a></p>

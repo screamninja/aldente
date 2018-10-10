@@ -62,7 +62,7 @@ class AuthTest extends TestCase
     }
 
     /**
-     * //todo  2х словах что проверяем
+     * if successful, the method returns an empty array
      * @test
      */
     public function testCheckDataReturnEmptyArray()
@@ -79,7 +79,7 @@ class AuthTest extends TestCase
     {
         $auth = new Auth($this->bad_data);
         $actual = $auth->checkData();
-        $this->assertEquals(['Login is required'], $actual);
+        $this->assertEquals(['error' => 'Login is required'], $actual);
     }
 
     /**

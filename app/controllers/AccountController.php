@@ -71,17 +71,14 @@ class AccountController extends Controller
         $vars = [];
         if ($_POST) {
             $register = new Register($_POST);
-            $errors = $register->exception;
-            if ($errors) {
+            $notice = $register->signUp($this->auth, $this->user);
+            if ($notice['error']) {
                 $vars = [
-                    'errors' => [$errors],
-                    'data' => ['do_sign_up' => 1],
+                    'error' => $notice['error'],
                 ];
             } else {
-                $errors = $register->signUp($this->auth, $this->user);
                 $vars = [
-                    'errors' => $errors,
-                    'data' => $this->auth->getData(),
+                    'user' => $notice['user'],
                 ];
             }
         }

@@ -33,7 +33,6 @@ class LoginTest extends TestCase
             'do_login' => '',
         ];
         $this->login = new Login($this->data);
-        //$_SESSION['logged_user'] = 'for_unset'; //todo
     }
 
     /**
@@ -57,6 +56,7 @@ class LoginTest extends TestCase
 
         $this->login->login($stubAuth, $stubUser);
         $this->assertEquals('test', $_SESSION['logged_user']);
+        unset($_SESSION['logged_user']);
     }
 
     /**
@@ -72,7 +72,7 @@ class LoginTest extends TestCase
 
         $actual = $this->login->login($stubAuth, $stubUser);
 
-        $this->assertEquals(['Password is incorrect! Try again.'], $actual);
+        $this->assertEquals(['error' => 'Password is incorrect! Try again.'], $actual);
     }
 
     /**
@@ -90,7 +90,9 @@ class LoginTest extends TestCase
 
         $actual = $this->login->login($stubAuth, $stubUser);
 
-        $this->assertEquals(['Users with that login not found! Try again or sign up on this site.'], $actual);
+        $this->assertEquals([
+            'error' => 'Users with that login not found! Try again or sign up on this site.',
+        ], $actual);
     }
 
     /**
@@ -100,6 +102,5 @@ class LoginTest extends TestCase
     {
         $this->login = null;
         $this->data = null;
-        unset($_SESSION['logged_user']);
     }
 }

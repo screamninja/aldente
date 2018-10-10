@@ -8,7 +8,6 @@ use PFW\Models\Auth;
 use PFW\Models\User;
 use PFW\Models\Login;
 use PFW\Models\Register;
-use PFW\Models\API;
 
 class AjaxController extends Controller
 {
@@ -37,15 +36,24 @@ class AjaxController extends Controller
         if ($_POST) {
             $register = new Register($_POST);
             $notice = $register->signUp($this->auth, $this->user);
-            if (!$notice) {
-                $notice['succes'] = 'OK!';
-            }
             echo json_encode($notice);
         }
     }
 
     public function tokenAction()
     {
-        //
+        if (isset($_POST['get_token'])) {
+            $token = $this->user->addApiToken($_SESSION['logged_user']);
+            if (!isset($token['error'])) {
+                $notice = [
+                    'token' => $token['token'],
+                ];
+            } else {
+                $notice = [
+                    'error' => $token['error'],
+                ];
+            }
+            echo json_encode($notice);
+        }
     }
 }

@@ -11,19 +11,21 @@ if (isset($_POST['get_token'])) {
 }
 
 ?>
-<p><strong>Get your API Token!</strong></p>
+    <p><strong>Get your API Token!</strong></p>
 
-<ul>
-    <li><a href="/">Main page</a><br></li>
-    <li><a href="/api/about">API</a><br></li>
-    <li><a href="../account/login">Login page</a><br></li>
-    <li><a href="../account/register">Register page</a><br></li>
-</ul>
+    <ul>
+        <li><a href="/">Main page</a><br></li>
+        <li><a href="/api/about">API</a><br></li>
+        <li><a href="../account/login">Login page</a><br></li>
+        <li><a href="../account/register">Register page</a><br></li>
+    </ul>
+
+    <p id="notice" style="color: red"></p>
 
 <?php if (isset($_SESSION['logged_user'])) : ?>
     <form id="token-form" action="/api/token" method="post">
         <p>Get Token as: <?php echo $_SESSION['logged_user'] ?></p>
-        <button type="submit" name="get_token">Get Token!</button>
+        <button type="submit" id="get_token" name="get_token">Get Token!</button>
     </form>
 <?php else : ?>
     <p>For get API key you must be logged!</p></br>
@@ -32,3 +34,5 @@ if (isset($_POST['get_token'])) {
         <li><a href="../account/register">Register page</a><br></li>
     </ul>
 <?php endif; ?>
+
+<script src="/scripts/ajax.js"></script>

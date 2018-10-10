@@ -33,12 +33,14 @@ class Register extends Model
     {
         $notice = $auth->checkData();
         $user_isset = $user->issetUser($this->data);
-        if ($user_isset) {
-            $notice['error'] = 'An account already exists with this login or email address.';
-        }
         if (empty($notice)) {
-            if (!$user->addUser($this->data)) {
+            if ($user_isset) {
+                $notice['error'] = 'An account already exists with this login or email address.';
+            } elseif (!$user->addUser($this->data)) {
                 $notice['error'] = 'User didn\'t to add';
+            } else {
+                $notice['user'] = $this->data['login'];
+                $_SESSION['logged_user'] = $this->data['login'];
             }
         }
         return $notice;

@@ -40,7 +40,7 @@ class RegisterTest extends TestCase
     /**
      * @test
      */
-    public function testSignUpReturnEmptyArrayWhenUserAdded()
+    public function testSignUpReturnArrayWithLoginWhenUserAdded()
     {
         $stubAuth = $this->createMock(Auth::class);
         $stubAuth->expects($this->once())->method('checkData')->willReturn([]);
@@ -50,7 +50,7 @@ class RegisterTest extends TestCase
         $stubUser->expects($this->once())->method('addUser')->willReturn(true);
 
         $actual = $this->register->signUp($stubAuth, $stubUser);
-        $this->assertEmpty($actual);
+        $this->assertEquals(['user' => $this->data['login']], $actual);
     }
 
     /**
@@ -65,7 +65,7 @@ class RegisterTest extends TestCase
         $stubUser->expects($this->once())->method('issetUser')->willReturn(true);
 
         $actual = $this->register->signUp($stubAuth, $stubUser);
-        $this->assertEquals(['An account already exists with this login or email address.'], $actual);
+        $this->assertEquals(['error' => 'An account already exists with this login or email address.'], $actual);
     }
 
     /**
@@ -81,7 +81,7 @@ class RegisterTest extends TestCase
         $stubUser->expects($this->once())->method('addUser')->willReturn(false);
 
         $actual = $this->register->signUp($stubAuth, $stubUser);
-        $this->assertEquals(['User didn\'t to add'], $actual);
+        $this->assertEquals(['error' => 'User didn\'t to add'], $actual);
     }
 
     /**

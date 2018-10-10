@@ -118,7 +118,7 @@ class UserTest extends TestCase
             $this->usersParam
         );
         $actual = $this->user->getUser($this->data);
-        $this->assertEquals($this->usersParam += ['id' => '1'], $actual); //todo array_meree
+        $this->assertEquals(array_merge($this->usersParam, ['id' => '1']), $actual);
     }
 
     /**
