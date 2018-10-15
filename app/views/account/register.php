@@ -1,13 +1,17 @@
 <?php
+if (isset($_POST['ajax_switch_on'])) {
+    unset($_SESSION['ajax_switch_off']);
+}
 
 if (isset($_POST['do_sign_up'])) {
     if (isset($user)) {
         echo "<div style = \"color: green;\">Registration successful!</div></br>
               <div><a href=\"/\">Main page</a></div><hr>";
     } else {
-        echo '<div style = "color: red;">'
-            . $error ?? 'Something went wrong... Please contact with our support.'
-            . '</div><hr>';
+        foreach ($error as $errors) {
+            echo '<div style = "color: red;">' . array_shift($error) . '</div>';
+        }
+        echo '<hr>';
     }
 }
 
@@ -31,4 +35,13 @@ if (isset($_POST['do_sign_up'])) {
 
 <p><a href="/">Go to Main Page</a></p>
 
-<script src="/scripts/ajax.js"></script>
+<?php if (isset($_SESSION['ajax_switch_off'])) : ?>
+    <form id="ajax-switch-on" action="/account/register" method="post">
+        <button type="submit" id="ajax_switch_on" name="ajax_switch_on">Turn on AJAX!</button>
+    </form>
+<?php else : ?>
+    <script src="/scripts/ajax.js"></script>
+    <form id="ajax-switch-off" action="/account/register" method="post">
+        <button type="submit" id="ajax_switch_off" value="register" name="ajax_switch_off">Turn off AJAX!</button>
+    </form>
+<?php endif; ?>

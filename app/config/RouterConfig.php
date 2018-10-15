@@ -63,6 +63,11 @@ class RouterConfig
                 'controller' => 'ajax',
                 'action' => 'token',
             ],
+
+            'ajax/switch' => [
+                'controller' => 'ajax',
+                'action' => 'switch',
+            ],
         ];
     }
 }

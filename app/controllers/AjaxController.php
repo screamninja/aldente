@@ -22,6 +22,13 @@ class AjaxController extends Controller
         $this->user = new User($db);
     }
 
+    public function switchAction()
+    {
+        if (isset($_POST['ajax'])) {
+            $_SESSION['ajax_switch_off'] = '1';
+        }
+    }
+
     public function loginAction()
     {
         if ($_POST) {

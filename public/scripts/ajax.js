@@ -11,6 +11,20 @@ function getForm(e) {
     if (e.target.id === 'token-form') {
         ajaxToken();
     }
+    if (e.target.id === 'ajax-switch-off') {
+        ajaxSwitchOff();
+    }
+}
+
+function ajaxSwitchOff() {
+    var value = "ajax=";
+    var loc = document.getElementById('ajax_switch_off').value;
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/ajax/switch', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send(value);
+    alert('AJAX turned off!');
+    location.replace(loc);
 }
 
 function ajaxLogin() {
@@ -67,7 +81,6 @@ function ajaxRegister() {
 
 function ajaxToken() {
     var user = "get_token=";
-
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/ajax/token', true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

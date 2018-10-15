@@ -40,24 +40,26 @@ class Auth extends Model
         $errors = [];
         if (isset($this->data['do_sign_up'])) {
             if (trim($this->data['login']) == '') {
-                $errors['error'] = 'Login is required';
+                $errors['error'][] = ' Login is required';
             }
             if (trim($this->data['email']) == '') {
-                $errors['error'] = 'Email is required';
+                $errors['error'][] = ' Email is required';
             }
             if ($this->data['password'] == '') {
-                $errors['error'] = 'Password is required';
+                $errors['error'][] = ' Password is required';
             }
             if ($this->data['password_2'] != $this->data['password']) {
-                $errors['error'] = 'Password do not match';
+                $errors['error'][] = ' Password do not match';
             }
         } elseif (isset($this->data['do_login'])) {
             if (trim($this->data['login']) == '') {
-                $errors['error'] = 'Login is required';
+                $errors['error'][] = ' Login is required';
             }
             if ($this->data['password'] == '') {
-                $errors['error'] = 'Password is required';
+                $errors['error'][] = ' Password is required';
             }
+        } elseif (!isset($this->data['do_sign_up']) && !isset($this->data['do_login'])) {
+            $errors['error'][] = '';
         }
         return $errors;
     }
