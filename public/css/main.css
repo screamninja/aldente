@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css?family=Niramit|PT+Sans');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+h2 {
+    text-align: center;
+    padding: 15px 15px 15px 15px;
+}
+
+h3 {
+    padding: 15px 15px 15px 45px;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'PT-Sans', sans-serif;
+    background-color: #F0F1F1;
+}
+
+hr {
+    width: 50%;
+    margin: 0 25% 0 25%;
+}
+
+form {
+    clear:both;
+    text-align:right;
+    line-height:25px;
+}
+
+form button {
+    text-align: left;
+}
+
+label {
+    float:left;
+    padding-right:10px;
+}
+
+button {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    border: 1px solid white;
+    padding: 0 1rem;
+}
+
+.form {
+    float:left;
+}
+
+.container {
+    max-width: 1220px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.page-header-board{
+    background-color: #f1f1f1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-logo {
+    max-width: 100%;
+}
+
+.page-header-caption {
+    font-family: 'Niramit', sans-serif;
+    font-size: 60px;
+    line-height: 40px;
+    color: #083B43;
+    position: relative;
+    top: 20px;
+}
+
+.page-header-caption-sub{
+    font-size: 30px;
+}
+
+.header-links {
+    background-color: #333;
+    height: 50px;
+}
+
+.header-links-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-menu {
+    display: flex;
+    justify-content: space-between;
+    transition: 0.3s ease;
+}
+
+.header-link{
+    display: block;
+    color: #fff;
+    padding: 0 20px;
+    line-height: 50px;
+}
+
+.header-link:hover{
+    background-color: #fff;
+    color: #333;
+}
+
+.header-dropdown-link:hover .header-dropdown-menu{
+    visibility: visible;
+    opacity: 1;
+}
+
+.header-dropdown-menu {
+    transition: 0.3s ease;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    background-color: #333;
+}
+
+.header-auth-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-login {
+    background-color: #2bcdff;
+}
+
+.header-register {
+    background-color: #79d195;
+}
+
+.header-auth-wrapper {
+    position: relative;
+    color: #fff;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.description-show-link-wrapper{
+    position: absolute;
+    left: -30px;
+    top: 0;
+}
+
+.description-show-link{
+    display: block;
+    width: 25px;
+    text-align: center;
+    line-height: 50px;
+    transition: 0.3s ease;
+}
+
+.arrow-down{
+    border: solid #fff;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(45deg);
+}
+
+.profile-description {
+    visibility: hidden;
+    opacity: 0;
+    padding: 10px;
+    position: absolute;
+    width: 300px;
+    top: 50px;
+    background-color: #333;
+    color: #fff;
+    transition: 0.3s ease;
+    transform: translateY(-10px);
+}
+
+.description-show-link-wrapper:hover .description-show-link{
+    transform: rotate(180deg);
+}
+
+.description-show-link-wrapper:hover .profile-description{
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.user-profile-login {
+    color: #fff;
+}
+
+.profile-description-link {
+    color: #F1F1F1;
+    font-size: 18px;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1220px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+main p {
+    padding: 15px 15px 15px 15px;
+}
+
+.news {
+    width: 100%;
+    min-height: 250px;
+    margin: 10px 10px 0 10px;
+    background-color: #d3d3d3;
+}
+
+.ad {
+    display: flex;
+    width: 100%;
+    min-height: 150px;
+    margin: 10px 10px 0 10px;
+    background-color: #d3d3d3;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.info {
+    width: 100%;
+    height: 150px;
+    margin: 10px 10px 5px 10px;
+    background-color: #d3d3d3;
+}
+
+.ad img {
+    height: 100%;
+    padding: 10px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #363636;
+}
+
+.copyright-wrapper {
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+
+.copyright-wrapper p {
+    font-family: 'Niramit', sans-serif;
+    font-size: 20px;
+    line-height: 40px;
+    color: #F1F1F1;
+}

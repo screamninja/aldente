@@ -1,23 +1,11 @@
-<?php echo 'ABOUT PAGE'; ?>
-
-<ul>
-    <li><a href="/">Main page</a><br></li>
-    <li><a href="/api/about">API</a><br></li>
-    <li><a href="../account/login">Login page</a><br></li>
-    <li><a href="../account/register">Register page</a><br></li>
-</ul>
-
-<ul>
-    <li><a href="/api/token">Get API Token</a><br></li>
-</ul>
-
-<div>
-    <p>API Request Example</p>
-    <pre>
+<main>
+    <section>
+        <h3>API Request Example</h3>
+        <pre>
 {"jsonrpc": "2.0", "method": "getJson", "params": {"count": 2}, "id": 1}
     </pre>
-    <p>API Response Example</p>
-    <pre>
+        <h3>API Response Example</h3>
+        <pre>
 {
     "jsonrpc": "2.0",
     "result": [
@@ -39,4 +27,8 @@
     "id": "1"
 }
     </pre>
-</div>
+        <form action="http://php.fw/api/token" method="post">
+            <button type="submit">Get API Token</button>
+        </form>
+    </section>
+</main>

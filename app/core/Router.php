@@ -25,8 +25,8 @@ class Router
     public function __construct()
     {
         session_start();
-        $dir_name = dirname(__DIR__) . '/';
-        define('PROJECT_DIR', $dir_name);
+        $dir_name = \dirname(__DIR__) . '/';
+        \define('PROJECT_DIR', $dir_name);
         $arr = RouterConfig::get();
         foreach ($arr as $key => $val) {
             $this->add($key, $val);

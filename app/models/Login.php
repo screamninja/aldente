@@ -39,6 +39,7 @@ class Login extends Model
                 $verify = $auth->checkPassword($user);
                 if ($verify) {
                     $_SESSION['logged_user'] = $user['login'];
+                    $_SESSION['logged_email'] = $user['email'];
                     $notice['user'] = $user['login'];
                 } else {
                     $notice['error'][] = 'Password is incorrect! Try again.';
