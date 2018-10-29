@@ -6,7 +6,7 @@ This is a simple PHP framework for web applications.
 
 ## Highlights
 * Object oriented
-* Based on MVC
+* Based on Model–View–Controller (MVC) pattern
 * MySQL database usage
 * The PHP Data Objects (PDO) conections to database
 * Logging with PSR-3
