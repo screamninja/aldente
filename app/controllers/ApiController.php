@@ -31,15 +31,6 @@ class ApiController extends Controller
     /**
      *
      */
-    public function aboutAction()
-    {
-        $vars = [];
-        $this->view->render('About API', $vars, true);
-    }
-
-    /**
-     *
-     */
     public function tokenAction()
     {
         $vars = [];

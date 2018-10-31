@@ -39,11 +39,6 @@ class RouterConfig
                 'action' => 'get',
             ],
 
-            'api/about' => [
-                'controller' => 'api',
-                'action' => 'about',
-            ],
-
             'api/token' => [
                 'controller' => 'api',
                 'action' => 'token',
@@ -67,6 +62,41 @@ class RouterConfig
             'ajax/switch' => [
                 'controller' => 'ajax',
                 'action' => 'switch',
+            ],
+
+            // TODO: add news method in to pages controller
+            'news' => [
+                'controller' => 'pages',
+                'action' => 'news',
+            ],
+
+            // TODO: add json method in to pages controller
+            'features/api' => [
+                'controller' => 'pages',
+                'action' => 'api',
+            ],
+
+            // TODO: add ajax method in to pages controller
+            'features/ajax' => [
+                'controller' => 'pages',
+                'action' => 'ajax',
+            ],
+
+            // TODO: add logger method in to pages controller
+            'features/logger' => [
+                'controller' => 'pages',
+                'action' => 'logger',
+            ],
+
+            // TODO: add about method in to pages controller
+            'about' => [
+                'controller' => 'pages',
+                'action' => 'about',
+            ],
+            // TODO: add contact method in to pages controller
+            'contact' => [
+                'controller' => 'pages',
+                'action' => 'contact',
             ],
         ];
     }

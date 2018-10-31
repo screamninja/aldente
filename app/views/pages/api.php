@@ -27,7 +27,7 @@
     "id": "1"
 }
     </pre>
-        <form action="http://php.fw/api/token" method="post">
+        <form action="/api/token" method="post">
             <button type="submit">Get API Token</button>
         </form>
     </section>
