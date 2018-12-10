@@ -1,4 +1,0 @@
-Fri, 17 Aug 2018 15:01:54 +0300 error SQLSTATE[HY000] [1044] Access denied for user 'pfw_admin'@'localhost' to database 'pfw_db1'
-Fri, 17 Aug 2018 15:17:34 +0300 error SQLSTATE[HY000] [1044] Access denied for user 'pfw_admin'@'localhost' to database 'pfw_db1'
-Fri, 17 Aug 2018 15:19:06 +0300 error SQLSTATE[HY000] [1044] Access denied for user 'pfw_admin'@'localhost' to database 'pfw_db1'
-Fri, 17 Aug 2018 15:39:36 +0300 error SQLSTATE[HY000] [1045] Access denied for user 'pfw_admin'@'localhost' (using password: YES)
