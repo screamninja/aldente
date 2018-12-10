@@ -25,6 +25,8 @@ class Register extends Model
     }
 
     /**
+     * Checking data from form, checking user in db, add user in db and set logged user in session
+     * or return error
      * @param Auth $auth
      * @param User $user
      * @return array

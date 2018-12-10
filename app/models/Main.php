@@ -12,12 +12,12 @@ use PFW\Lib\Db;
 class Main extends Model
 {
     /**
-     * @return array with news from DB
+     * Show news from Db
+     * @return array
      */
     public function showNews(): array
     {
         $db = Db::init();
-        $result = $db->row('SELECT title, text, author, post_date FROM news');
-        return $result;
+        return $db->row('SELECT title, text, author, post_date FROM news');
     }
 }

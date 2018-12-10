@@ -23,19 +23,20 @@ class Db
     private static $obj;
 
     /**
-     * @var
+     * @var \Exception
      */
     public static $exception;
 
     /**
-     * @var
+     * @var array
      */
     public $config;
 
     /**
+     * Singleton MySQL connection
      * @return Db
      */
-    public static function init()
+    public static function init(): Db
     {
         if (!self::$obj) {
             try {
@@ -59,22 +60,25 @@ class Db
     }
 
     /**
+     * Setup Db config
      * @param array $config
+     * @return void
      */
-    public function setConfig(array $config)
+    public function setConfig(array $config): void
     {
         $this->config = $config;
     }
 
     /**
-     * connect and setup test db
+     * Connect and setup Db
+     * @return void
      */
-    public function setDb()
+    public function setDb(): void
     {
         $options = [
             PDO::ATTR_EMULATE_PREPARES => false, // turn off emulation mode for "real" prepared statements
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, //turn on errors in the form of exceptions
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, //make the default fetch be an associative array
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // turn on errors in the form of exceptions
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // make the default fetch be an associative array
         ];
         $this->db = new PDO(
             'mysql:host=' . $this->config['host'] . ';dbname=' . $this->config['name'] . '',
@@ -85,6 +89,7 @@ class Db
     }
 
     /**
+     * Make custom query to Db with placeholders
      * @param $sql
      * @param array $params
      * @return bool|\PDOStatement
@@ -102,17 +107,19 @@ class Db
     }
 
     /**
+     * Make row query to Db and return result
      * @param $sql
      * @param array $params
      * @return array
      */
-    public function row($sql, $params = [])
+    public function row($sql, $params = []): array
     {
         $result = $this->query($sql, $params);
         return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
+     * Make column query to Db and return result
      * @param $sql
      * @param array $params
      * @return mixed

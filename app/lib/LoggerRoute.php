@@ -4,13 +4,12 @@ namespace PFW\Lib;
 
 use DateTime;
 use Psr\Log\AbstractLogger;
-use Psr\Log\LoggerInterface;
 
 /**
  * Class LoggerRoute
  * @package PFW\Lib
  */
-abstract class LoggerRoute extends AbstractLogger implements LoggerInterface
+abstract class LoggerRoute extends AbstractLogger
 {
     /**
      * @var bool
@@ -35,6 +34,8 @@ abstract class LoggerRoute extends AbstractLogger implements LoggerInterface
     }
 
     /**
+     * Get date and formats it
+     * @throws \Exception
      * @return string
      */
     public function getDate(): string
@@ -43,10 +44,11 @@ abstract class LoggerRoute extends AbstractLogger implements LoggerInterface
     }
 
     /**
+     * Converts an array with context of error to a string
      * @param array $context
      * @return null|string
      */
-    public function contextStringify(array $context = [])
+    public function contextStringify(array $context = []): ?string
     {
         return !empty($context) ? json_encode($context) : null;
     }

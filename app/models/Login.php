@@ -26,6 +26,8 @@ class Login extends Model
     }
 
     /**
+     * Checking data from form, get user data from Db, verify password and if all is correct set in session logged user
+     * or return error
      * @param Auth $auth
      * @param User $user
      * @return array
@@ -33,14 +35,14 @@ class Login extends Model
     public function login(Auth $auth, User $user): array
     {
         $notice = $auth->checkData();
-        $user = $user->getUser($this->data);
+        $userData = $user->getUser($this->data);
         if (empty($notice)) {
-            if (empty($user['error'])) {
-                $verify = $auth->checkPassword($user);
+            if (empty($userData['error'])) {
+                $verify = $auth->checkPassword($userData);
                 if ($verify) {
-                    $_SESSION['logged_user'] = $user['login'];
-                    $_SESSION['logged_email'] = $user['email'];
-                    $notice['user'] = $user['login'];
+                    $_SESSION['logged_user'] = $userData['login'];
+                    $_SESSION['logged_email'] = $userData['email'];
+                    $notice['user'] = $userData['login'];
                 } else {
                     $notice['error'][] = 'Password is incorrect! Try again.';
                 }

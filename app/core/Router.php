@@ -34,17 +34,19 @@ class Router
     }
 
     /**
-     * Добавляет регулярки к роутерам
+     * Add regular expression to routes
      * @param $route
      * @param $params
+     * @return void
      */
-    public function add($route, $params)
+    public function add($route, $params): void
     {
         $route = '#^' . $route . '$#';
         $this->routes[$route] = $params;
     }
 
     /**
+     * Checks for route availability.
      * @return bool
      */
     public function match(): bool
@@ -62,7 +64,8 @@ class Router
     }
 
     /**
-     *
+     * Run called controller or returns 404 error.
+     * @return mixed
      */
     public function run()
     {

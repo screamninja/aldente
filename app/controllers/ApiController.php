@@ -29,9 +29,11 @@ class ApiController extends Controller
     }
 
     /**
-     *
+     * Token action
+     * Generates a API token for authorized users
+     * @return void API token or errors
      */
-    public function tokenAction()
+    public function tokenAction(): void
     {
         $vars = [];
         if (isset($_POST['get_token'])) {
@@ -51,9 +53,12 @@ class ApiController extends Controller
     }
 
     /**
+     * Get action
      * JSON-RPC method
+     * Receives data from the body of the POST request to the address http://<domain_name>.<dns_zone>/api
+     * @return void response (data from Db or errors) in JSON format
      */
-    public function getAction()
+    public function getAction(): void
     {
         $post = fopen('php://input', 'r');
         if (!empty($post)) {
@@ -73,7 +78,7 @@ class ApiController extends Controller
                 if (method_exists($api, $method)) {
                     $params = $data['params'] ?? [];
                     try {
-                        $result = call_user_func_array([$api, $method], $params);
+                        $result = \call_user_func_array([$api, $method], $params);
                         if ($result === false) {
                             $vars['error'] = [
                                 'code' => '-32600',

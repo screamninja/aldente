@@ -4,13 +4,12 @@ namespace PFW\Lib;
 
 use SplObjectStorage;
 use Psr\Log\AbstractLogger;
-use Psr\Log\LoggerInterface;
 
 /**
  * Class Logger
  * @package PFW\Lib
  */
-class Logger extends AbstractLogger implements LoggerInterface
+class Logger extends AbstractLogger
 {
     /**
      * @var SplObjectStorage
@@ -26,11 +25,13 @@ class Logger extends AbstractLogger implements LoggerInterface
     }
 
     /**
+     * Adds logs according with adjusted settings and routes.
      * @param mixed $level
      * @param string $message
      * @param array $context
+     * @return void
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = array()): void
     {
         foreach ($this->routes as $route) {
             if (!$route instanceof LoggerRoute) {

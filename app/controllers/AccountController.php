@@ -37,9 +37,11 @@ class AccountController extends Controller
     }
 
     /**
-     *
+     * Login action
+     * Receives data from the forms and sends it to login method in Login model.
+     * @return void
      */
-    public function loginAction()
+    public function loginAction(): void
     {
         $vars = array();
         if ($_POST) {
@@ -54,9 +56,11 @@ class AccountController extends Controller
     }
 
     /**
-     *
+     * Log out action
+     * Unset session for logged user and redirect to main page
+     * @return void
      */
-    public function logoutAction()
+    public function logoutAction(): void
     {
         unset($_SESSION['logged_user']);
         $this->view->redirect('/');
@@ -64,9 +68,11 @@ class AccountController extends Controller
     }
 
     /**
-     *
+     * Register action
+     * Receives data from the forms and sends it to sign up method in Register model.
+     * @return void
      */
-    public function registerAction()
+    public function registerAction(): void
     {
         $vars = [];
         if ($_POST) {

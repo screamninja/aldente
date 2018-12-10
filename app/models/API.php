@@ -11,10 +11,11 @@ use PFW\Lib\Db;
  */
 class API extends Model
 {
+
     /**
-     *
+     * Daily query limit
      */
-    const DAY_COUNT = 100;
+    protected const DAY_COUNT = 100;
 
     /**
      * @var string
@@ -37,13 +38,14 @@ class API extends Model
     }
 
     /**
+     * Check out API token from request header
      * @return bool
      */
     public function checkToken(): bool
     {
         $stmt = $this->db->query(
-            "SELECT COUNT(*) FROM api
-                 WHERE token = :token",
+            'SELECT COUNT(*) FROM api
+                 WHERE token = :token',
             $param = ['token' => $this->token]
         );
         $check_token = $stmt->fetchColumn();
@@ -54,30 +56,35 @@ class API extends Model
     }
 
     /**
+     * Check count of API requests by token in Db
+     * if constant of daily request limit not exceed return true
+     * else if daily count exceeds more than a day ago, reset count and return true
+     * else return false
+     * @throws \Exception
      * @return bool
      */
     public function checkCount(): bool
     {
         $count = $this->db->column(
-            "SELECT daily_count FROM api
-                 WHERE token = :token",
+            'SELECT daily_count FROM api
+                 WHERE token = :token',
             $param = ['token' => $this->token]
         );
         if ($count <= self::DAY_COUNT) {
             $this->db->query(
-                "UPDATE api SET daily_count=:daily_count, last_get=NOW()
-                 WHERE token = :token",
+                'UPDATE api SET daily_count=:daily_count, last_get=NOW()
+                 WHERE token = :token',
                 $param = [
                     'token' => $this->token,
-                    'daily_count' => ++$count
+                    'daily_count' => ++$count,
                 ]
             );
             return true;
         } else {
             $stmt = $this->db->column(
-                "SELECT last_get
+                'SELECT last_get
                      FROM api
-                     WHERE token=:token",
+                     WHERE token=:token',
                 $param = ['token' => $this->token]
             );
             $last_get = new \DateTime($stmt);
@@ -86,8 +93,8 @@ class API extends Model
             $days = $interval->format('%a');
             if ($days > 0) {
                 $this->db->query(
-                    "UPDATE api SET daily_count=1, last_get=NOW()
-                          WHERE token = :token",
+                    'UPDATE api SET daily_count=1, last_get=NOW()
+                          WHERE token = :token',
                     $param = ['token' => $this->token]
                 );
                 return true;
@@ -97,14 +104,15 @@ class API extends Model
     }
 
     /**
+     * Check out body of API request
      * @param array $data
      * @return bool
      */
     public function checkRequest(array $data): bool
     {
         $correct = true;
-        if (isset($data) && is_array($data)) {
-            if (empty($data['jsonrpc']) || $data['jsonrpc'] != '2.0') {
+        if ($data !== null && \is_array($data)) {
+            if (empty($data['jsonrpc']) || $data['jsonrpc'] !== '2.0') {
                 $correct = false;
             }
             if (empty($data['method'])) {
@@ -113,7 +121,7 @@ class API extends Model
             if (empty($data['params'])) {
                 $correct = false;
             }
-            if (empty($data['id']) || !is_integer($data['id'])) {
+            if (empty($data['id']) || !\is_int($data['id'])) {
                 $correct = false;
             }
         }
@@ -121,6 +129,9 @@ class API extends Model
     }
 
     /**
+     * Check API token from request header, check daily request count and return API data
+     * with the count parameter set in the request
+     * @throws \Exception
      * @param int $count
      * @return array
      */
@@ -144,6 +155,8 @@ class API extends Model
     }
 
     /**
+     * Set and return body for JSON response
+     * @throws \Exception
      * @param $params
      * @return false|string
      */
@@ -151,8 +164,7 @@ class API extends Model
     {
         $news = $this->getApiData($params);
         if (isset($news['error'])) {
-            $response = self::getError($news['error']);
-            return $response;
+            return self::getError($news['error']);
         }
         $json = [
             'jsonrpc' => '2.0',
@@ -163,6 +175,7 @@ class API extends Model
     }
 
     /**
+     * Set and return body for error response
      * @param array $error
      * @return false|string
      */
@@ -173,7 +186,6 @@ class API extends Model
             'error' => [$error],
             'id' => '1',
         ];
-        $response = json_encode($json);
-        return $response;
+        return json_encode($json);
     }
 }

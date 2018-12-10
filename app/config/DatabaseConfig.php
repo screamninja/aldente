@@ -9,7 +9,8 @@ namespace PFW\Config;
 class DatabaseConfig
 {
     /**
-     * @return array with db connect configuration
+     * Db connect configuration
+     * @return array
      */
     public static function get(): array
     {

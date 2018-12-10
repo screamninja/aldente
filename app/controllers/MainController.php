@@ -11,9 +11,11 @@ use PFW\Core\Controller;
 class MainController extends Controller
 {
     /**
-     *
+     * Show news on Main page
+     * Submit news from Db to render method in View
+     * @return void
      */
-    public function indexAction()
+    public function indexAction(): void
     {
         $news = $this->model->showNews();
         $vars = [

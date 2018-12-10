@@ -32,16 +32,20 @@ class LoggerConfig
     private static $logger;
 
     /**
+     * Config for logs in to:
+     * 1) Log file at path (default path: app/logs/default.log);
+     * 2) Db in table logs (default table name: logs);
+     * 3) System logs.
      * @return Logger
      */
-    public static function getLogger()
+    public static function getLogger(): Logger
     {
         if (!self::$logger) {
             self::$logger = new Logger();
 
             self::$logger->routes->attach(new FileRoute([
                 'isEnable' => true,
-                'filePath' => 'app/logs/default.log',
+                'filePath' => 'logs/default.log',
             ]));
             self::$logger->routes->attach(new DbRoute([
                 'isEnable' => true,

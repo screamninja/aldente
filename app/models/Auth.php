@@ -25,6 +25,7 @@ class Auth extends Model
     }
 
     /**
+     * Get and return data from forms
      * @return array
      */
     public function getData(): array
@@ -33,29 +34,30 @@ class Auth extends Model
     }
 
     /**
+     * Check data for correctness and completeness
      * @return array
      */
     public function checkData(): array
     {
         $errors = [];
         if (isset($this->data['do_sign_up'])) {
-            if (trim($this->data['login']) == '') {
+            if (trim($this->data['login']) === '') {
                 $errors['error'][] = ' Login is required';
             }
-            if (trim($this->data['email']) == '') {
+            if (trim($this->data['email']) === '') {
                 $errors['error'][] = ' Email is required';
             }
-            if ($this->data['password'] == '') {
+            if ($this->data['password'] === '') {
                 $errors['error'][] = ' Password is required';
             }
-            if ($this->data['password_2'] != $this->data['password']) {
+            if ($this->data['password_2'] !== $this->data['password']) {
                 $errors['error'][] = ' Password do not match';
             }
         } elseif (isset($this->data['do_login'])) {
-            if (trim($this->data['login']) == '') {
+            if (trim($this->data['login']) === '') {
                 $errors['error'][] = ' Login is required';
             }
-            if ($this->data['password'] == '') {
+            if ($this->data['password'] === '') {
                 $errors['error'][] = ' Password is required';
             }
         } elseif (!isset($this->data['do_sign_up']) && !isset($this->data['do_login'])) {
@@ -65,6 +67,7 @@ class Auth extends Model
     }
 
     /**
+     * Verify user password
      * @param array $stmt
      * @return bool
      */
@@ -72,7 +75,7 @@ class Auth extends Model
     {
         $password = $this->data['password'];
         $hash = $stmt['password'];
-        if (isset($stmt)) {
+        if ($stmt !== null) {
             $password_verify = password_verify($password, $hash);
             if ($password_verify) {
                 return true;

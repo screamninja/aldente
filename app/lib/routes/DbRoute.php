@@ -32,6 +32,7 @@ class DbRoute extends LoggerRoute
     }
 
     /**
+     * Add log in to Db in table logs
      * @param mixed $level
      * @param string $message
      * @param array $context
@@ -39,7 +40,7 @@ class DbRoute extends LoggerRoute
      */
     public function log($level, $message, array $context = [])
     {
-        if ($this->contextStringify($context) == null) {
+        if ($this->contextStringify($context) === null) {
             $context = 'none';
         }
         $param = [

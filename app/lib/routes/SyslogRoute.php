@@ -14,14 +14,16 @@ class SyslogRoute extends LoggerRoute
     /**
      * @var string
      */
-    public $template = "{message} {context}";
+    public $template = '{message} {context}';
 
     /**
+     * Add log in to system logs
      * @param $level
      * @param $message
      * @param array $context
+     * @return void
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         $level = $this->resolveLevel($level);
         if ($level === null) {
@@ -35,6 +37,7 @@ class SyslogRoute extends LoggerRoute
     }
 
     /**
+     * Resolve level
      * @param $level
      * @return mixed|null
      */
