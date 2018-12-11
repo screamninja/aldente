@@ -148,6 +148,10 @@ button {
     align-items: center;
 }
 
+.header-download {
+    background-color: #79d195;
+}
+
 .header-login {
     background-color: #2bcdff;
 }
@@ -258,6 +262,10 @@ main p {
     background-color: #d3d3d3;
 }
 
+.info p {
+    text-align: center;
+}
+
 .ad img {
     height: 100%;
     padding: 10px;
@@ -282,4 +290,9 @@ footer {
     font-size: 20px;
     line-height: 40px;
     color: #F1F1F1;
+}
+
+.right {
+    text-align: right;
+    font-size: 12px;
 }

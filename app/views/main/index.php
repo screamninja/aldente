@@ -5,6 +5,7 @@
             <div>
                 <h3><?php echo $val['title'] ?></h3>
                 <p><?php echo $val['text'] ?></p>
+                <p class="right"><?php echo 'Posted by ' . $val['author'] . ' on ' . $val['post_date'] ?></p>
                 <hr>
             </div>
         <?php endforeach; ?>
@@ -15,6 +16,6 @@
     </aside>
     <section class="info">
         <h2>INFO</h2>
-        <p>Info. Info. Info. Info. Info. Info. </p>
+        <p>If you have questions, wishes or suggestions write to me an <a href="mailto:screamninja@gmail.com">screamninja@gmail.com</a> or telegram <a href="https://telegram.me/screamninja">@screamninja</a>.</p>
     </section>
 </main>

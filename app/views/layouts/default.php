@@ -33,7 +33,7 @@
                         </ul>
                     </li>
                     <li><a href="/about" class="header-link">ABOUT</a></li>
-                    <li><a href="/contact" class="header-link">CONTACT</a></li>
+                    <li><a href="/download" class="header-download header-link">DOWNLOAD</a></li>
                 </ul>
             </nav>
             <div class="header-auth-wrapper">
@@ -70,7 +70,7 @@
 <!-- Page footer -->
 <footer>
     <div class="copyright-wrapper">
-        <p>&copy; 2018 Dmitry Kuleznev
+        <p>&copy; <?php echo date('Y') ?> Dmitry Kuleznev
     </div>
 </footer>
 </body>

@@ -90,9 +90,9 @@ class RouterConfig
                 'action' => 'about',
             ],
 
-            'contact' => [
+            'download' => [
                 'controller' => 'pages',
-                'action' => 'contact',
+                'action' => 'download',
             ],
         ];
     }

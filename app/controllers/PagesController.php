@@ -92,7 +92,7 @@ class PagesController extends Controller
      * PagesController action to call render method in View class
      * @return void
      */
-    public function contactAction(): void
+    public function downloadAction(): void
     {
         $vars = [];
         $this->view->render('Contact Page', $vars, true);
