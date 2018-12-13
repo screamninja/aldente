@@ -1,3 +1,4 @@
+<main>
 <?php
 if (isset($_POST['ajax_switch_on'])) {
     unset($_SESSION['ajax_switch_off']);
@@ -6,18 +7,15 @@ if (isset($_POST['ajax_switch_on'])) {
 if (isset($_POST['do_sign_up'])) {
     if (isset($user)) {
         echo "<div style = \"color: green;\">Registration successful!</div></br>
-              <div><a href=\"/\">Main page</a></div><hr>";
+              <div><a href=\"/\">Main page</a></div>";
     } else {
         foreach ($error as $errors) {
             echo '<div style = "color: red;">' . array_shift($error) . '</div>';
         }
-        echo '<hr>';
     }
 }
 
 ?>
-
-<main>
     <p id="notice" style="color: red"></p>
 
     <h2>Create your account</h2>
