@@ -1,13 +1,13 @@
 <?php
 
-namespace PFW\Models;
+namespace AlDente\Models;
 
-use PFW\Core\Model;
-use PFW\Lib\Db;
+use AlDente\Core\Model;
+use AlDente\Lib\Db;
 
 /**
  * Class API
- * @package PFW\Models
+ * @package AlDente\Models
  */
 class API extends Model
 {

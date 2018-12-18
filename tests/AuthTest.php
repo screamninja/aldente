@@ -1,13 +1,13 @@
 <?php
 
-namespace PFW\Tests;
+namespace AlDente\Tests;
 
 use PHPUnit\Framework\TestCase;
-use PFW\Models\Auth;
+use AlDente\Models\Auth;
 
 /**
  * Class AuthTest
- * @package PFW\Tests
+ * @package AlDente\Tests
  */
 class AuthTest extends TestCase
 {

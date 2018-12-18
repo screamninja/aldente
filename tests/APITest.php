@@ -1,10 +1,10 @@
 <?php
 
-namespace PFW\Tests;
+namespace AlDente\Tests;
 
 use PHPUnit\Framework\TestCase;
-use PFW\Models\API;
-use PFW\Lib\Db;
+use AlDente\Models\API;
+use AlDente\Lib\Db;
 
 /**
  * Class APITest
@@ -39,7 +39,7 @@ class APITest extends TestCase
     {
         $config = [
             'host' => 'localhost',
-            'name' => 'pfw_test',
+            'name' => 'aldente_test',
             'user' => 'test_admin',
             'password' => 'test_pass',
         ];

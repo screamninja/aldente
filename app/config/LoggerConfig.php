@@ -1,15 +1,15 @@
 <?php
 
-namespace PFW\Config;
+namespace AlDente\Config;
 
-use PFW\Lib\Logger;
-use PFW\Lib\Routes\FileRoute;
-use PFW\Lib\Routes\DbRoute;
-use PFW\Lib\Routes\SyslogRoute;
+use AlDente\Lib\Logger;
+use AlDente\Lib\Routes\FileRoute;
+use AlDente\Lib\Routes\DbRoute;
+use AlDente\Lib\Routes\SyslogRoute;
 
 /**
  * Class LoggerConfig
- * @package PFW\Config
+ * @package AlDente\Config
  *
  * These are in order of highest priority to lowest.
  *

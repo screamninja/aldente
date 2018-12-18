@@ -1,15 +1,15 @@
 <?php
 
-namespace PFW\Tests;
+namespace AlDente\Tests;
 
 use PHPUnit\Framework\TestCase;
-use PFW\Models\Login;
-use PFW\Models\Auth;
-use PFW\Models\User;
+use AlDente\Models\Login;
+use AlDente\Models\Auth;
+use AlDente\Models\User;
 
 /**
  * Class LoginTest
- * @package PFW\Tests
+ * @package AlDente\Tests
  */
 class LoginTest extends TestCase
 {

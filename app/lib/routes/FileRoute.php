@@ -1,12 +1,12 @@
 <?php
 
-namespace PFW\Lib\Routes;
+namespace AlDente\Lib\Routes;
 
-use PFW\Lib\LoggerRoute;
+use AlDente\Lib\LoggerRoute;
 
 /**
  * Class FileRoute
- * @package PFW\Lib\Routes
+ * @package AlDente\Lib\Routes
  */
 class FileRoute extends LoggerRoute
 {
@@ -38,6 +38,7 @@ class FileRoute extends LoggerRoute
      * @param mixed $level
      * @param string $message
      * @param array $context
+     * @throws \Exception
      * @return void
      */
     public function log($level, $message, array $context = []): void

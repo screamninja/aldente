@@ -1,10 +1,10 @@
 <?php
 
-namespace PFW\Core;
+namespace AlDente\Core;
 
 /**
  * Class Controller
- * @package PFW\Core
+ * @package AlDente\Core
  */
 abstract class Controller
 {
@@ -38,7 +38,7 @@ abstract class Controller
      */
     public function loadModel(string $name): ?Model
     {
-        $path = 'PFW\models\\' . ucfirst($name);
+        $path = 'AlDente\models\\' . ucfirst($name);
         if (class_exists($path)) {
             return new $path();
         }

@@ -1,12 +1,12 @@
 <?php
 
-namespace PFW\Models;
+namespace AlDente\Models;
 
-use PFW\Core\Model;
+use AlDente\Core\Model;
 
 /**
  * Class Auth
- * @package PFW\Models
+ * @package AlDente\Models
  */
 class Auth extends Model
 {

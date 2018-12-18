@@ -33,7 +33,7 @@
                         </ul>
                     </li>
                     <li><a href="/about" class="header-link">ABOUT</a></li>
-                    <li><a href="/download" class="header-download header-link">DOWNLOAD</a></li>
+                    <li><a href="https://github.com/screamninja/aldente" class="header-download header-link">DOWNLOAD</a></li>
                 </ul>
             </nav>
             <div class="header-auth-wrapper">

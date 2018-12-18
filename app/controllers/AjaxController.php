@@ -1,17 +1,17 @@
 <?php
 
-namespace PFW\Controllers;
+namespace AlDente\Controllers;
 
-use PFW\Core\Controller;
-use PFW\Lib\Db;
-use PFW\Models\Auth;
-use PFW\Models\User;
-use PFW\Models\Login;
-use PFW\Models\Register;
+use AlDente\Core\Controller;
+use AlDente\Lib\Db;
+use AlDente\Models\Auth;
+use AlDente\Models\User;
+use AlDente\Models\Login;
+use AlDente\Models\Register;
 
 /**
  * Class AjaxController
- * @package PFW\Controllers
+ * @package AlDente\Controllers
  */
 class AjaxController extends Controller
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace PFW\Config;
+namespace AlDente\Config;
 
 /**
  * Class RouterConfig
- * @package PFW\Config
+ * @package AlDente\Config
  */
 class RouterConfig
 {
@@ -88,11 +88,6 @@ class RouterConfig
             'about' => [
                 'controller' => 'pages',
                 'action' => 'about',
-            ],
-
-            'download' => [
-                'controller' => 'pages',
-                'action' => 'download',
             ],
         ];
     }

@@ -1,12 +1,12 @@
 <?php
 
-namespace PFW\Core;
+namespace AlDente\Core;
 
-use PFW\Config\RouterConfig;
+use AlDente\Config\RouterConfig;
 
 /**
  * Class Router
- * @package PFW\Core
+ * @package AlDente\Core
  */
 class Router
 {
@@ -70,7 +70,7 @@ class Router
     public function run()
     {
         if ($this->match()) {
-            $path = 'PFW\controllers\\' . ucfirst($this->params['controller']) . 'Controller';
+            $path = 'AlDente\controllers\\' . ucfirst($this->params['controller']) . 'Controller';
             if (class_exists($path)) {
                 $action = $this->params['action'] . 'Action';
                 if (method_exists($path, $action)) {

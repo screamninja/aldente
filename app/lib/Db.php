@@ -1,14 +1,14 @@
 <?php
 
-namespace PFW\Lib;
+namespace AlDente\Lib;
 
 use PDO;
-use PFW\Config\DatabaseConfig;
-use PFW\Config\LoggerConfig;
+use AlDente\Config\DatabaseConfig;
+use AlDente\Config\LoggerConfig;
 
 /**
  * Class Db
- * @package PFW\Lib
+ * @package AlDente\Lib
  */
 class Db
 {

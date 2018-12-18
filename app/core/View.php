@@ -1,10 +1,10 @@
 <?php
 
-namespace PFW\Core;
+namespace AlDente\Core;
 
 /**
  * Class View
- * @package PFW\Core
+ * @package AlDente\Core
  */
 class View
 {

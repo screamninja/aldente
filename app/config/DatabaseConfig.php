@@ -1,10 +1,10 @@
 <?php
 
-namespace PFW\Config;
+namespace AlDente\Config;
 
 /**
  * Class DatabaseConfig
- * @package PFW\Config
+ * @package AlDente\Config
  */
 class DatabaseConfig
 {
@@ -16,9 +16,9 @@ class DatabaseConfig
     {
         return [
             'host' => 'localhost',
-            'name' => 'pfw_db',
-            'user' => 'pfw_admin',
-            'password' => 'pfw_pass',
+            'name' => 'aldente_db',
+            'user' => 'aldente_admin',
+            'password' => 'aldente_pass',
         ];
     }
 }

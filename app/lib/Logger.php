@@ -1,13 +1,13 @@
 <?php
 
-namespace PFW\Lib;
+namespace AlDente\Lib;
 
 use SplObjectStorage;
 use Psr\Log\AbstractLogger;
 
 /**
  * Class Logger
- * @package PFW\Lib
+ * @package AlDente\Lib
  */
 class Logger extends AbstractLogger
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace PFW\Lib\Routes;
+namespace AlDente\Lib\Routes;
 
-use PFW\Lib\LoggerRoute;
+use AlDente\Lib\LoggerRoute;
 use Psr\Log\LogLevel;
 
 /**
  * Class SyslogRoute
- * @package PFW\Lib\Routes
+ * @package AlDente\Lib\Routes
  */
 class SyslogRoute extends LoggerRoute
 {

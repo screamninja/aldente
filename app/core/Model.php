@@ -1,10 +1,10 @@
 <?php
 
-namespace PFW\Core;
+namespace AlDente\Core;
 
 /**
  * Class Model
- * @package PFW\Core
+ * @package AlDente\Core
  */
 abstract class Model
 {

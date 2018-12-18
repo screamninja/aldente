@@ -1,12 +1,12 @@
 <?php
 
-namespace PFW\Controllers;
+namespace AlDente\Controllers;
 
-use PFW\Core\Controller;
+use AlDente\Core\Controller;
 
 /**
  * Class MainController
- * @package PFW\Controllers
+ * @package AlDente\Controllers
  */
 class MainController extends Controller
 {

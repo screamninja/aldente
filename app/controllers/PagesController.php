@@ -86,15 +86,4 @@ class PagesController extends Controller
         $vars = [];
         $this->view->render('About Page', $vars, true);
     }
-
-    /**
-     * Contact action
-     * PagesController action to call render method in View class
-     * @return void
-     */
-    public function downloadAction(): void
-    {
-        $vars = [];
-        $this->view->render('Contact Page', $vars, true);
-    }
 }

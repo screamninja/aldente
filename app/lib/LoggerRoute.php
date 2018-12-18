@@ -1,13 +1,13 @@
 <?php
 
-namespace PFW\Lib;
+namespace AlDente\Lib;
 
 use DateTime;
 use Psr\Log\AbstractLogger;
 
 /**
  * Class LoggerRoute
- * @package PFW\Lib
+ * @package AlDente\Lib
  */
 abstract class LoggerRoute extends AbstractLogger
 {

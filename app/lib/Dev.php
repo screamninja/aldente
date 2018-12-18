@@ -1,10 +1,10 @@
 <?php
 
-namespace PFW\Lib;
+namespace AlDente\Lib;
 
 /**
  * Class Dev
- * @package PFW\Lib
+ * @package AlDente\Lib
  */
 class Dev
 {

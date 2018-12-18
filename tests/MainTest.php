@@ -1,14 +1,14 @@
 <?php
 
-namespace PFW\Tests;
+namespace AlDente\Tests;
 
 use PHPUnit\Framework\TestCase;
-use PFW\Lib\Db;
-use PFW\Models\Main;
+use AlDente\Lib\Db;
+use AlDente\Models\Main;
 
 /**
  * Class MainTest
- * @package PFW\Tests
+ * @package AlDente\Tests
  */
 class MainTest extends TestCase
 {
@@ -32,7 +32,7 @@ class MainTest extends TestCase
     {
         $config = [
             'host' => 'localhost',
-            'name' => 'pfw_test',
+            'name' => 'AlDente_test',
             'user' => 'test_admin',
             'password' => 'test_pass',
         ];

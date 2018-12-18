@@ -1,15 +1,15 @@
 <?php
 
-namespace PFW\Controllers;
+namespace AlDente\Controllers;
 
-use PFW\Core\Controller;
-use PFW\Lib\Db;
-use PFW\Models\API;
-use PFW\Models\User;
+use AlDente\Core\Controller;
+use AlDente\Lib\Db;
+use AlDente\Models\API;
+use AlDente\Models\User;
 
 /**
  * Class ApiController
- * @package PFW\Controllers
+ * @package AlDente\Controllers
  */
 class ApiController extends Controller
 {
@@ -86,7 +86,7 @@ class ApiController extends Controller
                             ];
                         }
                     } catch (\Throwable $e) {
-                        $logger = \PFW\Config\LoggerConfig::getLogger();
+                        $logger = \AlDente\Config\LoggerConfig::getLogger();
                         $logger->error($e->getMessage());
                         $vars['error'] = [
                             'code' => '-32603',

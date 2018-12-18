@@ -1,13 +1,13 @@
 <?php
 
-namespace PFW\Lib\Routes;
+namespace AlDente\Lib\Routes;
 
-use PFW\Lib\LoggerRoute;
-use PFW\Lib\Db;
+use AlDente\Lib\LoggerRoute;
+use AlDente\Lib\Db;
 
 /**
  * Class DbRoute
- * @package PFW\Lib\Routes
+ * @package AlDente\Lib\Routes
  */
 class DbRoute extends LoggerRoute
 {
@@ -36,6 +36,7 @@ class DbRoute extends LoggerRoute
      * @param mixed $level
      * @param string $message
      * @param array $context
+     * @throws \Exception
      * @return bool|void
      */
     public function log($level, $message, array $context = [])
@@ -50,8 +51,8 @@ class DbRoute extends LoggerRoute
             'context' => $context,
         ];
         $this->db->query(
-            "INSERT INTO logs (date, level, message, context)
-                  VALUES (:date, :level, :message, :context)",
+            'INSERT INTO logs (date, level, message, context)
+                  VALUES (:date, :level, :message, :context)',
             $param
         );
     }

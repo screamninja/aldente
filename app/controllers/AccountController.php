@@ -1,17 +1,17 @@
 <?php
 
-namespace PFW\Controllers;
+namespace AlDente\Controllers;
 
-use PFW\Core\Controller;
-use PFW\Models\Auth;
-use PFW\Models\Login;
-use PFW\Models\Register;
-use PFW\Models\User;
-use PFW\Lib\Db;
+use AlDente\Core\Controller;
+use AlDente\Models\Auth;
+use AlDente\Models\Login;
+use AlDente\Models\Register;
+use AlDente\Models\User;
+use AlDente\Lib\Db;
 
 /**
  * Class AccountController
- * @package PFW\Controllers
+ * @package AlDente\Controllers
  */
 class AccountController extends Controller
 {
