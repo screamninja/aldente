@@ -35,7 +35,7 @@ class DbRoute extends LoggerRoute
      * Add log in to Db in table logs
      * @param mixed $level
      * @param string $message
-     * @param array $context
+     * @param mixed $context
      * @throws \Exception
      * @return bool|void
      */

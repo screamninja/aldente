@@ -28,7 +28,7 @@ class FileRoute extends LoggerRoute
         parent::__construct($attributes);
 
         if (!file_exists($this->filePath)) {
-            $resource = fopen(PROJECT_DIR . $this->filePath, 'a');
+            $resource = fopen(PROJECT_DIR . $this->filePath, 'b');
             fclose($resource);
         }
     }

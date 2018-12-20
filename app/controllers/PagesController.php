@@ -1,14 +1,14 @@
 <?php
 
-namespace PFW\Controllers;
+namespace AlDente\Controllers;
 
-use PFW\Core\Controller;
-use PFW\Lib\Db;
-use PFW\Models\Main;
+use AlDente\Core\Controller;
+use AlDente\Lib\Db;
+use AlDente\Models\Main;
 
 /**
  * Class PagesController
- * @package PFW\Controllers
+ * @package AlDente\Controllers
  */
 class PagesController extends Controller
 {

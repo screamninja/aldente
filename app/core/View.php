@@ -48,7 +48,7 @@ class View
 
     /**
      * Render called page
-     * @param $title
+     * @param string $title
      * @param array $vars
      * @param bool $html default is true; if is true - HTML, if is false - JSON or other data format
      * @return void

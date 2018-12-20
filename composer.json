@@ -7,7 +7,7 @@
     "php": "^7.2",
     "ext-PDO": "*",
     "ext-json": "*",
-    "psr/log": "^1.0"
+    "psr/log": "^1.1"
   },
   "config": {
     "platform": {
@@ -21,7 +21,6 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^7",
-    "phpunit/dbunit": "^4.0",
     "roave/security-advisories": "dev-master"
   }
 }
