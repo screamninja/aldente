@@ -19,6 +19,8 @@ This is a simple PHP framework for web applications.
 
 ## Getting Started
 
+ВНИМАНИЕ! ДОКУМЕНТАЦИЯ В ПРОЦЕССЕ ДОПОЛНЕНИЯ!
+
 Точкой входа является файл `index.php` в папке `public`. При запросе файла `index.php` у сервера, начинается исполнение PHP-скрипта:
 - создаётся объект класса **Router**;
 - вызывается метод `run()`;
